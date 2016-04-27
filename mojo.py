@@ -6,9 +6,11 @@ import re
 import telepot
 from pprint import pprint
 from chatterbot import ChatBot
+import lib
 import lib.weather
 import lib.word_of_the_day
 import lib.fibre_checker
+
 import git
 
 import ConfigParser
@@ -25,15 +27,11 @@ class Mojo(telepot.Bot):
         
         self.user = ''
         self.admin = self.config.get('Config', 'Admin')
-        self.chatbot = ChatBot(self.config.get('Config', 'Name'))
-        self.chatbot.train("chatterbot.corpus.english")
-        self.commandList = {
-                            "list commands|help|command list":"command_list",
-                            "weather":"weather",
-                            "word of the day":"word_of_the_day",
-                            "check fibre":"check_fibre_status",
-                            "update":"update_self"
-                            }
+        if (self.config.get('Config', 'EnableChat') == 1):
+		self.chatbot = ChatBot(self.config.get('Config', 'Name'))
+		self.chatbot.train("chatterbot.corpus.english")
+            
+        self.commandList = self.config.items('Commands');
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
         #print(self.getMe())
@@ -51,7 +49,10 @@ class Mojo(telepot.Bot):
         response = self.doCommand(command)
         # get a response from chat
         if (not response):
-            response = self.chatbot.get_response(command)
+		if(self.config.get('Config','EnableChat') == 1):
+	        	response = self.chatbot.get_response(command)
+		else:
+			response = "I don't understand"
         
     	self.message(response)
         self.chat_id = False
@@ -81,12 +82,14 @@ class Mojo(telepot.Bot):
         self.admin = admin
 
     def doCommand(self, command):
-        for theRegex,theMethod in self.commandList.iteritems():
-            print theRegex,"=",theMethod
+	print 'Received command: ' + command
+        for theRegex,theMethod in self.commandList:
+            #print theRegex,"=",theMethod
             if (re.search(theRegex, command, flags=0)):
-                print 'match'
+                print 'Match on ' + theRegex
                 return getattr(self, theMethod)()
-          
+         
+	print 'No match' 
         return False
     
     def command_list(self):
