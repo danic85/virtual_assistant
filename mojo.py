@@ -21,7 +21,9 @@ from os.path import getmtime
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
         self.config = ConfigParser.ConfigParser()
-        self.config.read("config.ini")
+	conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
+	print conf
+        self.config.read(conf)
         
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
         
@@ -95,7 +97,7 @@ class Mojo(telepot.Bot):
     def command_list(self):
         response = "Available commands:\n"
     
-        for key, val in self.commandList.iteritems():
+        for key, val in self.commandList:
             response += key + "\n"
         print response
         return response
