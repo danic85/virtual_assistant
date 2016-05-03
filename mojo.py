@@ -37,6 +37,7 @@ class Mojo(telepot.Bot):
         
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
+	self.adminName = self.config.get('Config', 'AdminName')
         if (self.config.get('Config', 'EnableChat') == 1):
             self.chatbot = ChatBot(self.config.get('Config', 'Name'))
             self.chatbot.train("chatterbot.corpus.english")
@@ -102,6 +103,14 @@ class Mojo(telepot.Bot):
          
 	print 'No match' 
         return False
+
+    def morning(self):
+	response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
+	response += self.weather() + '\n\n'
+	response += self.word_of_the_day() + '\n\n'
+	response += self.news()
+	return response
+
     def time(self):
 	return datetime.datetime.now().strftime('%I:%M %p')
 
@@ -151,13 +160,11 @@ def execute_bot_command(command):
     print bot.handle(msg)
 
 # Load scheduled tasks
-schedule.every().day.at("2:00").do(execute_bot_command, 'update')
-schedule.every().day.at("6:30").do(execute_bot_command, 'weather')
-schedule.every().day.at("6:30").do(execute_bot_command, 'word of the day')
-schedule.every().day.at("6:30").do(execute_bot_command, 'news')
+#schedule.every().day.at("2:00").do(execute_bot_command, 'update')
+schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
-#execute_bot_command('time')
+#execute_bot_command('morning')
 bot.listen()
