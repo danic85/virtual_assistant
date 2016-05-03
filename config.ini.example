@@ -5,10 +5,3 @@ FibreTel= 0800111111
 Telbot= 123456
 OpenWeatherMapKey= abcdefg
 EnableChat= 1
-
-[Commands]
-list commands|help|command list:command_list
-weather:weather
-word of the day:word_of_the_day
-check fibre:check_fibre_status
-update:update_self

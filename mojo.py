@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys
 import schedule
+import datetime
 import time
 import re
 import telepot
@@ -10,6 +11,7 @@ import lib
 import lib.weather
 import lib.word_of_the_day
 import lib.fibre_checker
+import lib.news
 
 import git
 
@@ -21,19 +23,25 @@ from os.path import getmtime
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
         self.config = ConfigParser.ConfigParser()
-	conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
-	print conf
+        conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
+        print conf
         self.config.read(conf)
+        
+        # Parse commands
+        p = ConfigParser.ConfigParser()
+        c = os.path.dirname(os.path.realpath(__file__)) + "/commands.ini"
+        p.read(c)
+        self.commandList = p.items('Commands');
         
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
         
-        self.user = ''
+        self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         if (self.config.get('Config', 'EnableChat') == 1):
-		self.chatbot = ChatBot(self.config.get('Config', 'Name'))
-		self.chatbot.train("chatterbot.corpus.english")
+            self.chatbot = ChatBot(self.config.get('Config', 'Name'))
+            self.chatbot.train("chatterbot.corpus.english")
             
-        self.commandList = self.config.items('Commands');
+        
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
         #print(self.getMe())
@@ -43,7 +51,7 @@ class Mojo(telepot.Bot):
     # Handle messages from users
     def handle(self, msg):
     	self.user = msg['chat']['id']
-    	command = msg['text']
+    	command = msg['text'].lower().strip()
         
         response = False
         
@@ -57,7 +65,7 @@ class Mojo(telepot.Bot):
 			response = "I don't understand"
         
     	self.message(response)
-        self.chat_id = False
+	self.command = self.user = False
         
     # Listen
     def listen(self):
@@ -85,6 +93,7 @@ class Mojo(telepot.Bot):
 
     def doCommand(self, command):
 	print 'Received command: ' + command
+	self.command = command
         for theRegex,theMethod in self.commandList:
             #print theRegex,"=",theMethod
             if (re.search(theRegex, command, flags=0)):
@@ -93,7 +102,9 @@ class Mojo(telepot.Bot):
          
 	print 'No match' 
         return False
-    
+    def time(self):
+	return datetime.datetime.now().strftime('%I:%M %p')
+
     def command_list(self):
         response = "Available commands:\n"
     
@@ -109,8 +120,11 @@ class Mojo(telepot.Bot):
         return lib.word_of_the_day.word_of_the_day()
         
     def check_fibre_status(self):
-        self.message('Checking fibre status...')
+        #self.message('Checking fibre status...')
         return lib.fibre_checker.check(self.config.get('Config', 'FibreTel'))
+    
+    def news(self):
+        return lib.news.top_stories(10)
         
     def update_self(self):
         # pull from git
@@ -140,8 +154,10 @@ def execute_bot_command(command):
 schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 schedule.every().day.at("6:30").do(execute_bot_command, 'weather')
 schedule.every().day.at("6:30").do(execute_bot_command, 'word of the day')
+schedule.every().day.at("6:30").do(execute_bot_command, 'news')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
+#execute_bot_command('time')
 bot.listen()

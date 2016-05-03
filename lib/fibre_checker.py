@@ -25,7 +25,7 @@ def check(tel):
         		match = True
                 
     print ('executed')    
-    return 'No change.'
+    return 'No change to fibre broadband availability.'
 
 def is_number(s):
     try:
