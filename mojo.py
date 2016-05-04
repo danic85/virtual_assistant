@@ -12,6 +12,7 @@ import lib.weather
 import lib.word_of_the_day
 import lib.fibre_checker
 import lib.news
+import lib.camera
 
 import git
 
@@ -59,13 +60,14 @@ class Mojo(telepot.Bot):
         # check command list
         response = self.doCommand(command)
         # get a response from chat
-        if (not response):
+        if (not response and response != ''):
 		if(self.config.get('Config','EnableChat') == 1):
 	        	response = self.chatbot.get_response(command)
 		else:
 			response = "I don't understand"
         
-    	self.message(response)
+    	if response != '':
+		self.message(response)
 	self.command = self.user = False
         
     # Listen
@@ -134,7 +136,16 @@ class Mojo(telepot.Bot):
     
     def news(self):
         return lib.news.top_stories(10)
-        
+       
+    def take_photo(self):
+        lib.camera.snap()
+	try:
+        	f = open('image.jpg', 'rb')  # file on local disk
+        	response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
+	except Exception:
+		return 'There was a problem.'
+        return ''
+
     def update_self(self):
         # pull from git
         g = git.cmd.Git(os.path.dirname(os.path.realpath(__file__)))
@@ -166,5 +177,8 @@ schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
-#execute_bot_command('morning')
-bot.listen()
+# If method call defined on launch, call. Else listen for commands from telegram
+if len(sys.argv) == 2:
+    execute_bot_command(sys.argv[1])
+else:
+    bot.listen()

@@ -1,5 +1,11 @@
-import picamera
+try:
+    import picamera
+except ImportError:
+    print 'no picamera'
 
 def snap():
-  camera = picamera.PiCamera()
-  camera.capture('image.jpg')
+  try:
+    camera = picamera.PiCamera()
+    camera.capture('image.jpg')
+  except Exception:
+    print 'could not take picture'
