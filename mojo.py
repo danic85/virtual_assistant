@@ -138,7 +138,9 @@ class Mojo(telepot.Bot):
         return lib.news.top_stories(10)
        
     def take_photo(self):
-        lib.camera.snap()
+        response = lib.camera.snap()
+	if response:
+		return response
 	try:
         	f = open('image.jpg', 'rb')  # file on local disk
         	response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
