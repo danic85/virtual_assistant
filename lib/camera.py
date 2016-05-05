@@ -4,5 +4,9 @@ except ImportError as e:
     print e
 
 def snap():
-  camera = picamera.PiCamera()
-  camera.capture('image.jpg')
+    camera = picamera.PiCamera()
+    try:
+        camera.capture('image.jpg')
+        pass
+    finally:
+        camera.close()  
