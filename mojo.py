@@ -176,6 +176,7 @@ def execute_bot_command(command):
     print bot.handle(msg)
 
 # Load scheduled tasks
+schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
