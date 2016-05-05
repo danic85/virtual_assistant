@@ -95,15 +95,17 @@ class Mojo(telepot.Bot):
         self.admin = admin
 
     def doCommand(self, command):
-	print 'Received command: ' + command
-	self.command = command
-        for theRegex,theMethod in self.commandList:
-            #print theRegex,"=",theMethod
-            if (re.search(theRegex, command, flags=0)):
-                print 'Match on ' + theRegex
-                return getattr(self, theMethod)()
-         
-	print 'No match' 
+        print 'Received command: ' + command
+        try:
+            self.command = command
+            for theRegex,theMethod in self.commandList:
+                #print theRegex,"=",theMethod
+                if (re.search(theRegex, command, flags=0)):
+                    print 'Match on ' + theRegex
+                    return getattr(self, theMethod)()
+        except Exception as e:
+            return e 
+        print 'No match' 
         return False
 
     def morning(self):
@@ -144,6 +146,7 @@ class Mojo(telepot.Bot):
 	try:
         	f = open('image.jpg', 'rb')  # file on local disk
         	response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
+		os.remove('image.jpg') # don't save it!
 	except Exception:
 		return 'There was a problem.'
         return ''

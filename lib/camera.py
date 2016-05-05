@@ -1,11 +1,8 @@
 try:
     import picamera
 except ImportError as e:
-    print "Import picamera error: {0}".format(str(e))
+    print e
 
 def snap():
-  try:
-    camera = picamera.PiCamera()
-    camera.capture('image.jpg')
-  except Exception as e:
-    return 'could not take picture error: {0}'.format(str(e))
+  camera = picamera.PiCamera()
+  camera.capture('image.jpg')
