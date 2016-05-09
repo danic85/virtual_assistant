@@ -151,6 +151,18 @@ class Mojo(telepot.Bot):
 		return 'There was a problem.'
         return ''
 
+    def take_video(self):
+        response = lib.camera.video()
+        if response:
+            return response
+        try:
+             f = open('video.h264', 'rb')
+             response = bot.sendVideo(self.admin, f)
+             os.remove('video.h264')
+        except Exception:
+             return 'There was a problem.'
+        return ''
+
     def update_self(self):
         # pull from git
         g = git.cmd.Git(os.path.dirname(os.path.realpath(__file__)))
