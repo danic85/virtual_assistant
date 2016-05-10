@@ -5,7 +5,7 @@ import grp
 import os
 from os.path import getmtime
 import git
-from subprocess import call
+import subprocess
 
 import schedule
 import datetime
@@ -162,11 +162,15 @@ class Mojo(telepot.Bot):
         if response:
             return response
         try:
-             call ('MP4Box -add video.h264 video.mp4', shell=True) #requires gpac
-             f = open('video.mp4', 'rb')
-             response = bot.sendVideo(self.admin, f)
-             os.remove('video.mp4')
-             os.remove('video.h264')
+            p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE)
+            for line in p.stdout:
+                print line
+            p.wait()
+            print p.returncode
+            f = open('video.mp4', 'rb')
+            response = bot.sendVideo(self.admin, f)
+            os.remove('video.mp4')
+            os.remove('video.h264')
         except Exception:
              return 'There was a problem.'
         return ''
