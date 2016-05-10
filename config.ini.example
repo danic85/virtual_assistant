@@ -5,3 +5,5 @@ FibreTel= 0800111111
 Telbot= 123456
 OpenWeatherMapKey= abcdefg
 EnableChat= 1
+MotionInterval= 10
+MotionSensitivity= 200

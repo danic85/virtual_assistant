@@ -34,6 +34,8 @@ class Mojo(telepot.Bot):
         print conf
         self.config.read(conf)
         
+        self.motionCheckTime = null
+        
         # Parse commands
         p = ConfigParser.ConfigParser()
         c = os.path.dirname(os.path.realpath(__file__)) + "/commands.ini"
@@ -85,6 +87,8 @@ class Mojo(telepot.Bot):
         # Keep the program running.
         while 1:
             schedule.run_pending()
+            if (self.motionCheckTime && self.motionCheckTime <= datetime.datetime.now()):
+                self.monitor()
             time.sleep(1)
             
             
@@ -174,6 +178,32 @@ class Mojo(telepot.Bot):
         except Exception:
              return 'There was a problem.'
         return ''
+    
+    def start_monitoring(self):
+        interval = self.config.get('Config', 'MotionInterval')
+        
+        if (self.motionCheckTime != null):
+            return 'Already monitoring'
+        else:
+            self.motionCheckTime = datetime.datetime.now() + datetime.timedelta(seconds=interval)
+            self.motionData = lib.camera.getStreamImage(True)
+
+        return 'Started motion sensing'
+        
+    def monitor(self):
+        interval = self.config.get('Config', 'MotionInterval')
+	msg = ''
+        newData = lib.camera.getStreamImage(True)
+        if (checkForMotion(self.motionData, newData)):
+            msg = 'Motion detected'
+        self.motionCheckTime = datetime.datetime.now() + datetime.timedelta(seconds=interval) 
+        self.motionData = newData
+        return msg
+        
+    def stop_monitor(self):
+        self.motionData = null
+        self.motionCheckTime = null
+        return  'Stopped motion sensing'
 
     def update_self(self):
         # pull from git
