@@ -1,5 +1,11 @@
 #!/usr/bin/python
 import sys
+import pwd
+import grp
+import os
+from os.path import getmtime
+import git
+
 import schedule
 import datetime
 import time
@@ -7,6 +13,7 @@ import re
 import telepot
 from pprint import pprint
 from chatterbot import ChatBot
+
 import lib
 import lib.weather
 import lib.word_of_the_day
@@ -14,12 +21,10 @@ import lib.fibre_checker
 import lib.news
 import lib.camera
 
-import git
 
 import ConfigParser
 
-import os
-from os.path import getmtime
+
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
@@ -165,8 +170,19 @@ class Mojo(telepot.Bot):
 
     def update_self(self):
         # pull from git
-        g = git.cmd.Git(os.path.dirname(os.path.realpath(__file__)))
+        directory = os.path.dirname(os.path.realpath(__file__))
+        g = git.cmd.Git(directory)
         g.pull()
+        
+        # Update owner of files to prevent permission issues
+        uid = pwd.getpwnam("pi").pw_uid
+        gid = grp.getgrnam("pi").gr_gid
+        for root, dirs, files in os.walk(directory):  
+          for momo in dirs:  
+            os.chown(os.path.join(root, momo), uid, gid)
+          for momo in files:
+            os.chown(os.path.join(root, momo), uid, gid)
+        
         # Check if the file has changed.
         # If so, restart the application.
         if os.path.getmtime(__file__) > self.last_mtime:
