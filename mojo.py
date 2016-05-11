@@ -147,32 +147,29 @@ class Mojo(telepot.Bot):
        
     def take_photo(self):
         response = lib.camera.snap()
-	if response:
-		return response
-	try:
-        	f = open('image.jpg', 'rb')  # file on local disk
-        	response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
-		os.remove('image.jpg') # don't save it!
-	except Exception:
-		return 'There was a problem.'
+        if response:
+            return response
+        f = open('image.jpg', 'rb')  # file on local disk
+        response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
+        os.remove('image.jpg') # don't save it!
         return ''
 
     def take_video(self):
         response = lib.camera.video()
         if response:
-            return response
-        try:
-            p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE)
-            for line in p.stdout:
-                print line
-            p.wait()
-            print p.returncode
-            f = open('video.mp4', 'rb')
-            response = bot.sendVideo(self.admin, f)
-            os.remove('video.mp4')
-            os.remove('video.h264')
-        except Exception:
-             return 'There was a problem.'
+           return response
+        
+        p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE, shell=True)
+        for line in p.communicate():
+             print line
+        p.wait()
+        print p.returncode
+        
+        f = open('video.mp4', 'rb')
+        response = bot.sendVideo(self.admin, f)
+        os.remove('video.mp4')
+        os.remove('video.h264')
+
         return ''
 
     def update_self(self):
