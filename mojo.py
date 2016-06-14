@@ -68,7 +68,7 @@ class Mojo(telepot.Bot):
                 self.adminMessage('Unauthorized access attempt by: ' + msg['chat']['id'])
                 return
         except Exception as e:
-            print e
+            self.adminMessage(str(e))
             msg['chat']['id'] = self.admin
         
     	self.user = msg['chat']['id']
