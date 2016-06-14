@@ -62,6 +62,14 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
+        try:
+            if msg['chat']['id'] not in self.config.get('Config','Users'):
+                self.adminMessage('Unauthorized access attempt by: ' + msg['chat']['id'])
+                return
+        except Exception as e:
+            print e
+            msg['chat']['id'] = self.admin
+        
     	self.user = msg['chat']['id']
     	command = msg['text'].lower().strip()
         
