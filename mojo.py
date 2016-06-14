@@ -48,17 +48,13 @@ class Mojo(telepot.Bot):
         
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
-	self.adminName = self.config.get('Config', 'AdminName')
+        self.adminName = self.config.get('Config', 'AdminName')
         if (self.config.get('Config', 'EnableChat') == 1):
             self.chatbot = ChatBot(self.config.get('Config', 'Name'))
             self.chatbot.train("chatterbot.corpus.english")
-            
         
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
-        #print(self.getMe())
-        
-        
 
     # Handle messages from users
     def handle(self, msg):
@@ -70,8 +66,8 @@ class Mojo(telepot.Bot):
             self.adminMessage(str(e))
             msg['chat']['id'] = self.admin
         
-    	self.user = msg['chat']['id']
-    	command = msg['text'].lower().strip()
+        self.user = msg['chat']['id']
+        command = msg['text'].lower().strip()
         
         response = False
         
@@ -86,10 +82,9 @@ class Mojo(telepot.Bot):
                     response = "I'm sorry, I don't understand"
             except Exception as e:
                 self.adminMessage(str(e))
-        
-    	if response != '':
-		self.message(response)
-	self.command = self.user = False
+        if response != '':
+        self.message(response)
+        self.command = self.user = False
         
     # Listen
     def listen(self):
@@ -138,14 +133,15 @@ class Mojo(telepot.Bot):
         return False
 
     def morning(self):
-	response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
-	response += self.weather() + '\n\n'
-	response += self.word_of_the_day() + '\n\n'
-	response += self.news()
-	return response
+        response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
+        response += self.weather() + '\n\n'
+        response += self.word_of_the_day() + '\n\n'
+        response += self.expenses_remaining() + '\n\n'
+        response += self.news()
+        return response
 
     def time(self):
-	return datetime.datetime.now().strftime('%I:%M %p')
+        return datetime.datetime.now().strftime('%I:%M %p')
 
     def command_list(self):
         response = "Available commands:\n"
