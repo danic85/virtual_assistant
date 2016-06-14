@@ -83,7 +83,7 @@ class Mojo(telepot.Bot):
             except Exception as e:
                 self.adminMessage(str(e))
         if response != '':
-        self.message(response)
+            self.message(response)
         self.command = self.user = False
         
     # Listen
