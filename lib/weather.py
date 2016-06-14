@@ -12,6 +12,6 @@ def weather_openweathermap(self, key):
 	owm = pyowm.OWM(key)
 
 	# Search for current weather in London (UK)
-	observation = owm.weather_at_place('Newcastle upon Tyne,uk')
+	observation = owm.weather_around_coords(-1.69, 55.17)
 	w = observation.get_weather()
 	return (w.get_status() + '. ' + format(w.get_temperature('celsius')['temp'], '.1f')  + 'degrees')
