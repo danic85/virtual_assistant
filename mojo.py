@@ -223,7 +223,8 @@ class Mojo(telepot.Bot):
 
     def expenses_remaining(self):
         remaining = 0.0;
-        with open('expenses.csv', 'rb') as csvfile:
+        directory = os.path.dirname(os.path.realpath(__file__))
+        with open(directory + '/expenses.csv', 'rb') as csvfile:
             csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
             for row in csvreader:
                 remaining += float(row[1].strip())
@@ -232,7 +233,8 @@ class Mojo(telepot.Bot):
     def expenses_add(self):
         self.user = self.config.get('Config','Users').split(',')
         expense = self.command.split(' ', 1)
-        with open('expenses.csv', 'a') as csvfile:
+        directory = os.path.dirname(os.path.realpath(__file__))
+        with open(directory + '/expenses.csv', 'a') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now()])
         return 'Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()
