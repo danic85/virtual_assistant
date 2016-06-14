@@ -63,7 +63,7 @@ class Mojo(telepot.Bot):
     # Handle messages from users
     def handle(self, msg):
         try:
-            if msg['chat']['id'] not in self.config.get('Config','Users'):
+            if msg['chat']['id'] not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + msg['chat']['id'])
                 return
         except Exception as e:
@@ -102,7 +102,13 @@ class Mojo(telepot.Bot):
             
     def message(self, msg):
         if (self.user):
-            self.sendMessage(self.user, msg)
+            if type(self.user) is list:
+                for u in self.user:
+                        print 'sending to'
+                        print u
+                        self.sendMessage(u, msg)
+            else:
+                self.sendMessage(self.user, msg)
         else:
             self.adminMessage(msg)
         
@@ -219,6 +225,7 @@ class Mojo(telepot.Bot):
         return 'There is £' + str(format(remaining, '.2f')) + ' left this month.';
 
     def expenses_add(self):
+        self.user = self.config.get('Config','Users').split(',')
         expense = self.command.split(' ', 1)
         with open('expenses.csv', 'a') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
