@@ -62,8 +62,6 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
-        self.adminMessage(msg['chat']['id'])
-        self.adminMessage(self.config.get('Config','Users').split(','))
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -170,7 +168,7 @@ class Mojo(telepot.Bot):
         if response:
             return response
         f = open('image.jpg', 'rb')  # file on local disk
-        response = bot.sendPhoto(self.admin, f) # only send to admin (for security)
+        response = bot.sendPhoto(self.user, f)
         os.remove('image.jpg') # don't save it!
         return ''
 
@@ -186,7 +184,7 @@ class Mojo(telepot.Bot):
         print p.returncode
         
         f = open('video.mp4', 'rb')
-        response = bot.sendVideo(self.admin, f)
+        response = bot.sendVideo(self.user, f)
         os.remove('video.mp4')
         os.remove('video.h264')
 
