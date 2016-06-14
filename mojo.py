@@ -79,10 +79,13 @@ class Mojo(telepot.Bot):
         response = self.doCommand(command)
         # get a response from chat
         if (not response and response != ''):
-		if(self.config.get('Config','EnableChat') == 1):
-	        	response = self.chatbot.get_response(command)
-		else:
-			response = "I don't understand, user: " + self.user
+        try:
+            if(self.config.get('Config','EnableChat') == 1):
+                response = self.chatbot.get_response(command)
+            else:
+                response = "I don't understand, user: " + str(self.user)
+        except Exception as e:
+            self.adminMessage(str(e))
         
     	if response != '':
 		self.message(response)
