@@ -83,7 +83,7 @@ class Mojo(telepot.Bot):
                 if(self.config.get('Config','EnableChat') == 1):
                     response = self.chatbot.get_response(command)
                 else:
-                    response = "I don't understand, user: " + str(self.user)
+                    response = "I'm sorry, I don't understand"
             except Exception as e:
                 self.adminMessage(str(e))
         
@@ -96,6 +96,8 @@ class Mojo(telepot.Bot):
         self.message_loop(self.handle)
 
         print 'Listening ...'
+        
+        self.adminMessage("Hello, I'm here.")
 
         # Keep the program running.
         while 1:
