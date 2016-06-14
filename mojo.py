@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: latin-1 -*-
 import sys
 import pwd
 import grp
@@ -6,6 +7,9 @@ import os
 from os.path import getmtime
 import git
 import subprocess
+
+#expenses
+import csv
 
 import schedule
 import datetime
@@ -70,7 +74,7 @@ class Mojo(telepot.Bot):
 		if(self.config.get('Config','EnableChat') == 1):
 	        	response = self.chatbot.get_response(command)
 		else:
-			response = "I don't understand"
+			response = "I don't understand, user: " + self.user
         
     	if response != '':
 		self.message(response)
@@ -197,7 +201,21 @@ class Mojo(telepot.Bot):
     def restart_self(self):
         print('restarting')
         os.execv(__file__, sys.argv)
-        
+
+    def expenses_remaining(self):
+        remaining = 0.0;
+        with open('expenses.csv', 'rb') as csvfile:
+            csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            for row in csvreader:
+                remaining += float(row[1].strip())
+        return 'There is £' + str(format(remaining, '.2f')) + ' left this month.';
+
+    def expenses_add(self):
+        expense = self.command.split(' ', 1)
+        with open('expenses.csv', 'a') as csvfile:
+            csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csvwriter.writerow([expense[1], float(expense[0].strip()) * -1])
+        return 'Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()
         
 bot = Mojo()
 
