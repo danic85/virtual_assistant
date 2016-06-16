@@ -8,9 +8,6 @@ from os.path import getmtime
 import git
 import subprocess
 
-#expenses
-import csv
-
 import schedule
 import datetime
 import time
@@ -25,7 +22,7 @@ import lib.word_of_the_day
 import lib.fibre_checker
 import lib.news
 import lib.camera
-
+import lib.expenses
 
 import ConfigParser
 
@@ -46,6 +43,7 @@ class Mojo(telepot.Bot):
         
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
         
+        self.dir = os.path.dirname(os.path.realpath(__file__))
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
@@ -218,22 +216,10 @@ class Mojo(telepot.Bot):
         os.execv(__file__, sys.argv)
 
     def expenses_remaining(self):
-        remaining = 0.0;
-        directory = os.path.dirname(os.path.realpath(__file__))
-        with open(directory + '/expenses.csv', 'rb') as csvfile:
-            csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
-            for row in csvreader:
-                remaining += float(row[1].strip())
-        return 'There is £' + str(format(remaining, '.2f')) + ' left this month.';
+        return lib.expenses.expenses_remaining(self)
 
     def expenses_add(self):
-        expense = self.command.split(' ', 1)
-        directory = os.path.dirname(os.path.realpath(__file__))
-        with open(directory + '/expenses.csv', 'a') as csvfile:
-            csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
-        self.user = self.config.get('Config','Users').split(',')
-        return 'Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()
+        return lib.expenses.expenses_add(self)
         
 bot = Mojo()
 
@@ -249,7 +235,7 @@ schedule.clear()
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
 schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
-schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
+#schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
 # If method call defined on launch, call. Else listen for commands from telegram
 if len(sys.argv) == 2:
