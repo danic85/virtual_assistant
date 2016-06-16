@@ -136,7 +136,7 @@ class Mojo(telepot.Bot):
         response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
         response += self.weather() + '\n\n'
         response += self.word_of_the_day() + '\n\n'
-        response += self.expenses_remaining() + '\n\n'
+        #response += self.expenses_remaining() + '\n\n'
         response += self.news()
         return response
 
@@ -227,12 +227,12 @@ class Mojo(telepot.Bot):
         return 'There is £' + str(format(remaining, '.2f')) + ' left this month.';
 
     def expenses_add(self):
-        self.user = self.config.get('Config','Users').split(',')
         expense = self.command.split(' ', 1)
         directory = os.path.dirname(os.path.realpath(__file__))
         with open(directory + '/expenses.csv', 'a') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now()])
+            csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
+        self.user = self.config.get('Config','Users').split(',')
         return 'Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()
         
 bot = Mojo()
