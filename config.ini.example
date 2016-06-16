@@ -7,3 +7,4 @@ FibreTel= 0800111111
 Telbot= 123456
 OpenWeatherMapKey= abcdefg
 EnableChat= 1
+ExpensesFile=expenses.csv
