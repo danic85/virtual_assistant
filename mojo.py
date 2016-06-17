@@ -162,6 +162,9 @@ class Mojo(telepot.Bot):
     def expenses_add(self):
         return lib.expenses.expenses_add(self)
         
+    def broadcast(self):
+        return lib.general.broadcast(self)
+        
 bot = Mojo()
 
 def execute_bot_command(command):

@@ -16,6 +16,11 @@ def morning(self):
       response += self.news()
       return response
 
+# Send message to all users
+def broadcast(self):
+    self.user = self.config.get('Config','Users').split(',')
+    return self.command.replace('broadcast ', '', 1)
+
 def time(self):
     return datetime.datetime.now().strftime('%I:%M %p')
 
