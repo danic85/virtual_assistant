@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import git
 
 def morning(self):
       response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'

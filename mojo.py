@@ -5,7 +5,7 @@ import pwd
 import grp
 import os
 from os.path import getmtime
-import git
+
 import subprocess
 
 import schedule
