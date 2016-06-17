@@ -2,6 +2,7 @@
 # -*- coding: latin-1 -*-
 import sys
 
+import os
 import schedule
 import time
 import re
