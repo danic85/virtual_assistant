@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import sys
 import datetime
 import git
+import pwd
+import grp
+import os
+from os.path import getmtime
 
 def morning(self):
       response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'

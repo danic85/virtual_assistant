@@ -1,3 +1,5 @@
+import subprocess
+
 try:
     import picamera
 except ImportError as e:

@@ -1,15 +1,8 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import sys
-import pwd
-import grp
-import os
-from os.path import getmtime
-
-import subprocess
 
 import schedule
-import datetime
 import time
 import re
 import telepot
