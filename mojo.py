@@ -145,7 +145,7 @@ class Mojo(telepot.Bot):
         return lib.fibre_checker.check(self.config.get('Config', 'FibreTel'))
     
     def news(self):
-        return lib.news.top_stories(10)
+        return lib.news.top_stories(5)
        
     def take_photo(self):
         return lib.camera.take_photo(self)
