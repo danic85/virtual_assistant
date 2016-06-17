@@ -6,7 +6,7 @@ except ImportError as e:
     print e
     
 
-def take_photo(self):
+def take_photo(self, bot):
     camera = picamera.PiCamera()
     try:
         response = camera.capture('image.jpg')
@@ -21,7 +21,7 @@ def take_photo(self):
     os.remove('image.jpg') # don't save it!
     return ''
 
-def take_video(self):
+def take_video(self, bot):
     camera = picamera.PiCamera()
     try:
         camera.resolution = (640, 480)

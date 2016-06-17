@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import urllib
-import urllib2
-import json
-import decimal
-import time
 import pyowm
 
 def weather_openweathermap(self, key):
