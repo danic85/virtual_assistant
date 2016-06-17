@@ -23,6 +23,7 @@ import lib.fibre_checker
 import lib.news
 import lib.camera
 import lib.expenses
+import lib.general
 
 import ConfigParser
 
@@ -126,28 +127,19 @@ class Mojo(telepot.Bot):
                     print 'Match on ' + theRegex
                     return getattr(self, theMethod)()
         except Exception as e:
-            return e 
+            print e
+            return str(e) 
         print 'No match' 
         return False
 
     def morning(self):
-        response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
-        response += self.weather() + '\n\n'
-        response += self.word_of_the_day() + '\n\n'
-        #response += self.expenses_remaining() + '\n\n'
-        response += self.news()
-        return response
+        return lib.general.morning(self)
 
     def time(self):
-        return datetime.datetime.now().strftime('%I:%M %p')
+        return lib.general.time(self)
 
     def command_list(self):
-        response = "Available commands:\n"
-    
-        for key, val in self.commandList:
-            response += key + "\n"
-        print response
-        return response
+        return lib.general.command_list(self)
 
     def weather(self):
         return lib.weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
@@ -156,65 +148,20 @@ class Mojo(telepot.Bot):
         return lib.word_of_the_day.word_of_the_day()
         
     def check_fibre_status(self):
-        #self.message('Checking fibre status...')
         return lib.fibre_checker.check(self.config.get('Config', 'FibreTel'))
     
     def news(self):
         return lib.news.top_stories(10)
        
     def take_photo(self):
-        response = lib.camera.snap()
-        if response:
-            return response
-        f = open('image.jpg', 'rb')  # file on local disk
-        response = bot.sendPhoto(self.user, f)
-        os.remove('image.jpg') # don't save it!
-        return ''
+        return lib.camera.take_photo(self)
 
     def take_video(self):
-        response = lib.camera.video()
-        if response:
-           return response
-        
-        p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE, shell=True)
-        for line in p.communicate():
-             print line
-        p.wait()
-        print p.returncode
-        
-        f = open('video.mp4', 'rb')
-        response = bot.sendVideo(self.user, f)
-        os.remove('video.mp4')
-        os.remove('video.h264')
-
-        return ''
+        return lib.camerea.take_video(self)
 
     def update_self(self):
-        # pull from git
-        directory = os.path.dirname(os.path.realpath(__file__))
-        g = git.cmd.Git(directory)
-        g.pull()
+        return lib.general.update_self(self)
         
-        # Update owner of files to prevent permission issues
-        uid = pwd.getpwnam("pi").pw_uid
-        gid = grp.getgrnam("pi").gr_gid
-        for root, dirs, files in os.walk(directory):  
-          for momo in dirs:  
-            os.chown(os.path.join(root, momo), uid, gid)
-          for momo in files:
-            os.chown(os.path.join(root, momo), uid, gid)
-        
-        # Check if the file has changed.
-        # If so, restart the application.
-        if os.path.getmtime(__file__) > self.last_mtime:
-            # Restart the application (os.execv() does not return).
-            self.restart_self()
-            
-        return 'Updated to version: ' + str(self.last_mtime)
-    def restart_self(self):
-        print('restarting')
-        os.execv(__file__, sys.argv)
-
     def expenses_remaining(self):
         return lib.expenses.expenses_remaining(self)
 
