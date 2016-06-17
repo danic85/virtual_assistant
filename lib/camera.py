@@ -32,9 +32,6 @@ def take_video(self, bot):
     finally:
         camera.close()
     
-    if response:
-       return response
-    
     p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE, shell=True)
     for line in p.communicate():
          print line
