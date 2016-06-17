@@ -27,7 +27,7 @@ def command_list(self):
     print response
     return response
     
-def update_self(self):
+def update_self(self, f):
     # pull from git
     directory = self.dir
     g = git.cmd.Git(directory)
@@ -44,8 +44,8 @@ def update_self(self):
     
     # Check if the file has changed.
     # If so, restart the application.
-    if os.path.getmtime(__file__) > self.last_mtime:
+    if os.path.getmtime(f) > self.last_mtime:
         # Restart the application (os.execv() does not return).
-        os.execv(__file__, sys.argv)
+        os.execv(f, sys.argv)
         
     return 'Updated to version: ' + str(self.last_mtime)

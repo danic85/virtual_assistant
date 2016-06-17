@@ -154,7 +154,7 @@ class Mojo(telepot.Bot):
         return lib.camera.take_video(self, bot)
 
     def update_self(self):
-        return lib.general.update_self(self)
+        return lib.general.update_self(self, __file__)
         
     def expenses_remaining(self):
         return lib.expenses.expenses_remaining(self)
