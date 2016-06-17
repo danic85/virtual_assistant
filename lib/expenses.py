@@ -3,6 +3,7 @@
 
 #expenses
 import csv, datetime
+import lib.currency
 
 def expenses_remaining(self):
     remaining = 0.0;
@@ -14,6 +15,9 @@ def expenses_remaining(self):
 
 def expenses_add(self):
     expense = self.command.split(' ', 1)
+    if expense[0].find("$") == 0:
+        expense[0] = str(lib.currency.convert(self, 'USD', expense[0].replace('$',''), self.config.get('Config', 'OpenExchangeRatesKey')))
+    
     with open(self.dir + '/' + self.config.get('Config','ExpensesFile'), 'a') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])

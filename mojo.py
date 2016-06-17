@@ -18,6 +18,7 @@ import lib.news
 import lib.camera
 import lib.expenses
 import lib.general
+import lib.currency
 
 import ConfigParser
 
@@ -164,6 +165,9 @@ class Mojo(telepot.Bot):
         
     def broadcast(self):
         return lib.general.broadcast(self)
+        
+    def currency_convert(self):
+        return lib.currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
         
 bot = Mojo()
 
