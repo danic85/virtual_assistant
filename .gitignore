@@ -3,4 +3,5 @@ config.ini
 *.db
 expenses.csv
 log.txt
-
+.DS_Store
+.idea
