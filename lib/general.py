@@ -24,6 +24,9 @@ def broadcast(self):
 def time(self):
     return datetime.datetime.now().strftime('%I:%M %p')
 
+def date_time(self):
+    return datetime.datetime.now().strftime('%d-%m-%y %I:%M %p')
+
 def command_list(self):
     response = "Available commands:\n"
 

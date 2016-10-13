@@ -1,0 +1,15 @@
+INFO:root:Starting Mojo
+INFO:root:13-10-16 09:05 PM: Message received: time
+INFO:root:Match on (what time is it|what is the time|time)\??$
+DEBUG:urllib3.util.retry:Converted retries value: False -> Retry(total=False, connect=None, read=None, redirect=0)
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): api.telegram.org
+DEBUG:urllib3.connectionpool:"POST /bot210419196:AAEaNF4GzdWT_sng9r6YBDLwcs9tpOlryE0/sendMessage HTTP/1.1" 200 252
+INFO:root:Starting Mojo
+INFO:root:13-10-16 09:06 PM: Message received: camera
+INFO:root:Match on camera
+INFO:root:Entering take_photo
+INFO:root:Load Camera
+INFO:root:global name 'picamera' is not defined
+DEBUG:urllib3.util.retry:Converted retries value: False -> Retry(total=False, connect=None, read=None, redirect=0)
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): api.telegram.org
+DEBUG:urllib3.connectionpool:"POST /bot210419196:AAEaNF4GzdWT_sng9r6YBDLwcs9tpOlryE0/sendMessage HTTP/1.1" 200 281

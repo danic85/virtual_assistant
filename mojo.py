@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import sys
+import logging
 
 import os
 import schedule
@@ -22,10 +23,14 @@ import lib.currency
 
 import ConfigParser
 
-
+logging.basicConfig(filename='mojo_debug.log',level=logging.DEBUG)
+# logging.debug('This message should go to the log file')
+# logging.info('So should this')
+# logging.warning('And this, too')
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
+        logging.info('Starting Mojo');
         self.config = ConfigParser.ConfigParser()
         conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
         print conf
@@ -52,6 +57,7 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
+        logging.info(lib.general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -119,12 +125,15 @@ class Mojo(telepot.Bot):
             for theRegex,theMethod in self.commandList:
                 #print theRegex,"=",theMethod
                 if (re.search(theRegex, command, flags=0)):
-                    print 'Match on ' + theRegex
+                    logging.info('Match on ' + theRegex)
+
                     return getattr(self, theMethod)()
         except Exception as e:
             print e
+            logging.info(e)
             return str(e) 
-        print 'No match' 
+        print 'No match'
+        logging.info('No match')
         return False
 
     def morning(self):
@@ -149,7 +158,7 @@ class Mojo(telepot.Bot):
         return lib.news.top_stories(5)
        
     def take_photo(self):
-        return lib.camera.take_photo(self, bot)
+        return lib.camera.take_photo(self, bot, logging)
 
     def take_video(self):
         return lib.camera.take_video(self, bot)
@@ -182,7 +191,7 @@ schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
-schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
+# schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 #schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
 # If method call defined on launch, call. Else listen for commands from telegram
