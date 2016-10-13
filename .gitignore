@@ -1,7 +1,14 @@
 config.ini
 *.pyc
 *.db
+<<<<<<< Updated upstream
 expenses.csv
 log.txt
 .DS_Store
 .idea
+=======
+.DS_Store
+.idea/
+expenses.csv
+mojo_home_bot.iml
+>>>>>>> Stashed changes
