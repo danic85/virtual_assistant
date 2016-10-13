@@ -11,9 +11,10 @@ from os.path import getmtime
 def morning(self):
       response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
       response += self.weather() + '\n\n'
-      response += self.word_of_the_day() + '\n\n'
+    #   response += self.word_of_the_day() + '\n\n'
+      response += self.riddle() + '\n\n'
       #response += self.expenses_remaining() + '\n\n'
-      response += self.news()
+      #response += self.news()
       return response
 
 # Send message to all users
