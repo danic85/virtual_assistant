@@ -20,6 +20,7 @@ import lib.camera
 import lib.expenses
 import lib.general
 import lib.currency
+import lib.riddle
 
 import ConfigParser
 
@@ -51,6 +52,7 @@ class Mojo(telepot.Bot):
         if (self.config.get('Config', 'EnableChat') == 1):
             self.chatbot = ChatBot(self.config.get('Config', 'Name'))
             self.chatbot.train("chatterbot.corpus.english")
+        self.riddleIndex = 0
         
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
@@ -177,7 +179,15 @@ class Mojo(telepot.Bot):
         
     def currency_convert(self):
         return lib.currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
-        
+    
+    def riddle(self):
+        self.riddles = lib.riddle.get_riddles(self)            
+        return self.riddles[self.riddleIndex]['question']
+
+    def riddle_answer(self):
+        answer = self.riddles[self.riddleIndex]['answer']
+        self.riddleIndex += 1
+        return answer
 bot = Mojo()
 
 def execute_bot_command(command):

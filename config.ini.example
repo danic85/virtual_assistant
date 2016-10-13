@@ -8,4 +8,5 @@ Telbot= 123456
 OpenWeatherMapKey= abcdefg
 EnableChat= 1
 ExpensesFile=expenses.csv
+RiddleFile=riddles.htm
 OpenExchangeRatesKey=1234
