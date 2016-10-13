@@ -16,7 +16,7 @@ def take_photo(self, bot, logging):
     logging.info('Taking Photo...')
     try:
         response = camera.capture('image.jpg')
-        logging.info('Response: ' + response)
+        # logging.info('Response: ' + response)
         pass
     finally:
         logging.info('Closing Camera...')
