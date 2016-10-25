@@ -10,17 +10,9 @@ import re
 import telepot
 from pprint import pprint
 from chatterbot import ChatBot
+import importlib
 
-import lib
-import lib.weather
-import lib.word_of_the_day
-import lib.fibre_checker
-import lib.news
-import lib.camera
-import lib.expenses
-import lib.general
-import lib.currency
-import lib.riddle
+from lib import *
 
 import ConfigParser
 
@@ -59,7 +51,7 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
-        logging.info(lib.general.date_time(self) + ': Message received: ' + msg['text'])
+        logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -125,11 +117,18 @@ class Mojo(telepot.Bot):
         try:
             self.command = command
             for theRegex,theMethod in self.commandList:
-                #print theRegex,"=",theMethod
                 if (re.search(theRegex, command, flags=0)):
                     logging.info('Match on ' + theRegex)
-
-                    return getattr(self, theMethod)()
+                    
+                    if "." in theMethod: 
+                        mod_name, func_name = theMethod.rsplit('.',1)
+                        mod = importlib.import_module('lib.'+ mod_name)
+                        func = getattr(mod, func_name)
+                        return func(self)
+                    else:
+                        func = getattr(self, theMethod)
+                        return func()
+                    
         except Exception as e:
             print e
             logging.info(e)
@@ -138,52 +137,22 @@ class Mojo(telepot.Bot):
         logging.info('No match')
         return False
 
-    def morning(self):
-        return lib.general.morning(self)
-
-    def time(self):
-        return lib.general.time(self)
-
-    def command_list(self):
-        return lib.general.command_list(self)
-
-    def weather(self):
-        return lib.weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
-        
-    def word_of_the_day(self):
-        return lib.word_of_the_day.word_of_the_day()
-        
+    # @todo Refactor to remove these methods
+    def get_weather(self):
+        return weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
     def check_fibre_status(self):
-        return lib.fibre_checker.check(self.config.get('Config', 'FibreTel'))
-    
+        return fibre_checker.check(self.config.get('Config', 'FibreTel'))
     def news(self):
-        return lib.news.top_stories(5)
-       
+        return news.top_stories(5)
     def take_photo(self):
-        return lib.camera.take_photo(self, bot, logging)
-
-    def take_video(self):
-        return lib.camera.take_video(self, bot)
-
+        return camera.take_photo(self, bot, logging)
     def update_self(self):
-        return lib.general.update_self(self, __file__)
-        
-    def expenses_remaining(self):
-        return lib.expenses.expenses_remaining(self)
-
-    def expenses_add(self):
-        return lib.expenses.expenses_add(self)
-        
-    def broadcast(self):
-        return lib.general.broadcast(self)
-        
+        return general.update_self(self, __file__)
     def currency_convert(self):
-        return lib.currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
-    
+        return currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
     def riddle(self):
-        self.riddles = lib.riddle.get_riddles(self)            
+        self.riddles = riddle.get_riddles(self)            
         return self.riddles[self.riddleIndex]['question']
-
     def riddle_answer(self):
         answer = self.riddles[self.riddleIndex]['answer']
         self.riddleIndex += 1
@@ -200,6 +169,7 @@ def execute_bot_command(command):
 schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
+schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
 schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
 # schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 #schedule.every().day.at("17:15").do(execute_bot_command, 'weather')

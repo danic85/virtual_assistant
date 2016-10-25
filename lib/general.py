@@ -9,12 +9,19 @@ import os
 from os.path import getmtime
 
 def morning(self):
-      response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
-      response += self.weather() + '\n\n'
-    #   response += self.word_of_the_day() + '\n\n'
-      response += self.riddle() + '\n\n'
-      #response += self.expenses_remaining() + '\n\n'
-      #response += self.news()
+      print 'entering morning'
+      response = 'Good morning ' + self.adminName + ' it is ' + self.doCommand('time') + '\n\n'
+      response += self.doCommand('weather') + '\n\n'
+      response += self.doCommand('riddle') + '\n\n'
+      response += self.doCommand('budget') + '\n\n'
+      return response
+
+def morning_others(self):
+      self.user = self.config.get('Config','Users').split(',')
+      self.user.pop(0)
+      response = 'Good morning! it is ' + self.time() + '\n\n'
+      response += self.doCommand('weather') + '\n\n'
+      response += self.doCommand('budget') + '\n\n'
       return response
 
 # Send message to all users
