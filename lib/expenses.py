@@ -23,4 +23,4 @@ def expenses_add(self):
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
     self.user = self.config.get('Config','Users').split(',')
-    return ('Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()).decode("utf8")
+    return ('Logged expense: ' + str(self.command) + "\n" + self.doCommand('budget')).decode("utf8")
