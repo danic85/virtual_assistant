@@ -19,7 +19,7 @@ def morning(self):
 def morning_others(self):
       self.user = self.config.get('Config','Users').split(',')
       self.user.pop(0)
-      response = 'Good morning! it is ' + self.time() + '\n\n'
+      response = 'Good morning! it is ' + self.doCommand('time') + '\n\n'
       response += self.doCommand('weather') + '\n\n'
       response += self.doCommand('budget') + '\n\n'
       return response
