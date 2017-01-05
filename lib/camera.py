@@ -1,47 +1,61 @@
 import subprocess
 import os
-# import logging
 
 try:
     import picamera
 except ImportError as e:
-    print e
-    # logging.info(e)
-    
+    print str(e)
 
-def take_photo(self, bot, logging):
-    logging.info('Entering take_photo')
-    logging.info('Load Camera')
-    camera = picamera.PiCamera()
-    logging.info('Taking Photo...')
+def take_photo(self):
+    self.logging.info('Entering take_photo')
+    self.logging.info('Load Camera')
+    try:
+        camera = picamera.PiCamera()
+    except Exception as e:
+        self.logging.error(str(e))
+        return 'Could not load camera'
+        
+    self.logging.info('Taking Photo...')
+    
     try:
         response = camera.capture('image.jpg')
-        # logging.info('Response: ' + response)
+        self.logging.info('Response: ' + response)
         pass
+    except Exception as e:
+        self.logging.error(str(e))
+        return 'Could not take picture'
     finally:
-        logging.info('Closing Camera...')
+        self.logging.info('Closing Camera...')
         camera.close()
-        logging.info('Closed.')
+        self.logging.info('Closed.')
     
     if response:
-        logging.info('Returning response.')
+        self.logging.info('Returning response.')
         return response
-    logging.info('Opening file')
+    self.logging.info('Opening file')
     f = open('image.jpg', 'rb')  # file on local disk
-    logging.info('Sending photo')
-    response = bot.sendPhoto(self.user, f)
-    logging.info('Removing photo')
+    self.logging.info('Sending photo')
+    response = self.sendPhoto(self.user, f)
+    self.logging.info('Removing photo')
     os.remove('image.jpg') # don't save it!
-    logging.info('Exiting take_photo')
+    self.logging.info('Exiting take_photo')
     return ''
 
-def take_video(self, bot):
-    camera = picamera.PiCamera()
+def take_video(self):
+    try:
+        camera = picamera.PiCamera()
+    except Exception as e:
+        self.logging.error(str(e))
+        return 'Could not load camera'
+    
     try:
         camera.resolution = (640, 480)
         camera.start_recording('video.h264')
         camera.wait_recording(10)
         camera.stop_recording() 
+    except Exception as e:
+        self.logging.error(str(e))
+        return 'Could not take picture'
     finally:
         camera.close()
     
@@ -52,7 +66,7 @@ def take_video(self, bot):
     print p.returncode
     
     f = open('video.mp4', 'rb')
-    response = bot.sendVideo(self.user, f)
+    response = self.sendVideo(self.user, f)
     os.remove('video.mp4')
     os.remove('video.h264')
 

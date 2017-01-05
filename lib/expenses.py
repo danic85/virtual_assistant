@@ -24,3 +24,8 @@ def expenses_add(self):
         csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
     self.user = self.config.get('Config','Users').split(',')
     return ('Logged expense: ' + str(self.command) + "\n").decode("utf8")  + self.doCommand('budget')
+    
+def expenses_get(self):
+    f = open(self.dir + '/' + self.config.get('Config','ExpensesFile'), 'r')
+    self.sendDocument(self.user, f)
+    return ''

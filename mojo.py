@@ -9,7 +9,7 @@ import time
 import re
 import telepot
 from pprint import pprint
-from chatterbot import ChatBot
+# from chatterbot import ChatBot
 import importlib
 
 from lib import *
@@ -23,6 +23,7 @@ logging.basicConfig(filename='mojo_debug.log',level=logging.DEBUG)
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
+        self.logging = logging
         logging.info('Starting Mojo');
         self.config = ConfigParser.ConfigParser()
         conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
@@ -41,9 +42,11 @@ class Mojo(telepot.Bot):
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
-        if (self.config.get('Config', 'EnableChat') == 1):
-            self.chatbot = ChatBot(self.config.get('Config', 'Name'))
-            self.chatbot.train("chatterbot.corpus.english")
+
+        if (self.config.get('Config', 'EnableChat') == '1'):
+            print 'chatbot enabled'
+            # self.chatbot = ChatBot(self.config.get('Config', 'Name'), trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
+            # self.chatbot.train("chatterbot.corpus.english")
         self.riddleIndex = 0
         
         self.last_mtime = os.path.getmtime(__file__)
@@ -70,8 +73,10 @@ class Mojo(telepot.Bot):
         # get a response from chat
         if (not response and response != ''):
             try:
-                if(self.config.get('Config','EnableChat') == 1):
-                    response = self.chatbot.get_response(command)
+                if(self.config.get('Config','EnableChat') == '1'):
+                    print('chatbot response:')
+                    # print(self.chatbot.get_response(command))
+                    # response = str(self.chatbot.get_response(command))
                 else:
                     response = "I'm sorry, I don't understand"
             except Exception as e:
@@ -145,7 +150,15 @@ class Mojo(telepot.Bot):
     def news(self):
         return news.top_stories(5)
     def take_photo(self):
-        return camera.take_photo(self, bot, logging)
+        return camera.take_photo(self)
+    def take_video(self):
+        return camera.take_photo(self)
+        
+    def get_log(self):
+        f = open('mojo_debug.log', 'r')
+        self.sendDocument(self.user, f)
+        return ''
+        
     def update_self(self):
         return general.update_self(self, __file__)
     def currency_convert(self):
@@ -170,7 +183,7 @@ schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
-schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
+schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
 # schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 #schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
