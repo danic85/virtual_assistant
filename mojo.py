@@ -96,8 +96,8 @@ class Mojo(telepot.Bot):
         # Keep the program running.
         while 1:
             schedule.run_pending()
+            security.sweep(self)
             time.sleep(1)
-            
             
     def message(self, msg):
         if (self.user):
@@ -181,6 +181,7 @@ def execute_bot_command(command):
 # Load scheduled tasks
 schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
+# schedule.every().minute.do(execute_bot_command, 'is house empty')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
 schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
