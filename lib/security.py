@@ -41,7 +41,6 @@ def sweep(self):
     # just exit if not running
     try:
         if (hasattr(self, 'security') == False or self.security == SECURITY_OFF or self.security is None):
-            self.logging.info(SECURITY_OFF)
             return str(SECURITY_OFF)
             
         # if security enabled
