@@ -19,7 +19,6 @@ def take_photo(self):
     
     try:
         response = camera.capture('image.jpg')
-        self.logging.info('Response: ' + response)
         pass
     except Exception as e:
         self.logging.error(str(e))
