@@ -41,7 +41,7 @@ def sweep(self):
     # just exit if not running
     try:
         if (hasattr(self, 'security') == False or self.security == SECURITY_OFF or self.security is None):
-            return ''
+            return str(SECURITY_OFF)
             
         # if security enabled
         if (self.security == SECURITY_ON):
@@ -61,6 +61,7 @@ def sweep(self):
             self.logging.info('Stopping PIR')
             GPIO.cleanup()
             self.security = SECURITY_OFF
+        return str(self.security)
     except Exception as e:
         self.logging.error(str(e))
     finally:
