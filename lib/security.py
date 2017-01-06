@@ -39,10 +39,10 @@ def off(self):
     
 def sweep(self):
     # just exit if not running
-    if (self.security == SECURITY_OFF):
-        return
-        
     try:
+        if (hasattr(self, 'security') == False or self.security == SECURITY_OFF or self.security is None):
+            return ''
+            
         # if security enabled
         if (self.security == SECURITY_ON):
             if GPIO.input(PIR_PIN):
@@ -63,3 +63,5 @@ def sweep(self):
             self.security = SECURITY_OFF
     except Exception as e:
         self.logging.error(str(e))
+    finally:
+        return ''
