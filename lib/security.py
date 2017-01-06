@@ -21,6 +21,7 @@ def house_empty(self):
         
     if (self.security == SECURITY_ON or self.security == SECURITY_OFF):
         empty = True
+        macsFound = False
         
         import nmap
 
@@ -30,18 +31,20 @@ def house_empty(self):
         nm.scan(hosts=str(self.config.get('Config', 'RouterIP'))+'/24', arguments='-sP')
         for h in nm.all_hosts():
             if 'mac' in nm[h]['addresses']:
+                macsFound = True
                 if nm[h]['addresses']['mac'] in macs:
                         empty = False
-            else:
-                # Incorrect permissions. Do not assume empty
-                empty = False;
+        
+        if (macsFound == False):
+            print ('Incorrect permissions. Do not assume empty')
+            empty = False;
 
         if (empty):
             print 'House is empty'
-            return on()
+            return on(self)
         else:
             print 'House is not empty'
-            return off()
+            return off(self)
         
     return ''
     
