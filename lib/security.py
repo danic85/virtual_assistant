@@ -1,4 +1,5 @@
 import time
+import nmap
 try:
     import RPi.GPIO as GPIO
 except ImportError as e:
@@ -10,32 +11,59 @@ SECURITY_OFF = 0
 SECURITY_START = 1
 SECURITY_ON = 2
 SECURITY_STOP = 3
-    
+
 def house_empty(self):
+    if (hasattr(self, 'security_override') == True and self.security_override == True):
+        return ''
+        
+    if (hasattr(self, 'security') == False):
+        self.security = SECURITY_OFF
+        
     if (self.security == SECURITY_ON or self.security == SECURITY_OFF):
-        empty = False
+        empty = True
         
-        # todo check who is home
+        import nmap
+
+        #sudo nmap -sn 192.168.1.254/24 | egrep 'mac1|mac2'
+        macs = self.config.get('Config', 'MacAddresses').split(',')
+        nm = nmap.PortScanner()
+        nm.scan(hosts=str(self.config.get('Config', 'RouterIP'))+'/24', arguments='-sP')
+        for h in nm.all_hosts():
+            if 'mac' in nm[h]['addresses']:
+                if nm[h]['addresses']['mac'] in macs:
+                        empty = False
+            else:
+                # Incorrect permissions. Do not assume empty
+                empty = False;
+
+        if (empty):
+            print 'House is empty'
+            return on()
+        else:
+            print 'House is not empty'
+            return off()
         
-        # Vendor list for MAC address
-        # nm.scan('192.168.0.100/24', arguments='-O')
-        # for h in nm.all_hosts():
-        #     if 'mac' in nm[h]['addresses']:
-        #         print(nm[h]['addresses'], nm[h]['vendor'])
-        
-        # if (empty):
-        #     on()
-        # else:
-        #     off()
-        
-        
+    return ''
+    
+def override(self):
+    if (hasattr(self, 'security_override') == False or self.security_override == False):
+        self.security_override = True
+        return 'Security overridden'
+    else:
+        self.security_override = False
+        return 'Security not overridden'
+
 def on(self):
-    self.security = SECURITY_START
-    return 'Security Enabled'
+    if (self.security != SECURITY_ON):
+        self.security = SECURITY_START
+        return 'Security Enabled'
+    return ''
     
 def off(self):
-    self.security = SECURITY_STOP
-    return 'Security Disabled'
+    if (self.security != SECURITY_OFF):
+        self.security = SECURITY_STOP
+        return 'Security Disabled'
+    return ''
     
 def sweep(self):
     # just exit if not running
