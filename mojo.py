@@ -152,7 +152,7 @@ class Mojo(telepot.Bot):
     def take_photo(self):
         return camera.take_photo(self)
     def take_video(self):
-        return camera.take_photo(self)
+        return camera.take_video(self)
         
     def get_log(self):
         f = open('mojo_debug.log', 'r')
