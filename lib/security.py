@@ -32,7 +32,7 @@ def house_empty(self):
         for h in nm.all_hosts():
             if 'mac' in nm[h]['addresses']:
                 macsFound = True
-                if nm[h]['addresses']['mac'] in macs:
+                if nm[h]['addresses']['mac'].lower() in macs:
                         empty = False
         
         if (macsFound == False):
