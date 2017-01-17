@@ -101,7 +101,10 @@ class Mojo(telepot.Bot):
 
         print 'Listening ...'
         
-        self.adminMessage(self.chat.respond('hello', self.admin))
+        try:
+            self.adminMessage(self.chat.respond('hello', self.admin))
+        except Exception as e:
+            self.adminMessage('Hello!', self.admin)
 
         # Keep the program running.
         while 1:

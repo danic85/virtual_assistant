@@ -5,7 +5,7 @@ try:
 except ImportError as e:
     print str(e)
 
-PIR_PIN = 7
+PIR_PIN = 4
 
 SECURITY_OFF = 0
 SECURITY_START = 1
