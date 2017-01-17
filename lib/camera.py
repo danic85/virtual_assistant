@@ -9,6 +9,9 @@ except ImportError as e:
 def take_photo(self):
     self.logging.info('Entering take_photo')
     self.logging.info('Load Camera')
+    
+    jpg = self.files + '/camera.jpg'
+    
     try:
         camera = picamera.PiCamera()
     except Exception as e:
@@ -18,7 +21,7 @@ def take_photo(self):
     self.logging.info('Taking Photo...')
     
     try:
-        response = camera.capture('image.jpg')
+        response = camera.capture(jpg)
         pass
     except Exception as e:
         self.logging.error(str(e))
@@ -32,15 +35,18 @@ def take_photo(self):
         self.logging.info('Returning response.')
         return response
     self.logging.info('Opening file')
-    f = open('image.jpg', 'rb')  # file on local disk
+    f = open(jpg, 'rb')  # file on local disk
     self.logging.info('Sending photo')
     response = self.sendPhoto(self.user, f)
     self.logging.info('Removing photo')
-    os.remove('image.jpg') # don't save it!
+    os.remove(jpg) # don't save it!
     self.logging.info('Exiting take_photo')
     return ''
 
 def take_video(self):
+    h264 = self.files + '/video.h264'
+    mp4 = self.files + '/video.mp4'
+    
     try:
         camera = picamera.PiCamera()
     except Exception as e:
@@ -49,7 +55,7 @@ def take_video(self):
     
     try:
         camera.resolution = (640, 480)
-        camera.start_recording('video.h264')
+        camera.start_recording(h264)
         camera.wait_recording(10)
         camera.stop_recording() 
     except Exception as e:
@@ -58,15 +64,15 @@ def take_video(self):
     finally:
         camera.close()
     
-    p = subprocess.Popen('MP4Box -add video.h264 video.mp4', stdout=subprocess.PIPE, shell=True)
+    p = subprocess.Popen('MP4Box -add ' + h264 + ' ' + mp4, stdout=subprocess.PIPE, shell=True)
     for line in p.communicate():
          print line
     p.wait()
     print p.returncode
     
-    f = open('video.mp4', 'rb')
+    f = open(mp4, 'rb')
     response = self.sendVideo(self.user, f)
-    os.remove('video.mp4')
-    os.remove('video.h264')
+    os.remove(mp4)
+    os.remove(h264)
 
     return ''

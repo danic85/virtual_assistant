@@ -17,7 +17,7 @@ from lib import *
 
 import ConfigParser
 
-logging.basicConfig(filename='mojo_debug.log',level=logging.DEBUG)
+logging.basicConfig(filename= os.path.dirname(os.path.realpath(__file__))+'/mojo_debug.log',level=logging.DEBUG)
 # logging.debug('This message should go to the log file')
 # logging.info('So should this')
 # logging.warning('And this, too')
@@ -27,19 +27,20 @@ class Mojo(telepot.Bot):
         self.logging = logging
         logging.info('Starting Mojo');
         self.config = ConfigParser.ConfigParser()
-        conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
+        self.dir = os.path.dirname(os.path.realpath(__file__))
+        self.files = self.dir + '/files'
+        conf =  self.dir + "/config.ini"
         print conf
         self.config.read(conf)
         
         # Parse commands
         p = ConfigParser.ConfigParser()
-        c = os.path.dirname(os.path.realpath(__file__)) + "/commands.ini"
+        c = self.dir + "/commands.ini"
         p.read(c)
         self.commandList = p.items('Commands');
         
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
         
-        self.dir = os.path.dirname(os.path.realpath(__file__))
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
@@ -48,11 +49,11 @@ class Mojo(telepot.Bot):
             print 'chatbot enabled'
             self.chat = aiml.Kernel()
 
-            if os.path.isfile("bot_brain.brn"):
-                self.chat.bootstrap(brainFile = "bot_brain.brn")
+            if os.path.isfile(self.files + "/bot_brain.brn"):
+                self.chat.bootstrap(brainFile = self.files + "/bot_brain.brn")
             else:
-                self.chat.bootstrap(learnFiles = "aiml/*", commands = "load aiml b")
-                self.chat.saveBrain("bot_brain.brn")
+                self.chat.bootstrap(learnFiles = self.files + "/aiml/*", commands = "load aiml b")
+                self.chat.saveBrain(self.files + "/bot_brain.brn")
         
         security.init(self)
         
@@ -162,7 +163,7 @@ class Mojo(telepot.Bot):
         return camera.take_video(self)
         
     def get_log(self):
-        f = open('mojo_debug.log', 'r')
+        f = open(self.dir + '/mojo_debug.log', 'r')
         self.sendDocument(self.user, f)
         return ''
         
@@ -177,16 +178,19 @@ def execute_bot_command(command):
     print 'jobbing ' + command
     msg = {"chat" : {"id" : bot.admin}, "text" : command}
     print bot.handle(msg)
+    
+def execute_bot_command_monthly(command):
+    now = datetime.datetime.now()
+    if (now.day == 1):
+        return execute_bot_command(command)
 
 # Load scheduled tasks
 schedule.clear()
-#schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 # schedule.every().minute.do(execute_bot_command, 'is house empty')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
 schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
-# schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
-#schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
+schedule.every().day.at("8:00").do(execute_bot_command_monthly, '700 budget') #reset budget at beginning of month
 
 # If method call defined on launch, call. Else listen for commands from telegram
 if len(sys.argv) == 2:
