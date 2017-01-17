@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
+import random
 from bs4 import BeautifulSoup
 
 def check(tel):
@@ -25,7 +26,7 @@ def check(tel):
         		match = True
                 
     print ('executed')    
-    return 'No change to fibre broadband availability.'
+    return 'No change to fibre broadband availability.' if random.randint(0,3) > 2 else ''
 
 def is_number(s):
     try:
