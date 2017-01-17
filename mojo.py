@@ -178,16 +178,19 @@ def execute_bot_command(command):
     print 'jobbing ' + command
     msg = {"chat" : {"id" : bot.admin}, "text" : command}
     print bot.handle(msg)
+    
+def execute_bot_command_monthly(command):
+    now = datetime.datetime.now()
+    if (now.day == 1):
+        return execute_bot_command(command)
 
 # Load scheduled tasks
 schedule.clear()
-#schedule.every().day.at("2:00").do(execute_bot_command, 'update')
 # schedule.every().minute.do(execute_bot_command, 'is house empty')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
 schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
 schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
-# schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
-#schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
+schedule.every().day.at("8:00").do(execute_bot_command_monthly, '700 budget') #reset budget at beginning of month
 
 # If method call defined on launch, call. Else listen for commands from telegram
 if len(sys.argv) == 2:
