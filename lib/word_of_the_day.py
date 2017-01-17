@@ -3,7 +3,7 @@
 
 import feedparser
 
-def word_of_the_day():
+def get(self):
 
     feed = 'http://www.dictionary.com/wordoftheday/wotd.rss'
 

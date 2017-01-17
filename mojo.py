@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import sys
+import logging
 
 import os
 import schedule
@@ -8,24 +9,23 @@ import time
 import re
 import telepot
 from pprint import pprint
-from chatterbot import ChatBot
+# from chatterbot import ChatBot
+import importlib
+import aiml
 
-import lib
-import lib.weather
-import lib.word_of_the_day
-import lib.fibre_checker
-import lib.news
-import lib.camera
-import lib.expenses
-import lib.general
-import lib.currency
+from lib import *
 
 import ConfigParser
 
-
+logging.basicConfig(filename='mojo_debug.log',level=logging.DEBUG)
+# logging.debug('This message should go to the log file')
+# logging.info('So should this')
+# logging.warning('And this, too')
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
+        self.logging = logging
+        logging.info('Starting Mojo');
         self.config = ConfigParser.ConfigParser()
         conf = os.path.dirname(os.path.realpath(__file__)) + "/config.ini"
         print conf
@@ -43,15 +43,25 @@ class Mojo(telepot.Bot):
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
-        if (self.config.get('Config', 'EnableChat') == 1):
-            self.chatbot = ChatBot(self.config.get('Config', 'Name'))
-            self.chatbot.train("chatterbot.corpus.english")
+
+        if (self.config.get('Config', 'EnableChat') == '1'):
+            print 'chatbot enabled'
+            self.chat = aiml.Kernel()
+
+            if os.path.isfile("bot_brain.brn"):
+                self.chat.bootstrap(brainFile = "bot_brain.brn")
+            else:
+                self.chat.bootstrap(learnFiles = "aiml/*", commands = "load aiml b")
+                self.chat.saveBrain("bot_brain.brn")
+        
+        security.init(self)
         
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
 
     # Handle messages from users
     def handle(self, msg):
+        logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -70,8 +80,10 @@ class Mojo(telepot.Bot):
         # get a response from chat
         if (not response and response != ''):
             try:
-                if(self.config.get('Config','EnableChat') == 1):
-                    response = self.chatbot.get_response(command)
+                if(self.config.get('Config','EnableChat') == '1'):
+                    print('chatbot response:')
+                    response = str(self.chat.respond(command, self.admin))
+                    print(response)
                 else:
                     response = "I'm sorry, I don't understand"
             except Exception as e:
@@ -86,13 +98,13 @@ class Mojo(telepot.Bot):
 
         print 'Listening ...'
         
-        self.adminMessage("Hello, I'm here.")
+        self.adminMessage(self.chat.respond('hello', self.admin))
 
         # Keep the program running.
         while 1:
             schedule.run_pending()
+            security.sweep(self)
             time.sleep(1)
-            
             
     def message(self, msg):
         if (self.user):
@@ -117,58 +129,47 @@ class Mojo(telepot.Bot):
         try:
             self.command = command
             for theRegex,theMethod in self.commandList:
-                #print theRegex,"=",theMethod
                 if (re.search(theRegex, command, flags=0)):
-                    print 'Match on ' + theRegex
-                    return getattr(self, theMethod)()
+                    logging.info('Match on ' + theRegex)
+                    
+                    if "." in theMethod: 
+                        mod_name, func_name = theMethod.rsplit('.',1)
+                        mod = importlib.import_module('lib.'+ mod_name)
+                        func = getattr(mod, func_name)
+                        return func(self)
+                    else:
+                        func = getattr(self, theMethod)
+                        return func()
+                    
         except Exception as e:
             print e
+            logging.info(e)
             return str(e) 
-        print 'No match' 
+        print 'No match'
+        logging.info('No match')
         return False
 
-    def morning(self):
-        return lib.general.morning(self)
-
-    def time(self):
-        return lib.general.time(self)
-
-    def command_list(self):
-        return lib.general.command_list(self)
-
-    def weather(self):
-        return lib.weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
-        
-    def word_of_the_day(self):
-        return lib.word_of_the_day.word_of_the_day()
-        
+    # @todo Refactor to remove these methods
+    def get_weather(self):
+        return weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
     def check_fibre_status(self):
-        return lib.fibre_checker.check(self.config.get('Config', 'FibreTel'))
-    
+        return fibre_checker.check(self.config.get('Config', 'FibreTel'))
     def news(self):
-        return lib.news.top_stories(5)
-       
+        return news.top_stories(5)
     def take_photo(self):
-        return lib.camera.take_photo(self, bot)
-
+        return camera.take_photo(self)
     def take_video(self):
-        return lib.camera.take_video(self, bot)
-
+        return camera.take_video(self)
+        
+    def get_log(self):
+        f = open('mojo_debug.log', 'r')
+        self.sendDocument(self.user, f)
+        return ''
+        
     def update_self(self):
-        return lib.general.update_self(self, __file__)
-        
-    def expenses_remaining(self):
-        return lib.expenses.expenses_remaining(self)
-
-    def expenses_add(self):
-        return lib.expenses.expenses_add(self)
-        
-    def broadcast(self):
-        return lib.general.broadcast(self)
-        
+        return general.update_self(self, __file__)
     def currency_convert(self):
-        return lib.currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
-        
+        return currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
 bot = Mojo()
 
 def execute_bot_command(command):
@@ -180,9 +181,11 @@ def execute_bot_command(command):
 # Load scheduled tasks
 schedule.clear()
 #schedule.every().day.at("2:00").do(execute_bot_command, 'update')
+# schedule.every().minute.do(execute_bot_command, 'is house empty')
 schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
-schedule.every().day.at("8:00").do(execute_bot_command, 'check fibre')
-schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
+schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
+schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
+# schedule.every().day.at("16:30").do(execute_bot_command, 'check fibre')
 #schedule.every().day.at("17:15").do(execute_bot_command, 'weather')
 
 # If method call defined on launch, call. Else listen for commands from telegram

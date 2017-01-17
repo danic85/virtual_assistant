@@ -2,10 +2,14 @@
 Name=Mojo
 Admin= 1111111
 AdminName=Someone
-Users=[1234,1235]
+Users=1234,1235
 FibreTel= 0800111111
 Telbot= 123456
 OpenWeatherMapKey= abcdefg
 EnableChat= 1
 ExpensesFile=expenses.csv
+RiddleFile=riddles.htm
+RiddleIndex=0
 OpenExchangeRatesKey=1234
+RouterIP=192.168.1.254
+MacAddresses=X,Y

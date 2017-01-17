@@ -9,11 +9,21 @@ import os
 from os.path import getmtime
 
 def morning(self):
-      response = 'Good morning ' + self.adminName + ' it is ' + self.time() + '\n\n'
-      response += self.weather() + '\n\n'
-      response += self.word_of_the_day() + '\n\n'
-      #response += self.expenses_remaining() + '\n\n'
-      response += self.news()
+      print 'entering morning'
+      response = self.chat.respond('good morning', self.admin) + '\n\n'
+      response += self.doCommand('weather') + '\n\n'
+      response += self.doCommand('budget') + '\n\n'
+      response += self.doCommand('shower thought') + '\n\n'
+      response += self.doCommand('riddle') + '\n\n'
+      return response
+
+def morning_others(self):
+      self.user = self.config.get('Config','Users').split(',')
+      self.user.pop(0)
+      response = self.chat.respond('good morning', self.admin) + '\n\n'
+      response += self.doCommand('budget') + '\n\n'
+      response += self.doCommand('weather') + '\n\n'
+      response += self.doCommand('shower thought') + '\n\n'
       return response
 
 # Send message to all users
@@ -23,6 +33,9 @@ def broadcast(self):
 
 def time(self):
     return datetime.datetime.now().strftime('%I:%M %p')
+
+def date_time(self):
+    return datetime.datetime.now().strftime('%d-%m-%y %I:%M %p')
 
 def command_list(self):
     response = "Available commands:\n"

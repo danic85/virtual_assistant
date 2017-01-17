@@ -11,7 +11,8 @@ def expenses_remaining(self):
         csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in csvreader:
             remaining += float(row[1].strip())
-    return 'There is £' + str(format(remaining, '.2f')) + ' left this month.';
+    response = 'There is £' + str(format(remaining, '.2f')) + ' left this month.'
+    return response.decode("utf8");
 
 def expenses_add(self):
     expense = self.command.split(' ', 1)
@@ -22,4 +23,9 @@ def expenses_add(self):
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
     self.user = self.config.get('Config','Users').split(',')
-    return 'Logged expense: ' + str(self.command) + "\n" + self.expenses_remaining()
+    return ('Logged expense: ' + str(self.command) + "\n").decode("utf8")  + self.doCommand('budget')
+    
+def expenses_get(self):
+    f = open(self.dir + '/' + self.config.get('Config','ExpensesFile'), 'r')
+    self.sendDocument(self.user, f)
+    return ''
