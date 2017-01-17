@@ -5,9 +5,9 @@ import requests
 import random
 from bs4 import BeautifulSoup
 
-def check(tel):
+def check(self):
     url = 'http://dslchecker.bt.com/adsl/adslchecker.TelephoneNumberOutput' # Set destination URL here
-    r = requests.post(url, data={'TelNo': tel})
+    r = requests.post(url, data={'TelNo': self.config.get('Config', 'FibreTel')})
     soup = BeautifulSoup(r.content, 'html.parser')
 
     trs = soup.findAll("tr")

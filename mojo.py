@@ -85,6 +85,8 @@ class Mojo(telepot.Bot):
                     print('chatbot response:')
                     response = str(self.chat.respond(command, self.admin))
                     print(response)
+                    if (response == ''):
+                        response = "I'm sorry, I don't understand"
                 else:
                     response = "I'm sorry, I don't understand"
             except Exception as e:
@@ -151,26 +153,9 @@ class Mojo(telepot.Bot):
         return False
 
     # @todo Refactor to remove these methods
-    def get_weather(self):
-        return weather.weather_openweathermap(self, self.config.get('Config', 'OpenWeatherMapKey'))
-    def check_fibre_status(self):
-        return fibre_checker.check(self.config.get('Config', 'FibreTel'))
-    def news(self):
-        return news.top_stories(5)
-    def take_photo(self):
-        return camera.take_photo(self)
-    def take_video(self):
-        return camera.take_video(self)
-        
-    def get_log(self):
-        f = open(self.dir + '/mojo_debug.log', 'r')
-        self.sendDocument(self.user, f)
-        return ''
-        
     def update_self(self):
         return general.update_self(self, __file__)
-    def currency_convert(self):
-        return currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
+        
 bot = Mojo()
 
 def execute_bot_command(command):

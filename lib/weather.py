@@ -3,8 +3,8 @@
 
 import pyowm
 
-def weather_openweathermap(self, key):
-    owm = pyowm.OWM(key)
+def get(self):
+    owm = pyowm.OWM(self.config.get('Config', 'OpenWeatherMapKey'))
     
     try:
         observation = owm.weather_at_id(2642182)
