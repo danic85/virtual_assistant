@@ -1,0 +1,8 @@
+gitpython
+schedule
+telepot
+chatterbot
+bs4
+feedparser
+pyowm
+aiml

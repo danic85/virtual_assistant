@@ -67,3 +67,8 @@ def update_self(self, f):
         os.execv(f, sys.argv)
         
     return 'Updated to version: ' + str(self.last_mtime)
+    
+def get_log(self):
+    f = open(self.dir + '/mojo_debug.log', 'r')
+    self.sendDocument(self.user, f)
+    return ''

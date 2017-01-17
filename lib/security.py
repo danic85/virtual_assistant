@@ -63,13 +63,13 @@ def on(self):
     if (self.security != SECURITY_ON):
         self.security = SECURITY_START
         return 'Security Enabled'
-    return ''
+    return None # allow chatbot response
     
 def off(self):
     if (self.security != SECURITY_OFF):
         self.security = SECURITY_STOP
         return 'Security Disabled'
-    return ''
+    return None # allow chatbot response
     
 def sweep(self):
     # just exit if not running

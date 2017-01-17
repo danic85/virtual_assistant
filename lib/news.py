@@ -3,8 +3,8 @@
 
 import feedparser
 
-def top_stories(numItems):
-
+def top_stories(self):
+    numItems = 5
     feeds = ['http://feeds.bbci.co.uk/news/rss.xml?edition=uk', 'http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk']
 
     response = ''
