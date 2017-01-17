@@ -12,12 +12,15 @@ SECURITY_START = 1
 SECURITY_ON = 2
 SECURITY_STOP = 3
 
-def house_empty(self):
-    if (hasattr(self, 'security_override') == True and self.security_override == True):
-        return ''
-        
-    if (hasattr(self, 'security') == False):
+def init(self):
+    if (hasattr(self, 'security') == False or self.security is None):
         self.security = SECURITY_OFF
+    if (hasattr(self, 'security_override') == False or self.security_override is None):
+        self.security_override = False
+
+def house_empty(self):
+    if (self.security_override == True):
+        return ''
         
     if (self.security == SECURITY_ON or self.security == SECURITY_OFF):
         empty = True
@@ -49,7 +52,7 @@ def house_empty(self):
     return ''
     
 def override(self):
-    if (hasattr(self, 'security_override') == False or self.security_override == False):
+    if (self.security_override == False):
         self.security_override = True
         return 'Security overridden'
     else:
@@ -71,7 +74,7 @@ def off(self):
 def sweep(self):
     # just exit if not running
     try:
-        if (hasattr(self, 'security') == False or self.security == SECURITY_OFF or self.security is None):
+        if (self.security == SECURITY_OFF):
             return str(SECURITY_OFF)
             
         # if security enabled

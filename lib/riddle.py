@@ -33,19 +33,16 @@ class MyHTMLParser(HTMLParser):
 def get_riddles(self):
     parser = MyHTMLParser()
     f = open(self.dir + '/' + self.config.get('Config','RiddleFile'), 'r')
-    parser.feed(f.read())
+    parser.feed(f.read().replace('\n',' '))
     return riddles
     
-# def get_question(self):
-#     if (len(riddles) == 0):
-#         riddleIndex = 0
-#         parser = MyHTMLParser()
-#         f = open(self.dir + '/' + self.config.get('Config','RiddleFile'), 'r')
-#         parser.feed(f.read())
-#         
-#     if (riddleIndex >= len(riddles)):
-#         riddleIndex = 0
-#     riddle = riddles[riddleIndex]
-#     print riddle
-#     riddleIndex += 1
-#     return riddle
+def next(self):
+    if (hasattr(self, 'riddles') == False):
+        self.riddles = get_riddles(self)
+    self.riddleIndex = randint(0, len(self.riddles))            
+    return self.riddles[self.riddleIndex]['question']
+    
+def answer(self):
+    if (hasattr(self, 'riddles') == False):
+        return
+    return self.riddles[self.riddleIndex]['answer']
