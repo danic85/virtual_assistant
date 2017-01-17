@@ -1,7 +1,7 @@
 config.ini
 *.pyc
 *.db
-expenses.csv
+files/expenses/*
 log.txt
 .DS_Store
 .idea
