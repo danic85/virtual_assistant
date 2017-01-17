@@ -11,6 +11,7 @@ import telepot
 from pprint import pprint
 # from chatterbot import ChatBot
 import importlib
+import aiml
 
 from lib import *
 
@@ -45,9 +46,15 @@ class Mojo(telepot.Bot):
 
         if (self.config.get('Config', 'EnableChat') == '1'):
             print 'chatbot enabled'
-            # self.chatbot = ChatBot(self.config.get('Config', 'Name'), trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
-            # self.chatbot.train("chatterbot.corpus.english")
-        self.riddleIndex = 0
+            self.chat = aiml.Kernel()
+
+            if os.path.isfile("bot_brain.brn"):
+                self.chat.bootstrap(brainFile = "bot_brain.brn")
+            else:
+                self.chat.bootstrap(learnFiles = "aiml/*", commands = "load aiml b")
+                self.chat.saveBrain("bot_brain.brn")
+        
+        security.init(self)
         
         self.last_mtime = os.path.getmtime(__file__)
         print("Version: " + str(self.last_mtime))
@@ -75,8 +82,8 @@ class Mojo(telepot.Bot):
             try:
                 if(self.config.get('Config','EnableChat') == '1'):
                     print('chatbot response:')
-                    # print(self.chatbot.get_response(command))
-                    # response = str(self.chatbot.get_response(command))
+                    response = str(self.chat.respond(command, self.admin))
+                    print(response)
                 else:
                     response = "I'm sorry, I don't understand"
             except Exception as e:
@@ -91,7 +98,7 @@ class Mojo(telepot.Bot):
 
         print 'Listening ...'
         
-        self.adminMessage("Hello, I'm here.")
+        self.adminMessage(self.chat.respond('hello', self.admin))
 
         # Keep the program running.
         while 1:
@@ -163,13 +170,6 @@ class Mojo(telepot.Bot):
         return general.update_self(self, __file__)
     def currency_convert(self):
         return currency.convert(self, 'USD', self.command.replace('convert ',''), self.config.get('Config', 'OpenExchangeRatesKey'))
-    def riddle(self):
-        self.riddles = riddle.get_riddles(self)            
-        return self.riddles[self.riddleIndex]['question']
-    def riddle_answer(self):
-        answer = self.riddles[self.riddleIndex]['answer']
-        self.riddleIndex += 1
-        return answer
 bot = Mojo()
 
 def execute_bot_command(command):

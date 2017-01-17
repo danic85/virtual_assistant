@@ -10,18 +10,20 @@ from os.path import getmtime
 
 def morning(self):
       print 'entering morning'
-      response = 'Good morning ' + self.adminName + ' it is ' + self.doCommand('time') + '\n\n'
+      response = self.chat.respond('good morning', self.admin) + '\n\n'
       response += self.doCommand('weather') + '\n\n'
-      response += self.doCommand('riddle') + '\n\n'
       response += self.doCommand('budget') + '\n\n'
+      response += self.doCommand('shower thought') + '\n\n'
+      response += self.doCommand('riddle') + '\n\n'
       return response
 
 def morning_others(self):
       self.user = self.config.get('Config','Users').split(',')
       self.user.pop(0)
-      response = 'Good morning! it is ' + self.doCommand('time') + '\n\n'
-      response += self.doCommand('weather') + '\n\n'
+      response = self.chat.respond('good morning', self.admin) + '\n\n'
       response += self.doCommand('budget') + '\n\n'
+      response += self.doCommand('weather') + '\n\n'
+      response += self.doCommand('shower thought') + '\n\n'
       return response
 
 # Send message to all users
