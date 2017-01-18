@@ -34,3 +34,6 @@ A home automation bot via telegram
 - "Sweep": Check PIR sensor for movement.
 - "Override Security": Disable automatic security
 - "Shower thought": Return random thought of the day from Reddit
+
+## Unit testing
+Execute `python -m unittest discover` in the project directory to run all unit tests
