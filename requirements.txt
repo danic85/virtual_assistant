@@ -6,3 +6,5 @@ bs4
 feedparser
 pyowm
 aiml
+coverage
+mock

@@ -32,7 +32,7 @@ class MyHTMLParser(HTMLParser):
 
 def get_riddles(self):
     parser = MyHTMLParser()
-    f = open(self.files + '/' + self.config.get('Config','RiddleFile'), 'r')
+    f = open(self.files + '/riddles.htm', 'r')
     parser.feed(f.read().replace('\n',' '))
     return riddles
     

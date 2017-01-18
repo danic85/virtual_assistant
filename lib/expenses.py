@@ -12,11 +12,11 @@ def last_file(self):
     if (month < 1):
         month = 12
         year = year-1 
-    return self.files + '/expenses/' + self.config.get('Config','ExpensesFile') + '-' + str(year) + '-' + str(month) + '.csv'
+    return self.files + '/expenses/expenses-' + str(year) + '-' + str(month) + '.csv'
     
 def current_file(self):
     now = datetime.datetime.now()
-    return self.files + '/expenses/' + self.config.get('Config','ExpensesFile') + '-' + str(now.year) + '-' + str(now.month) + '.csv'
+    return self.files + '/expenses/expenses-' + str(now.year) + '-' + str(now.month) + '.csv'
 
 def expenses_remaining(self):
     remaining = 0.0;
