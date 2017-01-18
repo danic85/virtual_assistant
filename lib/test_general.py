@@ -1,4 +1,4 @@
-from general import time, morning, morning_others, broadcast, date_time, set_countdown, countdown, command_list, update_self, get_log
+from general import time, morning, morning_others, broadcast, date_time, command_list, update_self, get_log
 import datetime, unittest
 from mock import Mock, call, patch
 
