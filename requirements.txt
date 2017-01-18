@@ -7,5 +7,4 @@ feedparser
 pyowm
 aiml
 coverage
-unittest
 mock
