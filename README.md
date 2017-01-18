@@ -47,7 +47,7 @@ To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py '
 1. Rename the config file: `mv config.ini.example config.ini`
 2. Complete the config.ini file: 
   * Name: The Bot's Name
-  * Telbot: Telegram Bot Key https://core.telegram.org/bots (REQUIRED for telgram integration)
+  * Telbot: Telegram Bot Key https://core.telegram.org/bots (REQUIRED for telegram integration)
   * Admin: Telegram User ID (REQUIRED for telegram integration)
   * AdminName: Your name
   * FibreTel: Telephone number for fibre broadband availability checker
