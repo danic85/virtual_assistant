@@ -9,21 +9,22 @@ import os
 from os.path import getmtime
 
 def morning(self):
-      print 'entering morning'
       response = self.chat.respond('good morning', self.admin) + '\n\n'
+      response += self.doCommand('get countdowns') + '\n\n'
       response += self.doCommand('weather') + '\n\n'
       response += self.doCommand('budget') + '\n\n'
       response += self.doCommand('shower thought') + '\n\n'
-      response += self.doCommand('riddle') + '\n\n'
+      response += self.doCommand('riddle')
       return response
 
 def morning_others(self):
       self.user = self.config.get('Config','Users').split(',')
       self.user.pop(0)
       response = self.chat.respond('good morning', self.admin) + '\n\n'
+      response += self.doCommand('get countdowns') + '\n\n'
       response += self.doCommand('budget') + '\n\n'
       response += self.doCommand('weather') + '\n\n'
-      response += self.doCommand('shower thought') + '\n\n'
+      response += self.doCommand('shower thought')
       return response
 
 # Send message to all users
@@ -36,16 +37,40 @@ def time(self):
 
 def date_time(self):
     return datetime.datetime.now().strftime('%d-%m-%y %I:%M %p')
+    
+def set_countdown(self):
+    cmd = self.command.replace('countdown ', '')
+    with open(self.files + '/countdowns.txt', 'a') as f:
+        f.write(cmd+'\n')
+    return get_countdowns(self)
+
+def get_countdowns(self):
+    countdowns = ''
+    with open(self.files + '/countdowns.txt', 'r') as f:
+        for line in f:
+            cmd = line.strip().split(' ', 1)
+            date = cmd[0].split('-')
+            event = cmd[1]
+            countdowns += countdown(self, int(date[2]), int(date[1]), int(date[0]), event) + '\n'
+    return countdowns.strip()
+
+def countdown(self, year, month, day, event):
+    delta = datetime.datetime(year, month, day) - datetime.datetime.now()
+    days = delta.days+1
+    if (days < 0):
+        return ''
+    if (days == 0):
+        return 'Today is ' + event + '!'
+    return str(days) + ' days until ' + event
 
 def command_list(self):
     response = "Available commands:\n"
-
     for key, val in self.commandList:
         response += key + "\n"
-    print response
     return response
     
 def update_self(self, f):
+    return 'Feature disabled' # Feature is temperamental, awaiting refactor
     # pull from git
     directory = self.dir
     g = git.cmd.Git(directory)

@@ -45,15 +45,13 @@ class Mojo(telepot.Bot):
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
 
-        if (self.config.get('Config', 'EnableChat') == '1'):
-            print 'chatbot enabled'
-            self.chat = aiml.Kernel()
+        self.chat = aiml.Kernel()
 
-            if os.path.isfile(self.files + "/bot_brain.brn"):
-                self.chat.bootstrap(brainFile = self.files + "/bot_brain.brn")
-            else:
-                self.chat.bootstrap(learnFiles = self.files + "/aiml/*", commands = "load aiml b")
-                self.chat.saveBrain(self.files + "/bot_brain.brn")
+        if os.path.isfile(self.files + "/bot_brain.brn"):
+            self.chat.bootstrap(brainFile = self.files + "/bot_brain.brn")
+        else:
+            self.chat.bootstrap(learnFiles = self.files + "/aiml/*", commands = "load aiml b")
+            self.chat.saveBrain(self.files + "/bot_brain.brn")
         
         security.init(self)
         
@@ -81,13 +79,10 @@ class Mojo(telepot.Bot):
         # get a response from chat
         if (not response and response != ''):
             try:
-                if(self.config.get('Config','EnableChat') == '1'):
-                    print('chatbot response:')
-                    response = str(self.chat.respond(command, self.admin))
-                    print(response)
-                    if (response == ''):
-                        response = "I'm sorry, I don't understand"
-                else:
+                print('chatbot response:')
+                response = str(self.chat.respond(command, self.admin))
+                print(response)
+                if (response == ''):
                     response = "I'm sorry, I don't understand"
             except Exception as e:
                 self.adminMessage(str(e))
