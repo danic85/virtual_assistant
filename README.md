@@ -35,5 +35,37 @@ A home automation bot via telegram
 - "Override Security": Disable automatic security
 - "Shower thought": Return random thought of the day from Reddit
 
+## Getting Started
+1. `git clone https://github.com/danic85/mojo_home_bot.git`
+2. Navigate to directory `mojo_home_bot`
+3. `pip install -r requirements.txt`
+
+### Execute command from the terminal
+To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py 'time'`)
+
+### Initialize with Telegram
+1. Rename the config file: `mv config.ini.example config.ini`
+2. Complete the config.ini file: 
+  * Name: The Bot's Name
+  * Telbot: Telegram Bot Key https://core.telegram.org/bots (REQUIRED for telgram integration)
+  * Admin: Telegram User ID (REQUIRED for telegram integration)
+  * AdminName: Your name
+  * FibreTel: Telephone number for fibre broadband availability checker
+  * OpenWeatherMapKey: Location key from Open Weather Map
+  * Users: Telegram User IDs, comma separated
+  * OpenExchangeRatesKey: Key for Open Exchange Rates
+  * RouterIP: Your router's IP (for automatic security check)
+  * MacAddresses: List of MAC addresses to detect on network (for automatic security check)
+3. `python mojo.py`
+
+### Start on Boot
+1. Add execute permission to mojo.py `chmod +x mojo.py`
+2. Add `(sleep 10; python /home/pi/mojo_home_bot/mojo.py) &` to `/etc/rc.local` replacing path if appropriate.
+
 ## Unit testing
 Execute `python -m unittest discover` in the project directory to run all unit tests
+
+### Code Coverage
+* Execute `coverage run -m unittest discover` to run all tests with coverage
+* To display coverage report execute `coverage report`
+* Omit directories from the report with the `--omit` flag. E.g. `coverage report  --omit=/home/rof/.virtualenv/lib/python2.7/site-packages/*`
