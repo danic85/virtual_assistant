@@ -7,7 +7,7 @@ A home automation bot via telegram
 - Natural language commands
 - Telegram integration
 - Feed parsing
-- Raspberry Pi compatibile
+- Raspberry Pi compatible
 - Camera and PIR sensor integration
 - Chat bot
 
@@ -16,7 +16,7 @@ A home automation bot via telegram
 - "Help / List commands / command list": Show all commands with regex
 - "Weather": Get current weather for preconfigured location
 - "Word of the day": Return a word of the day with definition
-- "Check fibre": Parse html site and notify if fibre broadband availabilty changes
+- "Check fibre": Parse html site and notify if fibre broadband availability changes
 - "Update": Automatic self-update from git
 - "News": Top 5 BBC News stories
 - "Morning / Morning Others": Configurable wake-up message at predefined time, daily.
