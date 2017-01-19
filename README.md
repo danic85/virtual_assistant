@@ -34,6 +34,8 @@ A home automation bot via telegram
 - "Sweep": Check PIR sensor for movement.
 - "Override Security": Disable automatic security
 - "Shower thought": Return random thought of the day from Reddit
+- "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
+- "Get countdowns": List all active countdowns
 
 ## Getting Started
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
@@ -62,6 +64,12 @@ To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py '
 1. Add execute permission to mojo.py `chmod +x mojo.py`
 2. Add `(sleep 10; python /home/pi/mojo_home_bot/mojo.py) &` to `/etc/rc.local` replacing path if appropriate.
 
+### Restart script
+This project is a WIP. Occasionally the script may exit due to an unhandled exception. Enable `restart_script.sh` to check for the process and restart if necessary: (Optional)
+1. `chmod +x restart_script.sh`
+2. `sudo crontab -e` 
+3. Add `30 * * * * sudo python /home/pi/mojo_home_bot/restart_script.sh` 
+
 ## Unit testing
 Execute `python -m unittest discover` in the project directory to run all unit tests
 
@@ -69,3 +77,4 @@ Execute `python -m unittest discover` in the project directory to run all unit t
 * Execute `coverage run -m unittest discover` to run all tests with coverage
 * To display coverage report execute `coverage report`
 * Omit directories from the report with the `--omit` flag. E.g. `coverage report  --omit=/home/rof/.virtualenv/lib/python2.7/site-packages/*`
+
