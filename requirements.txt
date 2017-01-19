@@ -9,3 +9,4 @@ aiml
 coverage
 mock
 freezegun
+nmap
