@@ -30,7 +30,6 @@ class Mojo(telepot.Bot):
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
         conf =  self.dir + "/config.ini"
-        print conf
         self.config.read(conf)
         
         # Parse commands
@@ -56,7 +55,7 @@ class Mojo(telepot.Bot):
         security.init(self)
         
         self.last_mtime = os.path.getmtime(__file__)
-        print("Version: " + str(self.last_mtime))
+        logging.info("Version: " + str(self.last_mtime))
 
     # Handle messages from users
     def handle(self, msg):
@@ -79,9 +78,9 @@ class Mojo(telepot.Bot):
         # get a response from chat
         if (not response and response != ''):
             try:
-                print('chatbot response:')
+                logging.info('chatbot response:')
                 response = str(self.chat.respond(command, self.admin))
-                print(response)
+                logging.info(response)
                 if (response == ''):
                     response = "I'm sorry, I don't understand"
             except Exception as e:
@@ -153,30 +152,29 @@ class Mojo(telepot.Bot):
     # @todo Refactor to remove these methods
     def update_self(self):
         return general.update_self(self, __file__)
-        
-bot = Mojo()
 
-def execute_bot_command(command):
-    global bot
-    print 'jobbing ' + command
+def execute_bot_command(bot, command):
     msg = {"chat" : {"id" : bot.admin}, "text" : command}
-    print bot.handle(msg)
+    bot.handle(msg)
     
-def execute_bot_command_monthly(command):
+def execute_bot_command_monthly(bot, command):
     now = datetime.datetime.now()
     if (now.day == 1):
-        return execute_bot_command(command)
+        execute_bot_command(bot, command)
 
-# Load scheduled tasks
-schedule.clear()
-# schedule.every().minute.do(execute_bot_command, 'is house empty')
-schedule.every().day.at("6:30").do(execute_bot_command, 'morning')
-schedule.every().day.at("8:30").do(execute_bot_command, 'morning others')
-schedule.every().monday.at("8:00").do(execute_bot_command, 'check fibre')
-schedule.every().day.at("8:00").do(execute_bot_command_monthly, '700 budget') #reset budget at beginning of month
-
-# If method call defined on launch, call. Else listen for commands from telegram
-if len(sys.argv) == 2:
-    execute_bot_command(sys.argv[1])
-else:
-    bot.listen()
+# Needed to ignore unittest calls
+if sys.argv[1] != 'discover':
+    # If method call defined on launch, call. Else listen for commands from telegram
+    if len(sys.argv) == 2:
+        bot = Mojo()
+        execute_bot_command(bot, sys.argv[1])
+    else:
+        bot = Mojo()
+        # Load scheduled tasks
+        schedule.clear()
+        # schedule.every().minute.do(execute_bot_command, 'is house empty')
+        schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
+        schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
+        schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
+        schedule.every().day.at("8:00").do(execute_bot_command_monthly, bot, '700 budget') #reset budget at beginning of month
+        bot.listen()

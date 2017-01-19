@@ -8,3 +8,4 @@ pyowm
 aiml
 coverage
 mock
+freezegun
