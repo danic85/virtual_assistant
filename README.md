@@ -41,6 +41,7 @@ A home automation bot via telegram
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
 2. Navigate to directory `mojo_home_bot`
 3. `pip install -r requirements.txt`
+4. `sudo apt-get install libav-tools` and `sudo apt-get install flac` (Required for pydub as part of speech recognition)
 
 ### Execute command from the terminal
 To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py 'time'`)
