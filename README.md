@@ -5,7 +5,7 @@ A home automation bot via telegram
 
 ## Features
 - Natural language commands
-- Telegram integration
+- Telegram integration including optional voice recognition and text-to-speech response
 - Feed parsing
 - Raspberry Pi compatible
 - Camera and PIR sensor integration
