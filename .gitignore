@@ -2,6 +2,7 @@ config.ini
 *.pyc
 *.db
 files/expenses/*
+files/speech/*
 log.txt
 .DS_Store
 .idea

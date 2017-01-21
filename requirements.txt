@@ -8,3 +8,6 @@ pyowm
 aiml
 coverage
 mock
+gTTS
+SpeechRecognition
+pydub
