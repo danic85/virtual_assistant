@@ -11,3 +11,4 @@ mock
 gTTS
 SpeechRecognition
 pydub
+urllib

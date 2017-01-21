@@ -11,23 +11,26 @@ def speak(self, response):
   tts.save(self.files + '/speech/output.mp3')
   
 def getMessage(self, msg):
-  command = 'voice received'
-  fpath = self.files + '/speech/input' #includes filename without extension
-  f = self.getFile(msg['voice']['file_id'])
-  filepath = 'https://api.telegram.org/file/bot'+ self.config.get('Config', 'Telbot') +'/' + str(f['file_path'])
-  self.logging.info(filepath)
-  
-  # Retrieve from URL and save to files
-  urllib.urlretrieve(filepath, fpath +'.oga')
-  
-  # convert form OGG to WAV
-  ogg_version = AudioSegment.from_ogg(fpath +'.oga')
-  ogg_version.export(fpath +'.wav', format="wav")
-  
-  # Recognize audio
-  r = sr.Recognizer()
-  with sr.AudioFile(fpath +'.wav') as source:
-    audio = r.record(source) # read the entire audio file
+  try:
+    command = 'voice received'
+    fpath = self.files + '/speech/input' #includes filename without extension
+    f = self.getFile(msg['voice']['file_id'])
+    filepath = 'https://api.telegram.org/file/bot'+ self.config.get('Config', 'Telbot') +'/' + str(f['file_path'])
+    self.logging.info(filepath)
+    
+    # Retrieve from URL and save to files
+    urllib.urlretrieve(filepath, fpath +'.oga')
+    
+    # convert form OGG to WAV
+    ogg_version = AudioSegment.from_ogg(fpath +'.oga')
+    ogg_version.export(fpath +'.wav', format="wav")
+    
+    # Recognize audio
+    r = sr.Recognizer()
+    with sr.AudioFile(fpath +'.wav') as source:
+      audio = r.record(source) # read the entire audio file
+  except Exception as e:
+    return e.getMessage();
   
   # @todo configure Sphinx with https://pypi.python.org/pypi/SpeechRecognition/
   # recognize speech using Sphinx
