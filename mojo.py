@@ -59,7 +59,8 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
-        logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
+        if (msg.has_key('text')):
+            logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
                 self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -69,8 +70,13 @@ class Mojo(telepot.Bot):
             msg['chat']['id'] = self.admin
         
         self.user = msg['chat']['id']
-        command = msg['text'].lower().strip()
-        
+        logging.info(msg)
+        if (msg.has_key('text')):
+            command = msg['text'].lower().strip()
+        elif (msg.has_key('voice')):
+            command = speech.getMessage(self, msg)
+        else:
+            return
         response = False
         
         # check command list
@@ -86,6 +92,9 @@ class Mojo(telepot.Bot):
             except Exception as e:
                 self.adminMessage(str(e))
         if response != '':
+            if (msg.has_key('voice')):
+                speech.speak(self, response)
+                self.sendAudio(self.admin, open(self.files + '/speech/output.mp3'))
             self.message(response)
         self.command = self.user = False
         

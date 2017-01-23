@@ -1,11 +1,6 @@
 config.ini
 *.pyc
 *.db
-files/expenses/*
-log.txt
+files/*
 .DS_Store
 .idea
-mojo_home_bot.iml
-mojo_debug.log
-bot_brain.brn
-.coverage

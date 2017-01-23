@@ -10,3 +10,6 @@ coverage
 mock
 freezegun
 nmap
+gTTS
+SpeechRecognition
+pydub
