@@ -4,7 +4,7 @@ import serial
 
 try:
   ser = serial.Serial('/dev/ttyUSB0', 9600)
-except Exception e:
+except Exception as e:
   print e.getMessage()
 
 def speak(self):  
