@@ -10,6 +10,7 @@ A home automation bot via telegram
 - Raspberry Pi compatible
 - Camera and PIR sensor integration
 - Chat bot
+- Integrated [Braillespeak](https://github.com/danic85/braillespeak) on responses 
 
 ## Commands
 - "What time is it / what is the time / time": Current time 
