@@ -7,6 +7,6 @@ try:
 except Exception as e:
   print e.getMessage()
 
-def speak(self):  
+def speak(var):  
   ser.write(var)
 #  ser.close()
