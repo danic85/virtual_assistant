@@ -1,10 +1,16 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 
-from gtts import gTTS
-import urllib
-import speech_recognition as sr
-from pydub import AudioSegment
+
+try:
+  from gtts import gTTS
+  import urllib
+  import speech_recognition as sr
+  from pydub import AudioSegment
+except ImportError as e:
+    print str(e)
+
+
 
 def speak(self, response):
   tts = gTTS(text=response, lang='en')
