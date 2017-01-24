@@ -13,3 +13,4 @@ nmap
 gTTS
 SpeechRecognition
 pydub
+pyserial
