@@ -25,13 +25,13 @@ class TestMojoMethods(unittest.TestCase):
   def test_handle_no_access(self):
     bot = self.build_mojo()
     bot.handle({'text': 'test', 'chat': {'id': 3}})
-    bot.adminMessage.assert_called_with('Unauthorized access attempt by: 3')
+    bot.admin_message.assert_called_with('Unauthorized access attempt by: 3')
       
   def test_handle(self):
     bot = self.build_mojo()
     bot.handle({'text': 'time', 'chat': {'id': 1}})
-    bot.adminMessage.assert_not_called()
-    bot.doCommand.assert_called_with('time')
+    bot.admin_message.assert_not_called()
+    bot.do_command.assert_called_with('time')
     bot.chat.respond.assert_not_called()
     self.assertNotEqual(bot.message, None)
     self.assertEqual(bot.user, False)
@@ -39,10 +39,10 @@ class TestMojoMethods(unittest.TestCase):
     
   def test_handle_no_command(self):
     bot = self.build_mojo()
-    bot.doCommand = Mock(return_value=False)
+    bot.do_command = Mock(return_value=False)
     bot.handle({'text': 'bob', 'chat': {'id': 1}})
-    bot.adminMessage.assert_not_called()
-    bot.doCommand.assert_called_with('bob')
+    bot.admin_message.assert_not_called()
+    bot.do_command.assert_called_with('bob')
     bot.chat.respond.assert_called_with('bob', bot.admin)
     self.assertNotEqual(bot.message, None)
     self.assertEqual(bot.user, False)
@@ -73,7 +73,7 @@ class TestMojoMethods(unittest.TestCase):
     bot.chat = Mock()
     bot.admin = 1
     bot.chat.respond = Mock(return_value = 'chat response')
-    bot.doCommand = Mock(return_value = 'command response')
+    bot.do_command = Mock(return_value = 'command response')
     bot.config = Mock()
     bot.config.get = Mock(return_value = '1,2')
     return bot
@@ -82,8 +82,8 @@ class TestMojoMethods(unittest.TestCase):
     aiml.Kernel = Mock()
     ConfigParser.ConfigParser = Mock()
     bot = mojo.Mojo()
-    bot.doCommand = Mock(return_value='Test')
-    bot.adminMessage = Mock()
+    bot.do_command = Mock(return_value='Test')
+    bot.admin_message = Mock()
     bot.chat = Mock()
     bot.chat.respond = Mock(return_value = 'chat response')
     bot.message = Mock()

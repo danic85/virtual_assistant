@@ -4,7 +4,8 @@ import os
 try:
     import picamera
 except ImportError as e:
-    print str(e)
+    pass
+    # print str(e)
 
 def take_photo(self):
     self.logging.info('Entering take_photo')

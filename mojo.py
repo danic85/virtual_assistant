@@ -2,14 +2,13 @@
 # -*- coding: latin-1 -*-
 import sys
 import logging
-
 import os
 import schedule
-import time, datetime
+import time
+import datetime
 import re
 import telepot
 from pprint import pprint
-# from chatterbot import ChatBot
 import importlib
 import aiml
 
@@ -21,6 +20,7 @@ logging.basicConfig(filename= os.path.dirname(os.path.realpath(__file__))+'/file
 # logging.debug('This message should go to the log file')
 # logging.info('So should this')
 # logging.warning('And this, too')
+
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
@@ -63,10 +63,10 @@ class Mojo(telepot.Bot):
             logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config','Users').split(','):
-                self.adminMessage('Unauthorized access attempt by: ' + str(msg['chat']['id']))
+                self.admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
                 return
         except Exception as e:
-            self.adminMessage(str(e))
+            self.admin_message(str(e))
             msg['chat']['id'] = self.admin
         
         self.user = msg['chat']['id']
@@ -80,7 +80,7 @@ class Mojo(telepot.Bot):
         response = False
         
         # check command list
-        response = self.doCommand(command)
+        response = self.do_command(command)
         # get a response from chat
         if (not response and response != ''):
             try:
@@ -90,7 +90,7 @@ class Mojo(telepot.Bot):
                 if (response == ''):
                     response = "I'm sorry, I don't understand"
             except Exception as e:
-                self.adminMessage(str(e))
+                self.admin_message(str(e))
         if response != '':
             if (msg.has_key('voice')):
                 speech.speak(self, response)
@@ -105,9 +105,9 @@ class Mojo(telepot.Bot):
         print 'Listening ...'
         
         try:
-            self.adminMessage(self.chat.respond('hello', self.admin))
+            self.admin_message(self.chat.respond('hello', self.admin))
         except Exception as e:
-            self.adminMessage('Hello!', self.admin)
+            self.admin_message('Hello!', self.admin)
 
         # Keep the program running.
         while 1:
@@ -124,22 +124,19 @@ class Mojo(telepot.Bot):
                         self.sendMessage(u, msg)
             else:
                 self.sendMessage(self.user, msg)
-                braillespeak.speak(self, msg)
+                # braillespeak.speak(self, msg)
         else:
-            self.adminMessage(msg)
+            self.admin_message(msg)
         
-    def adminMessage(self, msg):
+    def admin_message(self, msg):
         self.sendMessage(self.admin, msg)
-        
-    def setAdminId(self, admin):
-        self.admin = admin
 
-    def doCommand(self, command):
+    def do_command(self, command):
         print 'Received command: ' + command
         try:
             self.command = command
-            for theRegex,theMethod in self.commandList:
-                if (re.search(theRegex, command, flags=0)):
+            for theRegex, theMethod in self.commandList:
+                if re.search(theRegex, command, flags=0):
                     logging.info('Match on ' + theRegex)
                     
                     if "." in theMethod: 
@@ -163,17 +160,19 @@ class Mojo(telepot.Bot):
     def update_self(self):
         return general.update_self(self, __file__)
 
+
 def execute_bot_command(bot, command):
-    msg = {"chat" : {"id" : bot.admin}, "text" : command}
+    msg = {"chat": {"id": bot.admin}, "text": command}
     bot.handle(msg)
-    
+
+
 def execute_bot_command_monthly(bot, command):
     now = datetime.datetime.now()
-    if (now.day == 1):
+    if now.day == 1:
         execute_bot_command(bot, command)
 
 # Needed to ignore unittest calls
-if sys.argv[1] != 'discover':
+if len(sys.argv) != 2 or sys.argv[1] != 'discover':
     # If method call defined on launch, call. Else listen for commands from telegram
     if len(sys.argv) == 2:
         bot = Mojo()
