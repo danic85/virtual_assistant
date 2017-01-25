@@ -1,4 +1,5 @@
 import nmap
+
 try:
     import RPi.GPIO as GPIO
 except ImportError as e:
@@ -23,21 +24,21 @@ def init(self):
 def house_empty(self):
     if self.security_override:
         return ''
-        
+
     if self.security == SECURITY_ON or self.security == SECURITY_OFF:
         empty = True
         macs_found = False
-        
+
         # sudo nmap -sn 192.168.1.254/24 | egrep 'mac1|mac2'
         macs = self.config.get('Config', 'MacAddresses').split(',')
         nm = nmap.PortScanner()
-        nm.scan(hosts=str(self.config.get('Config', 'RouterIP'))+'/24', arguments='-sP')
+        nm.scan(hosts=str(self.config.get('Config', 'RouterIP')) + '/24', arguments='-sP')
         for h in nm.all_hosts():
             if 'mac' in nm[h]['addresses']:
                 macs_found = True
                 if nm[h]['addresses']['mac'].lower() in macs:
-                        empty = False
-        
+                    empty = False
+
         if not macs_found:
             print ('Incorrect permissions. Do not assume empty')
             empty = False
@@ -48,7 +49,7 @@ def house_empty(self):
         else:
             print 'House is not empty'
             return off(self)
-        
+
     return ''
 
 
@@ -80,20 +81,20 @@ def sweep(self):
     try:
         if self.security == SECURITY_OFF:
             return str(SECURITY_OFF)
-            
+
         # if security enabled
         if self.security == SECURITY_ON:
             if GPIO.input(PIR_PIN):
                 self.logging.info('Motion Detected!')
                 self.do_command('camera')
-                
+
         # if initializing
         if self.security == SECURITY_START:
             self.logging.info('Starting PIR')
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(PIR_PIN, GPIO.IN)
             self.security = SECURITY_ON;
-        
+
         # if shutting down
         if self.security == SECURITY_STOP:
             self.logging.info('Stopping PIR')

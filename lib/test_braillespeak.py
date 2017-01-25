@@ -19,5 +19,6 @@ class TestBraillespeakMethods(unittest.TestCase):
         speak(bot, 'test')
         bot.logging.warning.assert_called()
 
+
 if __name__ == '__main__':
     unittest.main()

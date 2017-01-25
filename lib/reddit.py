@@ -26,7 +26,7 @@ def get_titles(json_obj):
 
 def rand():
     """ Returns a random integer between 0 and 24 (Posts #1 - #25 on Reddit) """
-    return randint(0,24)
+    return randint(0, 24)
 
 
 def get_random_title(url):
@@ -34,7 +34,7 @@ def get_random_title(url):
     titles = get_titles(get_json(url))
     post = titles[rand()]
     retries = 20
-    custom_badwords = ['reddit','redditor']
+    custom_badwords = ['reddit', 'redditor']
     profanity.load_words(custom_badwords)
     while profanity.contains_profanity(post):
         post = titles[rand()]

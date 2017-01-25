@@ -11,6 +11,7 @@ riddleIndex = 0
 
 class MyHTMLParser(HTMLParser):
     """" create a subclass and override the handler methods """
+
     def handle_starttag(self, tag, attrs):
         # print "Encountered a start tag:", tag
         self.currentTag = tag
@@ -34,14 +35,14 @@ class MyHTMLParser(HTMLParser):
 def get_riddles(self):
     parser = MyHTMLParser()
     f = open(self.files + '/riddles.htm', 'r')
-    parser.feed(f.read().replace('\n',' '))
+    parser.feed(f.read().replace('\n', ' '))
     return riddles
 
 
 def get_next(self):
     if not hasattr(self, 'riddles'):
         self.riddles = get_riddles(self)
-    self.riddleIndex = randint(0, len(self.riddles))            
+    self.riddleIndex = randint(0, len(self.riddles))
     return self.riddles[self.riddleIndex]['question']
 
 
