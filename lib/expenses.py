@@ -3,6 +3,7 @@
 
 # expenses
 import csv, datetime, os
+import calendar
 import lib.currency
 
 
@@ -22,13 +23,48 @@ def current_file(self):
 
 
 def expenses_remaining(self):
-    remaining = 0.0;
+    remaining = 0.0
     with open(current_file(self), 'rb') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in csvreader:
             remaining += float(row[1].strip())
     response = 'There is £' + str(format(remaining, '.2f')) + ' left this month.'
-    return response.decode("utf8");
+    return response.decode("utf8")
+
+
+def expenses_remaining_weekly(self):
+    income = 0.0
+    expenses = 0.0
+    remaining = 0.0
+    with open(current_file(self), 'rb') as csvfile:
+        csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for row in csvreader:
+            val = float(row[1].strip())
+            if val > 0:
+                income += val
+            else:
+                expenses += val
+            remaining += val
+
+    now = datetime.datetime.now()
+    today = datetime.date.today()
+
+    # get the number of days to next monday
+    days_in_month = calendar.monthrange(now.year, now.month)[1]
+    next_monday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
+    days_to_next_monday = next_monday.day
+    # Set to end of month if next monday is in next month
+    if next_monday.month > now.month:
+        days_to_next_monday = days_in_month
+
+    # Calculate daily budget and remaining budget for the current week
+    daily_budget = income / days_in_month
+    budget_to_date = daily_budget * days_to_next_monday
+    remaining_week = budget_to_date - abs(expenses)
+
+    response = 'There is £' + str(format(remaining_week, '.2f'))
+    response += ' left this week and £' + str(format(remaining, '.2f')) + ' left this month'
+    return response.decode("utf8")
 
 
 def expenses_add(self):
