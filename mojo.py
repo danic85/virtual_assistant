@@ -126,7 +126,8 @@ class Mojo(telepot.Bot):
                     self.sendMessage(u, msg)
             else:
                 self.sendMessage(self.user, msg)
-                # braillespeak.speak(self, msg)
+                if self.config.get('Config', 'BraillespeakPort'):
+                    braillespeak.speak(self, msg)
         else:
             self.admin_message(msg)
 

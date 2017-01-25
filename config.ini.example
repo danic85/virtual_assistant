@@ -9,3 +9,4 @@ OpenWeatherMapKey=abcdefg
 OpenExchangeRatesKey=1234
 RouterIP=192.168.1.254
 MacAddresses=X,Y
+BraillespeakPort=/dev/ttyUSB0
