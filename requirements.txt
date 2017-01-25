@@ -1,7 +1,6 @@
 gitpython
 schedule
 telepot
-chatterbot
 bs4
 feedparser
 pyowm
@@ -14,3 +13,4 @@ gTTS
 SpeechRecognition
 pydub
 pyserial
+profanity
