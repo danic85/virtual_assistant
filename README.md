@@ -61,6 +61,7 @@ To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py '
   * OpenExchangeRatesKey: Key for Open Exchange Rates
   * RouterIP: Your router's IP (for automatic security check)
   * MacAddresses: List of MAC addresses to detect on network (for automatic security check)
+  * BraillespeakPort: The serial port to connect to braillespeak arduino (e.g. `/dev/ttyUSB0`)
 3. `python mojo.py`
 
 ### Start on Boot
