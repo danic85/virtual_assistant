@@ -35,6 +35,7 @@ A home automation bot via telegram
 - "Sweep": Check PIR sensor for movement.
 - "Override Security": Disable automatic security
 - "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
+- "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
 - "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
 - "Get countdowns": List all active countdowns
 
