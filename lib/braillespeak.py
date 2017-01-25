@@ -1,12 +1,13 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-import serial
+import serial, time
 
-try:
-  ser = serial.Serial('/dev/ttyUSB0', 9600)
-except Exception as e:
-  print e.getMessage()
 
-def speak(var):  
-  ser.write(var)
-#  ser.close()
+def speak(self, message):
+    try:
+        ser = serial.Serial('/dev/ttyUSB0', 9600)
+        # time.sleep(3) # this is necessary when using @todo add process to thread
+        ser.write(message)
+        ser.close()
+    except serial.serialutil.SerialException as e:
+        self.logging.warning(str(e))

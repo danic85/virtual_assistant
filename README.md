@@ -34,7 +34,7 @@ A home automation bot via telegram
 - "Is house empty": Check wifi network for connected devices to determine occupancy.
 - "Sweep": Check PIR sensor for movement.
 - "Override Security": Disable automatic security
-- "Shower thought": Return random thought of the day from Reddit
+- "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
 - "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
 - "Get countdowns": List all active countdowns
 

@@ -10,8 +10,8 @@ class TestGeneralMethods(unittest.TestCase):
         countdown = Mock(return_value = 'countdown response')
         response = morning(bot)
         bot.chat.respond.assert_called_with('good morning', 1)
-        calls = [call('weather'), call('budget'), call('shower thought'), call('riddle')]
-        bot.doCommand.assert_has_calls(calls)
+        calls = [call('weather'), call('budget'), call('thought of the day'), call('did you know'), call('riddle')]
+        bot.do_command.assert_has_calls(calls)
         self.assertNotEqual(response, '')
         self.assertNotEqual(response, None)
         
@@ -19,8 +19,8 @@ class TestGeneralMethods(unittest.TestCase):
         bot = self.build_bot()
         response = morning_others(bot)
         bot.chat.respond.assert_called_with('good morning', 1)
-        calls = [call('budget'), call('weather'), call('shower thought')]
-        bot.doCommand.assert_has_calls(calls)
+        calls = [call('budget'), call('weather'), call('thought of the day'), call('did you know')]
+        bot.do_command.assert_has_calls(calls)
         self.assertNotEqual(response, '')
         self.assertNotEqual(response, None)
         
@@ -59,7 +59,7 @@ class TestGeneralMethods(unittest.TestCase):
         bot.chat = Mock()
         bot.admin = 1
         bot.chat.respond = Mock(return_value = 'chat response')
-        bot.doCommand = Mock(return_value = 'command response')
+        bot.do_command = Mock(return_value = 'command response')
         bot.config = Mock()
         bot.config.get = Mock(return_value = '1,2')
         return bot
@@ -84,7 +84,7 @@ class TestGeneralMethods(unittest.TestCase):
         bot.chat = Mock()
         bot.admin = 1
         bot.chat.respond = Mock(return_value = 'chat response')
-        bot.doCommand = Mock(return_value = 'command response')
+        bot.do_command = Mock(return_value = 'command response')
         bot.config = Mock()
         bot.config.get = Mock(return_value = '1,2')
         return bot

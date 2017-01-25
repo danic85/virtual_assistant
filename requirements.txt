@@ -1,14 +1,16 @@
 gitpython
 schedule
 telepot
-chatterbot
 bs4
 feedparser
 pyowm
 aiml
 coverage
 mock
+freezegun
+nmap
 gTTS
 SpeechRecognition
 pydub
 pyserial
+profanity
