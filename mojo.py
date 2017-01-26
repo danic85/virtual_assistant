@@ -152,8 +152,8 @@ class Mojo(telepot.Bot):
                         return func()
 
         except Exception as e:
-            template = "An exception of type {0} occured. Arguments:\n{1!r}"
-            message = template.format(type(e).__name__, e.args)
+            template = "An exception of type {0} occured with the message '{1}'. Arguments:\n{2!r}"
+            message = template.format(type(e).__name__, str(e), e.args)
             print message
             logging.info(message)
             return str(message)
