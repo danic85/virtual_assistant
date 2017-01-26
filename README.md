@@ -62,11 +62,11 @@ To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py '
   * RouterIP: Your router's IP (for automatic security check)
   * MacAddresses: List of MAC addresses to detect on network (for automatic security check)
   * BraillespeakPort: The serial port to connect to braillespeak arduino (e.g. `/dev/ttyUSB0`)
-3. `python mojo.py`
+3. `python mojo.py startx`
 
 ### Start on Boot
 1. Add execute permission to mojo.py `chmod +x mojo.py`
-2. Add `(sleep 10; python /home/pi/mojo_home_bot/mojo.py) &` to `/etc/rc.local` replacing path if appropriate.
+2. Add `(sleep 10; python /home/pi/mojo_home_bot/mojo.py startx) &` to `/etc/rc.local` replacing path if appropriate.
 
 ### Restart script
 This project is a WIP. Occasionally the script may exit due to an unhandled exception. Enable `restart_script.sh` to check for the process and restart if necessary: (Optional)

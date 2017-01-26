@@ -27,7 +27,7 @@ logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/fil
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
         self.logging = logging
-        logging.info('Starting Mojo');
+        logging.info('Starting Mojo')
         self.config = ConfigParser.ConfigParser()
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
@@ -38,7 +38,7 @@ class Mojo(telepot.Bot):
         p = ConfigParser.ConfigParser()
         c = self.dir + "/commands.ini"
         p.read(c)
-        self.commandList = p.items('Commands');
+        self.commandList = p.items('Commands')
 
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
 
@@ -61,7 +61,7 @@ class Mojo(telepot.Bot):
 
     # Handle messages from users
     def handle(self, msg):
-        if (msg.has_key('text')):
+        if 'text' in msg:
             logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
         try:
             if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
@@ -73,9 +73,9 @@ class Mojo(telepot.Bot):
 
         self.user = msg['chat']['id']
         logging.info(msg)
-        if (msg.has_key('text')):
+        if 'text' in msg:
             command = msg['text'].lower().strip()
-        elif (msg.has_key('voice')):
+        elif 'voice' in msg:
             command = speech.getMessage(self, msg)
         else:
             return
@@ -84,17 +84,17 @@ class Mojo(telepot.Bot):
         # check command list
         response = self.do_command(command)
         # get a response from chat
-        if (not response and response != ''):
+        if not response and response != '':
             try:
                 logging.info('chatbot response:')
                 response = str(self.chat.respond(command, self.admin))
                 logging.info(response)
-                if (response == ''):
+                if response == '':
                     response = "I'm sorry, I don't understand"
             except Exception as e:
                 self.admin_message(str(e))
         if response != '':
-            if (msg.has_key('voice')):
+            if 'voice' in msg:
                 speech.speak(self, response)
                 self.sendAudio(self.admin, open(self.files + '/speech/output.mp3'))
             self.message(response)
@@ -118,7 +118,7 @@ class Mojo(telepot.Bot):
             time.sleep(1)
 
     def message(self, msg):
-        if (self.user):
+        if self.user:
             if type(self.user) is list:
                 for u in self.user:
                     print 'sending to'
@@ -174,14 +174,10 @@ def execute_bot_command_monthly(bot, command):
     if now.day == 1:
         execute_bot_command(bot, command)
 
-
-# Needed to ignore unittest calls
-if len(sys.argv) != 2 or sys.argv[1] != 'discover':
-    # If method call defined on launch, call. Else listen for commands from telegram
-    if len(sys.argv) == 2:
-        bot = Mojo()
-        execute_bot_command(bot, sys.argv[1])
-    else:
+# If method call defined on launch, call. Else listen for commands from telegram
+if len(sys.argv) == 2:
+    # Start mojo
+    if sys.argv[1] == 'startx':
         bot = Mojo()
         # Load scheduled tasks
         schedule.clear()
@@ -189,6 +185,13 @@ if len(sys.argv) != 2 or sys.argv[1] != 'discover':
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
         schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
-        schedule.every().day.at("8:00").do(execute_bot_command_monthly, bot,
-                                           '700 budget')  # reset budget at beginning of month
+        schedule.every().day.at("8:00").do(
+            execute_bot_command_monthly,
+            bot,
+            '700 budget')  # reset budget at beginning of month
         bot.listen()
+    # Execute command without listening (ignore discover unittest)
+    elif sys.argv[1] != 'discover':
+        bot = Mojo()
+        execute_bot_command(bot, sys.argv[1])
+

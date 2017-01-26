@@ -3,9 +3,9 @@ import os
 
 try:
     import picamera
-except ImportError as e:
+except ImportError as ex:
     pass
-    # print str(e)
+    # print str(ex)
 
 
 def take_photo(self):
@@ -39,7 +39,7 @@ def take_photo(self):
     self.logging.info('Opening file')
     f = open(jpg, 'rb')  # file on local disk
     self.logging.info('Sending photo')
-    response = self.sendPhoto(self.user, f)
+    self.sendPhoto(self.user, f)
     self.logging.info('Removing photo')
     os.remove(jpg)  # don't save it!
     self.logging.info('Exiting take_photo')
@@ -74,7 +74,7 @@ def take_video(self):
     print p.returncode
 
     f = open(mp4, 'rb')
-    response = self.sendVideo(self.user, f)
+    self.sendVideo(self.user, f)
     os.remove(mp4)
     os.remove(h264)
 

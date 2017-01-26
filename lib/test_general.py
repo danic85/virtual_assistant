@@ -53,16 +53,6 @@ class TestGeneralMethods(unittest.TestCase):
         for key, val in bot.commandList:
             response += key + "\n"
         self.assertEqual(command_list(bot), response)
-    
-    def build_bot(self):
-        bot = Mock(return_value = 456)
-        bot.chat = Mock()
-        bot.admin = 1
-        bot.chat.respond = Mock(return_value = 'chat response')
-        bot.do_command = Mock(return_value = 'command response')
-        bot.config = Mock()
-        bot.config.get = Mock(return_value = '1,2')
-        return bot
         
     def test_update_self(self):
         bot = self.build_bot()

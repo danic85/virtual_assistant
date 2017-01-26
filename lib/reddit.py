@@ -29,32 +29,37 @@ def rand():
     return randint(0, 24)
 
 
-def get_random_title(url):
+def get_random_title(self, url):
     """ Returns a (one) random post title """
-    titles = get_titles(get_json(url))
-    post = titles[rand()]
-    retries = 20
-    custom_badwords = ['reddit', 'redditor']
-    profanity.load_words(custom_badwords)
-    while profanity.contains_profanity(post):
-        post = titles[rand()]
-        retries -= 1
-        if retries < 1:
-            break
+    try:
 
-    return post
+        titles = get_titles(get_json(url))
+        post = titles[rand()]
+        retries = 20
+        custom_badwords = ['reddit', 'redditor']
+        profanity.load_words(custom_badwords)
+        while profanity.contains_profanity(post):
+            post = titles[rand()]
+            retries -= 1
+            if retries < 1:
+                break
+
+        return post
+    except Exception as ex:
+        self.logging.error(str(ex))
+        return 'There is a feed problem at the moment'
 
 
 def shower_thought(self):
     """ returns a (one) random shower thought """
     url = "http://www.reddit.com/r/showerthoughts/hot/.json"
-    return get_random_title(url)
+    return get_random_title(self, url)
 
 
 def did_you_know(self):
     """ returns a (one) random did you know """
     url = "http://www.reddit.com/r/didyouknow/hot/.json"
-    text = get_random_title(url)
+    text = get_random_title(self, url)
     text = text.replace('DYK', 'Did you know')
     text = text.replace('DKY', 'Did you know')
     if "Did you know" not in text:
