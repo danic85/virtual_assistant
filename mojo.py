@@ -95,9 +95,15 @@ class Mojo(telepot.Bot):
                 self.admin_message(str(e))
         if response != '':
             if 'voice' in msg:
+                # Respond with voice if audio input received
                 speech.speak(self, response)
                 self.sendAudio(self.admin, open(self.files + '/speech/output.mp3'))
-            self.message(response)
+            elif 'console' in msg:
+                # Just print response if was sent from a console command
+                print response
+            else:
+                # Standard text response via telegram
+                self.message(response)
         self.command = self.user = False
 
     # Listen
@@ -167,7 +173,7 @@ class Mojo(telepot.Bot):
 
 
 def execute_bot_command(bot, command):
-    msg = {"chat": {"id": bot.admin}, "text": command}
+    msg = {"chat": {"id": bot.admin}, "text": command, "console": True}
     bot.handle(msg)
 
 

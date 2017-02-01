@@ -53,7 +53,7 @@ def expenses_remaining_weekly(self):
     # get the number of days to next monday
     days_in_month = calendar.monthrange(now.year, now.month)[1]
     next_monday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
-    days_to_next_monday = next_monday.day - 1
+    days_to_next_monday = next_monday.day - 1  # ignore monday
     # Set to end of month if next monday is in next month
     if next_monday.month > now.month:
         days_to_next_monday = days_in_month

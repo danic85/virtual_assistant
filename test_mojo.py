@@ -53,14 +53,14 @@ class TestMojoMethods(unittest.TestCase):
         bot = self.build_bot()
         bot.handle = Mock()
         mojo.execute_bot_command(bot, 'test')
-        bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
+        bot.handle.assert_called_with({'text': 'test', 'console': True, 'chat': {'id': 1}})
 
     @freeze_time("2017-01-01")
     def test_execute_command_monthly_first(self):
         bot = self.build_bot()
         bot.handle = Mock()
         mojo.execute_bot_command_monthly(bot, 'test')
-        bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
+        bot.handle.assert_called_with({'text': 'test', 'console': True, 'chat': {'id': 1}})
 
     @freeze_time("2017-01-02")
     def test_execute_command_monthly_not_first(self):
