@@ -190,7 +190,7 @@ if len(sys.argv) == 2:
         schedule.every().day.at("8:00").do(
             execute_bot_command_monthly,
             bot,
-            '700 budget')  # reset budget at beginning of month
+            '-700 budget')  # reset budget at beginning of month
         bot.listen()
     # Execute command without listening (ignore discover unittest)
     elif sys.argv[1] != 'discover':
