@@ -172,8 +172,13 @@ class Mojo(telepot.Bot):
         return general.update_self(self, __file__)
 
 
-def execute_bot_command(bot, command):
+def execute_bot_command_console(bot, command):
     msg = {"chat": {"id": bot.admin}, "text": command, "console": True}
+    bot.handle(msg)
+
+
+def execute_bot_command(bot, command):
+    msg = {"chat": {"id": bot.admin}, "text": command}
     bot.handle(msg)
 
 
@@ -201,5 +206,5 @@ if len(sys.argv) == 2:
     # Execute command without listening (ignore discover unittest)
     elif sys.argv[1] != 'discover':
         bot = Mojo()
-        execute_bot_command(bot, sys.argv[1])
+        execute_bot_command_console(bot, sys.argv[1])
 
