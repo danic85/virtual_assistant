@@ -19,8 +19,7 @@ def morning(self):
     response += self.do_command('weather') + '\n\n'
     response += self.do_command('budget') + '\n\n'
     response += self.do_command('thought of the day') + '\n\n'
-    response += self.do_command('did you know') + '\n\n'
-    response += self.do_command('riddle')
+    response += self.do_command('did you know')
     return response
 
 

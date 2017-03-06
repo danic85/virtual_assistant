@@ -10,7 +10,7 @@ class TestGeneralMethods(unittest.TestCase):
         countdown = Mock(return_value = 'countdown response')
         response = morning(bot)
         bot.chat.respond.assert_called_with('good morning', 1)
-        calls = [call('weather'), call('budget'), call('thought of the day'), call('did you know'), call('riddle')]
+        calls = [call('weather'), call('budget'), call('thought of the day'), call('did you know')]
         bot.do_command.assert_has_calls(calls)
         self.assertNotEqual(response, '')
         self.assertNotEqual(response, None)
