@@ -120,7 +120,6 @@ class Mojo(telepot.Bot):
         # Keep the program running.
         while 1:
             schedule.run_pending()
-            security.sweep(self)
             time.sleep(1)
 
     def message(self, msg):

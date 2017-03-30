@@ -1,4 +1,5 @@
 import nmap
+from functools import partial
 
 try:
     import RPi.GPIO as GPIO
@@ -7,11 +8,11 @@ except ImportError as e:
     # print str(e)
 
 PIR_PIN = 4
+PIR_LED_PIN = 17
 
 SECURITY_OFF = 0
-SECURITY_START = 1
+SECURITY_TEST = 1
 SECURITY_ON = 2
-SECURITY_STOP = 3
 
 
 def init(self):
@@ -54,7 +55,7 @@ def house_empty(self):
 
 
 def override(self):
-    if self.security_override == False:
+    if not self.security_override:
         self.security_override = True
         return 'Security overridden'
     else:
@@ -62,45 +63,40 @@ def override(self):
         return 'Security not overridden'
 
 
+def test(self):
+    response = on(self)
+    if response is not None:
+        self.security = SECURITY_TEST
+    return response
+
+
 def on(self):
-    if self.security != SECURITY_ON:
-        self.security = SECURITY_START
+    if self.security == SECURITY_OFF:
+        self.logging.info('Starting PIR')
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(PIR_LED_PIN, GPIO.OUT)
+        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=partial(motion_sensor, self), bouncetime=300)
+        self.security = SECURITY_ON
         return 'Security Enabled'
     return None  # allow chatbot response
 
 
 def off(self):
     if self.security != SECURITY_OFF:
-        self.security = SECURITY_STOP
+        self.logging.info('Stopping PIR')
+        GPIO.remove_event_detect(PIR_PIN)
+        GPIO.cleanup()
+        self.security = SECURITY_OFF
         return 'Security Disabled'
     return None  # allow chatbot response
 
 
-def sweep(self):
-    # just exit if not running
-    try:
-        if self.security == SECURITY_OFF:
-            return str(SECURITY_OFF)
-
-        # if security enabled
+# Callback function to run when motion detected
+def motion_sensor(self, channel):
+    GPIO.output(17, GPIO.LOW)
+    if GPIO.input(4):     # True = Rising
+        GPIO.output(17, GPIO.HIGH)
         if self.security == SECURITY_ON:
-            if GPIO.input(PIR_PIN):
-                self.logging.info('Motion Detected!')
-                self.do_command('camera')
-
-        # if initializing
-        if self.security == SECURITY_START:
-            self.logging.info('Starting PIR')
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(PIR_PIN, GPIO.IN)
-            self.security = SECURITY_ON;
-
-        # if shutting down
-        if self.security == SECURITY_STOP:
-            self.logging.info('Stopping PIR')
-            GPIO.cleanup()
-            self.security = SECURITY_OFF
-        self.logging.info(str(self.security))
-        return str(self.security)
-    except Exception as ex:
-        self.logging.error(str(ex))
+            self.logging.info('Taking Security Picture')
+            self.do_command('camera')
