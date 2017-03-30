@@ -1,4 +1,5 @@
 import nmap
+from functools import partial
 
 try:
     import RPi.GPIO as GPIO
@@ -10,9 +11,8 @@ PIR_PIN = 4
 PIR_LED_PIN = 17
 
 SECURITY_OFF = 0
-SECURITY_START = 1
+SECURITY_TEST = 1
 SECURITY_ON = 2
-SECURITY_STOP = 3
 
 
 def init(self):
@@ -63,13 +63,18 @@ def override(self):
         return 'Security not overridden'
 
 
+def test(self):
+    on(self)
+    self.security = SECURITY_TEST
+
+
 def on(self):
     if self.security != SECURITY_ON:
         self.logging.info('Starting PIR')
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(PIR_LED_PIN, GPIO.OUT)
-        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=motion_sensor, bouncetime=300)
+        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=partial(motion_sensor, self), bouncetime=300)
         self.security = SECURITY_ON
         return 'Security Enabled'
     return None  # allow chatbot response
@@ -78,6 +83,7 @@ def on(self):
 def off(self):
     if self.security != SECURITY_OFF:
         self.logging.info('Stopping PIR')
+        GPIO.remove_event_detect(PIR_PIN)
         GPIO.cleanup()
         self.security = SECURITY_OFF
         return 'Security Disabled'
@@ -85,8 +91,9 @@ def off(self):
 
 
 # Callback function to run when motion detected
-def motion_sensor(channel):
+def motion_sensor(channel, self):
     GPIO.output(17, GPIO.LOW)
     if GPIO.input(4):     # True = Rising
         GPIO.output(17, GPIO.HIGH)
-        # self.do_command('camera')
+        if self.security == SECURITY_ON:
+            self.do_command('camera')
