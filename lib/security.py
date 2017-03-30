@@ -64,8 +64,10 @@ def override(self):
 
 
 def test(self):
-    on(self)
-    self.security = SECURITY_TEST
+    response = on(self)
+    if response is not None:
+        self.security = SECURITY_TEST
+    return response
 
 
 def on(self):
@@ -96,4 +98,5 @@ def motion_sensor(channel, self):
     if GPIO.input(4):     # True = Rising
         GPIO.output(17, GPIO.HIGH)
         if self.security == SECURITY_ON:
+            self.logging.info('Taking Security Picture')
             self.do_command('camera')
