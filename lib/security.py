@@ -85,7 +85,7 @@ def off(self):
 
 
 # Callback function to run when motion detected
-def motion_sensor():
+def motion_sensor(channel):
     GPIO.output(17, GPIO.LOW)
     if GPIO.input(4):     # True = Rising
         GPIO.output(17, GPIO.HIGH)
