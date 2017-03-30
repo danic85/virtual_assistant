@@ -39,7 +39,10 @@ def take_photo(self):
     self.logging.info('Opening file')
     f = open(jpg, 'rb')  # file on local disk
     self.logging.info('Sending photo')
-    self.sendPhoto(self.user, f)
+    if self.user:
+        self.sendPhoto(self.user, f)
+    else:
+        self.sendPhoto(self.admin, f)
     self.logging.info('Removing photo')
     os.remove(jpg)  # don't save it!
     self.logging.info('Exiting take_photo')

@@ -71,7 +71,7 @@ def test(self):
 
 
 def on(self):
-    if self.security != SECURITY_ON:
+    if self.security == SECURITY_OFF:
         self.logging.info('Starting PIR')
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -93,7 +93,7 @@ def off(self):
 
 
 # Callback function to run when motion detected
-def motion_sensor(channel, self):
+def motion_sensor(self, channel):
     GPIO.output(17, GPIO.LOW)
     if GPIO.input(4):     # True = Rising
         GPIO.output(17, GPIO.HIGH)
