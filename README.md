@@ -13,31 +13,39 @@ A home automation bot via telegram
 - Integrated [Braillespeak](https://github.com/danic85/braillespeak) on responses 
 
 ## Commands
+### General
 - "What time is it / what is the time / time": Current time 
 - "Help / List commands / command list": Show all commands with regex
+- "Update": Automatic self-update from git
+- "Morning / Morning Others": Configurable wake-up message at predefined time, daily.
+- "Get Log": Retrieve log file for inspection via telegram
+- "Broadcast [message]": Send message to all users
+### Feeds
 - "Weather": Get current weather for preconfigured location
 - "Word of the day": Return a word of the day with definition
 - "Check fibre": Parse html site and notify if fibre broadband availability changes
-- "Update": Automatic self-update from git
 - "News": Top 5 BBC News stories
-- "Morning / Morning Others": Configurable wake-up message at predefined time, daily.
+- "Riddle / Riddle Answer": Return a random riddle. Return answer to riddle
+- "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
+- "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
+### Camera
+Required: RPI Camera
 - "Camera": Take photo from Raspberry Pi camera and send to user via telegram.
 - "Video": Record short video from Raspberry Pi camera and send to user via telegram.
-- "Get Log": Retrieve log file for inspection via telegram
+### Budgetting
 - "[amount] [expense type]": Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
 - "Budget": Show remaining monthly budget
 - "Get Expenses": Download current and previous month's expenses in CSV format via telegram.
-- "Broadcast [message]": Send message to all users
-- "Riddle / Riddle Answer": Return a random riddle. Return answer to riddle
-- "Goodbye / We're going out / Bye / Security On": Enable home security (authorised users only)
-- "Hello / We're back/home/here /Security Off": Disable home security (authorised users only)
-- "Is house empty": Check wifi network for connected devices to determine occupancy.
-- "Sweep": Check PIR sensor for movement.
-- "Override Security": Disable automatic security
-- "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
-- "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
+### Countdown
 - "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
 - "Get countdowns": List all active countdowns
+### Security
+Required: RPI Camera, HC-SR501 PIR Motion Sensor
+Connect `Pin 4` to HC-SR501 PIR Motion Sensor (see http://www.rototron.info/using-a-motion-detector-on-raspberry-pi/ for guide).
+Connect `Pin 17`  to LED to indicate motion (when security on).
+- "Goodbye / We're going out / Bye / Security On": Enable security system. When motion is detected send picture to admin.
+- "Hello / We're back/home/here /Security Off": Disable security system
+- "test security": Light up LED when motion detected, but do not take picture
 
 ## Getting Started
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
