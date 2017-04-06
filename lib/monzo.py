@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 def add_token(self):
     token = self.original_message.replace('add monzo token ', '')
     self.monzo_tokens.append(token)
+    return 'Token added'
 
 
 def is_authenticated(access_token):
