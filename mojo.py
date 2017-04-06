@@ -45,6 +45,7 @@ class Mojo(telepot.Bot):
         self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
         self.adminName = self.config.get('Config', 'AdminName')
+        self.monzo_tokens = []
 
         self.chat = aiml.Kernel()
 
@@ -194,10 +195,11 @@ if len(sys.argv) == 2:
         # Load scheduled tasks
         schedule.clear()
         # schedule.every().minute.do(execute_bot_command, 'is house empty')
+        schedule.every(10).minutes.do(execute_bot_command, bot, 'get transactions')
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
-        schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
-        schedule.every().day.at("8:00").do(
+        # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
+        schedule.every().day.at("7:00").do(
             execute_bot_command_monthly,
             bot,
             '-700 budget')  # reset budget at beginning of month

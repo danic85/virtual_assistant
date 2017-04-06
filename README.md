@@ -35,7 +35,10 @@ Required: RPI Camera
 ### Budgetting
 - "[amount] [expense type]": Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
 - "Budget": Show remaining monthly budget
-- "Get Expenses": Download current and previous month's expenses in CSV format via telegram.
+- "Get Expenses": Download current and previous month's expenses in CSV format via telegram
+#### Monzo Integration
+- "Add Monzo Token <access token>": Add a Monzo access token for 'Get Transactions' command (these are just stored in memory). Get token from https://developers.monzo.com/api/playground
+- "Get Transactions": Downloads new transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
 ### Countdown
 - "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
 - "Get countdowns": List all active countdowns

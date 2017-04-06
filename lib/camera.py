@@ -16,6 +16,9 @@ def take_photo(self):
 
     try:
         camera = picamera.PiCamera()
+        camera.hflip = True
+        camera.vflip = True
+
     except Exception as e:
         self.logging.error(str(e))
         return 'Could not load camera'
@@ -55,6 +58,8 @@ def take_video(self):
 
     try:
         camera = picamera.PiCamera()
+        camera.hflip = True
+        camera.vflip = True
     except Exception as e:
         self.logging.error(str(e))
         return 'Could not load camera'
