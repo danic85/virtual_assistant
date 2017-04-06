@@ -73,6 +73,7 @@ class Mojo(telepot.Bot):
             msg['chat']['id'] = self.admin
 
         self.user = msg['chat']['id']
+        self.original_message = msg['text'].strip()
         logging.info(msg)
         if 'text' in msg:
             command = msg['text'].lower().strip()
