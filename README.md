@@ -37,8 +37,9 @@ Required: RPI Camera
 - "Budget": Show remaining monthly budget
 - "Get Expenses": Download current and previous month's expenses in CSV format via telegram
 #### Monzo Integration
-- "Add Monzo Token <access token>": Add a Monzo access token for 'Get Transactions' command (these are just stored in memory). Get token from https://developers.monzo.com/api/playground
-- "Get Transactions": Downloads new transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
+- "add monzo token <auth_code> <client_id> <client_secret>": Add a Monzo authentication for 'Get Transactions' command.
+- "Get Transactions": Downloads all transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
+- "Get Recent Transactions": As above, but limited to the last day
 ### Countdown
 - "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
 - "Get countdowns": List all active countdowns
@@ -93,3 +94,12 @@ Execute `python -m unittest discover` in the project directory to run all unit t
 * To display coverage report execute `coverage report`
 * Omit directories from the report with the `--omit` flag. E.g. `coverage report  --omit=/home/rof/.virtualenv/lib/python2.7/site-packages/*`
 
+### Monzo
+* Sign in to developers.monzo.com
+* Authorise access via email
+* Create new OAuth client with a redirect url of http://localhost
+* Get your access token by navigating to https://auth.getmondo.co.uk/?client_id=<client_id>&redirect_uri=http://localhost&response_type=code&state=<unique_string>
+* Authorise access via email
+* Extract code from return URL
+* Send message to Mojo "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
+* Wait for transactions or Send 'Get Transactions'

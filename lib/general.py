@@ -15,7 +15,7 @@ def morning(self):
     :return: response string
     """
     response = self.chat.respond('good morning', self.admin) + '\n\n'
-    response += self.do_command('get countdowns') + '\n\n'
+    response += self.do_command('get closest countdowns') + '\n\n'
     response += self.do_command('weather') + '\n\n'
     response += self.do_command('budget') + '\n\n'
     response += self.do_command('thought of the day') + '\n\n'
@@ -32,7 +32,7 @@ def morning_others(self):
     self.user = self.config.get('Config', 'Users').split(',')
     self.user.pop(0)
     response = self.chat.respond('good morning', self.admin) + '\n\n'
-    response += self.do_command('get countdowns') + '\n\n'
+    response += self.do_command('get closest countdowns') + '\n\n'
     response += self.do_command('budget') + '\n\n'
     response += self.do_command('weather') + '\n\n'
     response += self.do_command('thought of the day') + '\n\n'
@@ -64,16 +64,27 @@ def set_countdown(self):
     return get_countdowns(self)
 
 
+def get_closest_countdowns(self):
+    """ Get first 2 countdowns from list """
+    countdowns = read_countdowns(self)
+    return '\n'.join(countdowns[:2])
+
+
 def get_countdowns(self):
     """ Get all countdowns from list """
-    countdowns = ''
+    countdowns = read_countdowns(self)
+    return '\n'.join(countdowns)
+
+
+def read_countdowns(self):
+    countdowns = []
     with open(self.files + '/countdowns.txt', 'r') as f:
         for line in f:
             cmd = line.strip().split(' ', 1)
             date = cmd[0].split('-')
             event = cmd[1]
-            countdowns += countdown(self, int(date[2]), int(date[1]), int(date[0]), event) + '\n'
-    return countdowns.strip()
+            countdowns.append(countdown(self, int(date[2]), int(date[1]), int(date[0]), event))
+    return countdowns
 
 
 def countdown(self, year, month, day, event):

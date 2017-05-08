@@ -56,6 +56,7 @@ class Mojo(telepot.Bot):
             self.chat.saveBrain(self.files + "/bot_brain.brn")
 
         security.init(self)
+        monzo.init(self)
 
         self.last_mtime = os.path.getmtime(__file__)
         logging.info("Version: " + str(self.last_mtime))
@@ -188,7 +189,7 @@ def execute_bot_command_monthly(bot, command):
     if now.day == 1:
         execute_bot_command(bot, command)
 
-# If method call defined on launch, call. Else listen for commands from telegram
+# If method call defined on launch, call. 'startx' = listen for commands from telegram
 if len(sys.argv) == 2:
     # Start mojo
     if sys.argv[1] == 'startx':
@@ -196,7 +197,7 @@ if len(sys.argv) == 2:
         # Load scheduled tasks
         schedule.clear()
         # schedule.every().minute.do(execute_bot_command, 'is house empty')
-        schedule.every(10).minutes.do(execute_bot_command, bot, 'get transactions')
+        schedule.every(10).minutes.do(execute_bot_command, bot, 'get recent transactions')
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
         # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
