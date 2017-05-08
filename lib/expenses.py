@@ -68,17 +68,35 @@ def expenses_remaining_weekly(self):
     return response.decode("utf8")
 
 
-def expenses_add(self):
+def log_expense(self):
     expense = self.command.split(' ', 1)
     if expense[0].find("$") == 0:
         expense[0] = str(lib.currency.convert(self, 'USD', expense[0].replace('$', ''),
                                               self.config.get('Config', 'OpenExchangeRatesKey')))
 
+    expense[0] = float(expense[0].strip()) * -1
+    expense[3] = datetime.datetime.now()
+    expense.append(None)
+    return write_to_file(self, expense)
+
+
+def write_to_file(self, expense):
     with open(current_file(self), 'a') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        csvwriter.writerow([expense[1], float(expense[0].strip()) * -1, datetime.datetime.now(), self.user])
+        print expense
+        csvwriter.writerow([expense[1], expense[0], expense[3], self.user, expense[2]])
     self.user = self.config.get('Config', 'Users').split(',')
-    return ('Logged expense: ' + str(self.command) + "\n").decode("utf8") + self.do_command('budget')
+    return ('Logged expense: ' + str(expense[0] * -1) + " " + expense[1] + "\n").decode("utf8") + self.do_command('budget')
+
+
+def transaction_exists(self, transaction_id):
+    if os.path.isfile(current_file(self)):
+        with open(current_file(self), 'rb') as csvfile:
+            csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            for row in csvreader:
+                if len(row) > 4 and row[4].strip() == transaction_id.strip():
+                    return True
+    return False
 
 
 def expenses_get(self):
