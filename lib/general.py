@@ -83,7 +83,9 @@ def read_countdowns(self):
             cmd = line.strip().split(' ', 1)
             date = cmd[0].split('-')
             event = cmd[1]
-            countdowns.append(countdown(self, int(date[2]), int(date[1]), int(date[0]), event))
+            c = countdown(self, int(date[2]), int(date[1]), int(date[0]), event)
+            if c != '':
+                countdowns.append(c)  # only add future events @todo remove old events from file
     return countdowns
 
 
@@ -108,26 +110,13 @@ def command_list(self):
 
 def update_self(self, f):
     """ Pull from github repo and restart if appropriate """
-    return 'Feature disabled'  # Feature is temperamental, awaiting refactor
     # pull from git
     directory = self.dir
     g = git.cmd.Git(directory)
-    g.pull()
-
-    # Update owner of files to prevent permission issues
-    uid = pwd.getpwnam("pi").pw_uid
-    gid = grp.getgrnam("pi").gr_gid
-    for root, dirs, files in os.walk(directory):
-        for momo in dirs:
-            os.chown(os.path.join(root, momo), uid, gid)
-        for momo in files:
-            os.chown(os.path.join(root, momo), uid, gid)
-
-    # Check if the file has changed.
-    # If so, restart the application.
-    if os.path.getmtime(f) > self.last_mtime:
-        # Restart the application (os.execv() does not return).
-        os.execv(f, sys.argv)
+    g.fetch()
+    response = g.pull()
+    if 'Already up-to-date' not in response:
+        os.execl(sys.executable, sys.executable, *sys.argv)
 
     return 'Updated to version: ' + str(self.last_mtime)
 
