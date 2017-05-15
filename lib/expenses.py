@@ -75,7 +75,8 @@ def log_expense(self):
                                               self.config.get('Config', 'OpenExchangeRatesKey')))
 
     expense[0] = float(expense[0].strip()) * -1
-    expense[3] = datetime.datetime.now()
+    expense.append('')
+    expense.append(datetime.datetime.now())
     expense.append(None)
     return write_to_file(self, expense)
 

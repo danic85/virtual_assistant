@@ -146,7 +146,7 @@ def log_transactions(self, all):
                         if datetime.strptime(transaction['created'], '%Y-%m-%dT%H:%M:%S.%fZ') < first:
                             continue
 
-                        expense = [float(transaction['amount']) / 100, transaction['description'], transaction['id'], transaction['created']]
+                        expense = [float(transaction['amount']) / 100, transaction['description'].split('  ')[0], transaction['id'], transaction['created']]
                         count = count+1
                         response.append(lib.expenses.write_to_file(self, expense))
         else:
