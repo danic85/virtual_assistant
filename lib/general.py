@@ -4,7 +4,7 @@ import sys
 import datetime
 import git
 import os
-
+from shutil import copyfile
 
 def morning(self):
     """
@@ -90,3 +90,9 @@ def get_log(self):
     f = open(self.files + '/mojo_debug.log', 'r')
     self.sendDocument(self.user, f)
     return ''
+
+
+def rotate_log(self):
+    copyfile(self.files + '/mojo_debug.log', self.files + '/mojo_debug.log.' + str(datetime.datetime.today().weekday()))
+    open(self.files + '/mojo_debug.log', 'w').close()
+    return 'Log rotated'

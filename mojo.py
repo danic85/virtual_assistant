@@ -194,6 +194,7 @@ if len(sys.argv) == 2:
         schedule.clear()
         # schedule.every().minute.do(execute_bot_command, 'is house empty')
         schedule.every(10).minutes.do(execute_bot_command, bot, 'get recent transactions')
+        schedule.every().day.at("00:00").do(execute_bot_command, bot, 'rotate log')
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
         # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
