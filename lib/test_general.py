@@ -59,9 +59,10 @@ class TestGeneralMethods(unittest.TestCase):
         bot = self.build_bot()
         bot.sendDocument = Mock()
         bot.dir = 'dir'
+        bot.files = 'dir/files'
         open_mock.return_value = 'file'
         response = get_log(bot)
-        open_mock.assert_called_with('dir/mojo_debug.log', 'r')
+        open_mock.assert_called_with('dir/files/mojo_debug.log', 'r')
         bot.sendDocument.assert_called_with(bot.user, 'file')
         self.assertEqual(response, '')
         

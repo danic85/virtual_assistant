@@ -87,6 +87,6 @@ def reboot_self(self):
 
 def get_log(self):
     """ Send log file to user """
-    f = open(self.dir + '/mojo_debug.log', 'r')
+    f = open(self.files + '/mojo_debug.log', 'r')
     self.sendDocument(self.user, f)
     return ''
