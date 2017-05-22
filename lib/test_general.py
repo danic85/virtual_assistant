@@ -54,10 +54,6 @@ class TestGeneralMethods(unittest.TestCase):
             response += key + "\n"
         self.assertEqual(command_list(bot), response)
         
-    def test_update_self(self):
-        bot = self.build_bot()
-        self.assertEqual(update_self(bot, __file__),'Feature disabled')
-        
     @patch('__builtin__.open')
     def test_get_log(self, open_mock):
         bot = self.build_bot()
