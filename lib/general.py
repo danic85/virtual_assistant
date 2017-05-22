@@ -3,8 +3,6 @@
 import sys
 import datetime
 import git
-import pwd
-import grp
 import os
 
 
@@ -56,50 +54,6 @@ def date_time(self):
     return datetime.datetime.now().strftime('%d-%m-%y %I:%M %p')
 
 
-def set_countdown(self):
-    """ Add countdown to countdowns list """
-    cmd = self.command.replace('countdown ', '')
-    with open(self.files + '/countdowns.txt', 'a') as f:
-        f.write(cmd + '\n')
-    return get_countdowns(self)
-
-
-def get_closest_countdowns(self):
-    """ Get first 2 countdowns from list """
-    countdowns = read_countdowns(self)
-    return '\n'.join(countdowns[:2])
-
-
-def get_countdowns(self):
-    """ Get all countdowns from list """
-    countdowns = read_countdowns(self)
-    return '\n'.join(countdowns)
-
-
-def read_countdowns(self):
-    countdowns = []
-    with open(self.files + '/countdowns.txt', 'r') as f:
-        for line in f:
-            cmd = line.strip().split(' ', 1)
-            date = cmd[0].split('-')
-            event = cmd[1]
-            c = countdown(self, int(date[2]), int(date[1]), int(date[0]), event)
-            if c != '':
-                countdowns.append(c)  # only add future events @todo remove old events from file
-    return countdowns
-
-
-def countdown(self, year, month, day, event):
-    """ Return string of countdown """
-    delta = datetime.datetime(year, month, day) - datetime.datetime.now()
-    days = delta.days + 1
-    if (days < 0):
-        return ''
-    if (days == 0):
-        return 'Today is ' + event + '!'
-    return str(days) + ' days until ' + event
-
-
 def command_list(self):
     """ List available commands """
     response = "Available commands:\n"
@@ -108,7 +62,7 @@ def command_list(self):
     return response
 
 
-def update_self(self, f):
+def update_self(self):
     """ Pull from github repo and restart if appropriate """
     # pull from git
     directory = self.dir
@@ -119,6 +73,16 @@ def update_self(self, f):
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     return 'Updated to version: ' + str(self.last_mtime)
+
+
+def shutdown_self(self):
+    os.system("shutdown")
+    return 'Shutting down...'
+
+
+def reboot_self(self):
+    os.system("shutdown -r")
+    return 'Rebooting...'
 
 
 def get_log(self):

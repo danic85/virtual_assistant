@@ -169,10 +169,6 @@ class Mojo(telepot.Bot):
         logging.info('No match')
         return False
 
-    # @todo Refactor to remove these methods
-    def update_self(self):
-        return general.update_self(self, __file__)
-
 
 def execute_bot_command_console(bot, command):
     msg = {"chat": {"id": bot.admin}, "text": command, "console": True}
