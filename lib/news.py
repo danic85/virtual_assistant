@@ -8,7 +8,7 @@ import requests
 def news_api_feed(self, feeds, num_items):
     response = []
     for feed in feeds:
-        r = requests.get(feed)
+        r = requests.get(feed, verify=False)
         d = r.json()
 
         if d['status'] == 'error':
@@ -33,7 +33,7 @@ def news_api_sources_sort(source, sources_json):
 
 
 def get_news_api_sources(self):
-    r = requests.get('https://newsapi.org/v1/sources?language=en')
+    r = requests.get('https://newsapi.org/v1/sources?language=en', verify=False)
     return r.json()
 
 
