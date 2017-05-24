@@ -8,7 +8,6 @@ import time
 import datetime
 import re
 import telepot
-from pprint import pprint
 import importlib
 import aiml
 
