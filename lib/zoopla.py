@@ -41,11 +41,11 @@ def get_houses(self):
         r = [
             listing['displayable_address'],
             price,
-            listing['details_url']
+            '\n' + listing['details_url'].split('?')[0]
         ]
         response.append(' '.join(r))
 
-    return '\n'.join(response)
+    return '\n\n'.join(response)
 
 
 
