@@ -49,18 +49,20 @@ def get_houses(self):
 
     response = []
     for listing in listings:
-        if any(word in listing['displayable_address'].lower() for word in excluded_keywords):
+        if any(word in listing['description'].lower() for word in excluded_keywords) or any(word in listing['displayable_address'].lower() for word in excluded_keywords):
             continue
         price = '{:10,.2f}'.format(Decimal(listing['price']))
 
         # Remove HTML from description and shorten to first sentence
         tag_re = re.compile(r'(<!--.*?-->|<[^>]*>)')
         no_tags = tag_re.sub('', listing['short_description'].split('.')[0] + '.')
-        description = cgi.escape(no_tags)
+        description = cgi.escape(no_tags).strip()
+        if description.startswith("Summary"):
+            description = description[7:]
 
         r = [
             listing['displayable_address'],
-            '£'.decode("utf8") + price,
+            '\n£'.decode("utf8") + price,
             '\n' + description,
             '\n' + listing['details_url'].split('?')[0]
         ]
