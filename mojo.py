@@ -130,7 +130,7 @@ class Mojo(telepot.Bot):
                 for u in self.user:
                     print 'sending to'
                     print u
-                    self.sendMessage(u, msg)
+                    self.sendMessage(u, msg, None, True)
             else:
                 self.sendMessage(self.user, msg)
                 if self.config.get('Config', 'BraillespeakPort'):
