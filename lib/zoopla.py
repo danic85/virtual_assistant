@@ -6,6 +6,7 @@
 import requests
 # import json
 from decimal import Decimal
+import re, cgi
 
 
 def zoopla_get(args):
@@ -24,7 +25,12 @@ def get_houses(self):
             'minimum_beds=' + '2',
             'property_type=' + 'houses',
             'radius=' + '2',
-            'maximum_price=' + '150000'
+            'maximum_price=' + '150000',
+            'page_size=' + '20',
+            'order_by=' + 'age',
+            'ordering=' + 'ascending',
+            'listing_status=' + 'sale',
+            'keywords=' + 'garden, parking'
         ]
 
     json_str = zoopla_get(args)
@@ -35,12 +41,27 @@ def get_houses(self):
     listings = json_str.json()['listing']
     # print json.dumps(listings, indent=4, sort_keys=True)
 
+    excluded_keywords = [
+        'pegswood',
+        'tenanted',
+        'leasehold'
+    ]
+
     response = []
     for listing in listings:
+        if any(word in listing['displayable_address'].lower() for word in excluded_keywords):
+            continue
         price = '{:10,.2f}'.format(Decimal(listing['price']))
+
+        # Remove HTML from description and shorten to first sentence
+        tag_re = re.compile(r'(<!--.*?-->|<[^>]*>)')
+        no_tags = tag_re.sub('', listing['short_description'].split('.')[0] + '.')
+        description = cgi.escape(no_tags)
+
         r = [
             listing['displayable_address'],
-            price,
+            '£'.decode("utf8") + price,
+            '\n' + description,
             '\n' + listing['details_url'].split('?')[0]
         ]
         response.append(' '.join(r))
