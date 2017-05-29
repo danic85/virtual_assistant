@@ -5,8 +5,8 @@ import datetime
 import git
 import os
 from shutil import copyfile
-from subprocess import call
 import pip
+
 
 def morning(self):
     """

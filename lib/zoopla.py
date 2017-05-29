@@ -15,11 +15,11 @@ def zoopla_get(args):
     return r
 
 
-def get_all_houses(self):
-    return get_houses(self, False)
+def get_all_properties(self):
+    return get_properties(self, False)
 
 
-def get_houses(self, only_new=True):
+def get_properties(self, only_new=True):
     api_key = self.config.get('Config', 'ZooplaAPI')
 
     args = [
@@ -95,4 +95,4 @@ def remove_old_properties(self, listings):
             if listing['listing_id'] == property['id']:
                 found = True
         if not found:
-            self.db.delete('properties', property)
+            self.db.delete(property)
