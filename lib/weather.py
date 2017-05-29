@@ -38,8 +38,6 @@ def forecast(self):
             if 'Rain' in w['main']:
                 occurrences['rain'].add(datetime.fromtimestamp(f['dt']).weekday())
 
-    print occurrences
-
     response = []
 
     if len(occurrences['rain']) > 0:
@@ -47,7 +45,7 @@ def forecast(self):
         for o in occurrences['rain']:
             r.append(calendar.day_name[o])
         # build natural speech list of days
-        response.append('It will rain on ' + ' and'.join(', '.join(r).rsplit(',', 1)))
+        response.append('It is likely to rain on ' + ' and'.join(', '.join(r).rsplit(',', 1)))
 
     if len(occurrences['ice']) > 0:
         r = []
@@ -55,5 +53,8 @@ def forecast(self):
             r.append(calendar.day_name[o])
         # build natural speech list of days
         response.append('It is likely to be icy on ' + ' and'.join(', '.join(r).rsplit(',', 1)))
+
+    if len(response) == 0:
+        response.append('No rain or ice forecast for the next 5 days')
 
     return '\n'.join(response)

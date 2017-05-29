@@ -22,6 +22,7 @@ A home automation bot via telegram
 - "Broadcast [message]": Send message to all users
 ### Feeds
 - "Weather": Get current weather for preconfigured location
+- "Weather Forecast": Get a 5 day forecast for rain or ice
 - "Word of the day": Return a word of the day with definition
 - "Check fibre": Parse html site and notify if fibre broadband availability changes
 - "News": Top 5 BBC News stories
