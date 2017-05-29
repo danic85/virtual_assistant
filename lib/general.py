@@ -6,6 +6,7 @@ import git
 import os
 from shutil import copyfile
 from subprocess import call
+import pip
 
 def morning(self):
     """
@@ -72,7 +73,8 @@ def update_self(self):
     response = g.pull()
 
     if 'Already up-to-date' not in response:
-        call(["pip install -r ../requirements.txt"])
+        # install requirements.txt and restart python app
+        pip.main(['install', '-r', self.dir + '/requirements.txt'])
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     return 'Updated to version: ' + str(self.last_mtime)
