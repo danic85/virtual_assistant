@@ -50,6 +50,8 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "Goodbye / We're going out / Bye / Security On": Enable security system. When motion is detected send picture to admin.
 - "Hello / We're back/home/here /Security Off": Disable security system
 - "test security": Light up LED when motion detected, but do not take picture
+### Property Search
+- "Houses": Specific property search via Zoopla.
 
 ## Getting Started
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
@@ -103,3 +105,6 @@ Execute `python -m unittest discover` in the project directory to run all unit t
 * Extract code from return URL
 * Send message to Mojo "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
 * Wait for transactions or Send 'Get Transactions'
+
+### Database
+* run `apt-get install mongodb`

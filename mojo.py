@@ -13,6 +13,8 @@ import aiml
 
 from lib import *
 
+from db import Database
+
 import ConfigParser
 
 logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
@@ -59,6 +61,8 @@ class Mojo(telepot.Bot):
 
         self.last_mtime = os.path.getmtime(__file__)
         logging.info("Version: " + str(self.last_mtime))
+
+        self.db = Database()
 
     # Handle messages from users
     def handle(self, msg):
@@ -196,6 +200,7 @@ if len(sys.argv) == 2:
         schedule.every().day.at("00:00").do(execute_bot_command, bot, 'rotate log')
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
+        schedule.every().day.at("13:00").do(execute_bot_command, bot, 'houses')
         # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
         schedule.every().day.at("7:00").do(
             execute_bot_command_monthly,

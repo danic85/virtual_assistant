@@ -5,6 +5,7 @@ import datetime
 import git
 import os
 from shutil import copyfile
+from subprocess import call
 
 def morning(self):
     """
@@ -69,7 +70,9 @@ def update_self(self):
     g = git.cmd.Git(directory)
     g.fetch()
     response = g.pull()
+
     if 'Already up-to-date' not in response:
+        call(["pip install -r requirements.txt"])
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     return 'Updated to version: ' + str(self.last_mtime)

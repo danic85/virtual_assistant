@@ -26,7 +26,7 @@ def get_houses(self):
             'property_type=' + 'houses',
             'radius=' + '2',
             'maximum_price=' + '150000',
-            'page_size=' + '20',
+            'page_size=' + '100',
             'order_by=' + 'age',
             'ordering=' + 'ascending',
             'listing_status=' + 'sale',
@@ -34,7 +34,7 @@ def get_houses(self):
         ]
 
     json_str = zoopla_get(args)
-    print json_str.status_code
+    # print json_str.status_code
     if json_str.status_code == 403:
         return 'Error: ' + json_str.headers['X-Error-Detail-Header']
 
@@ -49,6 +49,9 @@ def get_houses(self):
 
     response = []
     for listing in listings:
+        if not save_property(self, listing):
+            continue
+
         if any(word in listing['description'].lower() for word in excluded_keywords) or any(word in listing['displayable_address'].lower() for word in excluded_keywords):
             continue
         price = '{:10,.2f}'.format(Decimal(listing['price']))
@@ -67,10 +70,24 @@ def get_houses(self):
             '\n' + listing['details_url'].split('?')[0]
         ]
         response.append(' '.join(r))
-
+    remove_old_properties(self, listings)
+    self.user = self.config.get('Config', 'Users').split(',')
     return '\n\n'.join(response)
 
 
+def save_property(self, listing):
+    if self.db.find('properties', {'id': listing['listing_id']}).count() > 0:
+        return False
+
+    self.db.insert('properties', {'id': listing['listing_id']})
+    return True
 
 
-
+def remove_old_properties(self, listings):
+    for property in self.db.find('properties'):
+        found = False
+        for listing in listings:
+            if listing['listing_id'] == property['id']:
+                found = True
+        if not found:
+            self.db.delete('properties', property)

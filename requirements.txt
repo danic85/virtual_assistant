@@ -14,3 +14,4 @@ SpeechRecognition
 pydub
 pyserial
 profanity
+pymongo
