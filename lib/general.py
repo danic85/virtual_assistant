@@ -98,4 +98,4 @@ def get_log(self):
 def rotate_log(self):
     copyfile(self.files + '/mojo_debug.log', self.files + '/mojo_debug.log.' + str(datetime.datetime.today().weekday()))
     open(self.files + '/mojo_debug.log', 'w').close()
-    return 'Log rotated'
+    return ''

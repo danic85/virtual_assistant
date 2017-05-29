@@ -15,7 +15,11 @@ def zoopla_get(args):
     return r
 
 
-def get_houses(self):
+def get_all_houses(self):
+    return get_houses(self, False)
+
+
+def get_houses(self, only_new=True):
     api_key = self.config.get('Config', 'ZooplaAPI')
 
     args = [
@@ -49,7 +53,7 @@ def get_houses(self):
 
     response = []
     for listing in listings:
-        if not save_property(self, listing):
+        if only_new and not save_property(self, listing):
             continue
 
         if any(word in listing['description'].lower() for word in excluded_keywords) or any(word in listing['displayable_address'].lower() for word in excluded_keywords):
@@ -71,7 +75,8 @@ def get_houses(self):
         ]
         response.append(' '.join(r))
     remove_old_properties(self, listings)
-    self.user = self.config.get('Config', 'Users').split(',')
+    if (only_new):
+        self.user = self.config.get('Config', 'Users').split(',')
     return '\n\n'.join(response)
 
 

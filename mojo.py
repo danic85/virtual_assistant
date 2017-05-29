@@ -200,7 +200,7 @@ if len(sys.argv) == 2:
         schedule.every().day.at("00:00").do(execute_bot_command, bot, 'rotate log')
         schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
         schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
-        schedule.every().day.at("13:00").do(execute_bot_command, bot, 'houses')
+        schedule.every().day.at("13:00").do(execute_bot_command, bot, 'new houses')
         # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
         schedule.every().day.at("7:00").do(
             execute_bot_command_monthly,
