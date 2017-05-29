@@ -15,7 +15,7 @@ def morning(self):
     """
     response = self.chat.respond('good morning', self.admin) + '\n\n'
     response += self.do_command('get closest countdowns') + '\n\n'
-    response += self.do_command('weather') + '\n\n'
+    response += self.do_command('weather forecast') + '\n\n'
     response += self.do_command('budget') + '\n\n'
     response += self.do_command('thought of the day') + '\n\n'
     response += self.do_command('did you know')
@@ -33,7 +33,7 @@ def morning_others(self):
     response = self.chat.respond('good morning', self.admin) + '\n\n'
     response += self.do_command('get closest countdowns') + '\n\n'
     response += self.do_command('budget') + '\n\n'
-    response += self.do_command('weather') + '\n\n'
+    response += self.do_command('weather forecast') + '\n\n'
     response += self.do_command('thought of the day') + '\n\n'
     response += self.do_command('did you know')
     return response
