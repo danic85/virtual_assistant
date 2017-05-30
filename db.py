@@ -1,9 +1,10 @@
-from pymongo import MongoClient
+# from pymongo import MongoClient
+import pymongo
 
 
 class Database(object):
     def __init__(self):
-        client = MongoClient()
+        client = pymongo.MongoClient()
         self.db = client.mojo_db
 
     def insert(self, collection_name, data_json):
@@ -11,8 +12,9 @@ class Database(object):
         result = self.db[collection_name].insert_one(data_json)
         return result.inserted_id
 
-    def find(self, collection_name, criteria={}):
-        return self.db[collection_name].find(criteria)
+    def find(self, collection_name, criteria={}, sort=[]):
+        results = self.db[collection_name].find(criteria).sort(sort)
+        return results
 
     def delete(self, document):
         collection_name = document.get('collection','properties')  # default to properties @todo remove when not needed

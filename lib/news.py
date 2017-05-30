@@ -39,7 +39,6 @@ def get_news_api_sources(self):
 
 def news_api_sources(self):
     sources_json = get_news_api_sources(self)
-    print sources_json
     response = []
     for entry in sources_json['sources']:
         response.append(entry['id'] + " - " + entry['name'])

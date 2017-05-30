@@ -24,7 +24,7 @@ def authenticate(client_id, client_secret, redirect_uri, code):
               "redirect_uri": redirect_uri,
               "code": code}
     response = requests.post("https://api.monzo.com/oauth2/token", data=params).json()
-    print response
+    print(response)
     if 'error' in response.keys():
         return response['message']
 
@@ -39,7 +39,7 @@ def add_token(self):
     """ Add token via command 'add monzo token <auth_code> <client_id> <client_secret>'"""
     token = self.original_message.replace('add monzo token ', '')
     input = token.split(' ')
-    print input
+    print(input)
     response = authenticate(input[1], input[2], 'http://localhost', input[0])
     if isinstance(response, basestring):
         return response

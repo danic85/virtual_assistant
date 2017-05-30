@@ -9,13 +9,17 @@ import datetime
 import re
 import telepot
 import importlib
-import aiml
+
+import inspect
 
 from lib import *
-
+from behaviours import *
 from db import Database
 
 import ConfigParser
+
+if sys.version_info < (3,0):
+    import aiml
 
 logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
 
@@ -27,6 +31,8 @@ logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/fil
 
 class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
+        self.behaviours = []
+
         self.logging = logging
         logging.info('Starting Mojo')
         self.config = ConfigParser.ConfigParser()
@@ -48,13 +54,14 @@ class Mojo(telepot.Bot):
         self.adminName = self.config.get('Config', 'AdminName')
         self.monzo_tokens = []
 
-        self.chat = aiml.Kernel()
+        if (sys.version_info < (3, 0)):
+            self.chat = aiml.Kernel()
 
-        if os.path.isfile(self.files + "/bot_brain.brn"):
-            self.chat.bootstrap(brainFile=self.files + "/bot_brain.brn")
-        else:
-            self.chat.bootstrap(learnFiles=self.files + "/aiml/*", commands="load aiml b")
-            self.chat.saveBrain(self.files + "/bot_brain.brn")
+            if os.path.isfile(self.files + "/bot_brain.brn"):
+                self.chat.bootstrap(brainFile=self.files + "/bot_brain.brn")
+            else:
+                self.chat.bootstrap(learnFiles=self.files + "/aiml/*", commands="load aiml b")
+                self.chat.saveBrain(self.files + "/bot_brain.brn")
 
         security.init(self)
         monzo.init(self)
@@ -63,6 +70,17 @@ class Mojo(telepot.Bot):
         logging.info("Version: " + str(self.last_mtime))
 
         self.db = Database()
+        self.register_behaviours()
+
+    def register_behaviours(self):
+        """ Instantiate and create reference to all behaviours as observers """
+        dir_path = self.dir + '/behaviours'
+        for path, subdirs, files in os.walk(dir_path):
+            for name in files:
+                if name.endswith('.py') and '__' not in name and name != 'behaviour.py':
+                    module = name.split('.')[0]
+                    instance = getattr(globals()[module], module.title())()  # Get instance of class
+                    self.behaviours.append(instance)
 
     # Handle messages from users
     def handle(self, msg):
@@ -106,7 +124,7 @@ class Mojo(telepot.Bot):
                 self.sendAudio(self.admin, open(self.files + '/speech/output.mp3'))
             elif 'console' in msg:
                 # Just print response if was sent from a console command
-                print response
+                print(response)
             else:
                 # Standard text response via telegram
                 self.message(response)
@@ -116,7 +134,7 @@ class Mojo(telepot.Bot):
     def listen(self):
         self.message_loop(self.handle)
 
-        print 'Listening ...'
+        print('Listening ...')
 
         try:
             self.admin_message(self.chat.respond('hello', self.admin))
@@ -132,8 +150,8 @@ class Mojo(telepot.Bot):
         if self.user:
             if type(self.user) is list:
                 for u in self.user:
-                    print 'sending to'
-                    print u
+                    print('sending to')
+                    print(u)
                     self.sendMessage(u, msg, None, True)
             else:
                 self.sendMessage(self.user, msg, None, True)
@@ -146,13 +164,23 @@ class Mojo(telepot.Bot):
         self.sendMessage(self.admin, msg)
 
     def do_command(self, command):
-        print 'Received command: ' + command
+        print('Received command: ' + command)
         try:
             self.command = command
+
+            # Try observers first
+            responses = []
+            for behaviour in self.behaviours:
+                r = behaviour.handle(self)
+                if r is not None:
+                    responses.append(r)
+            if len(responses) > 0:
+                return '\n\n'.join(responses)
+
+            # Fallback to lib behaviours (@todo remove these)
             for theRegex, theMethod in self.commandList:
                 if re.search(theRegex, command, flags=0):
                     logging.info('Match on ' + theRegex)
-
                     if "." in theMethod:
                         mod_name, func_name = theMethod.rsplit('.', 1)
                         mod = importlib.import_module('lib.' + mod_name)
@@ -165,10 +193,10 @@ class Mojo(telepot.Bot):
         except Exception as e:
             template = "An exception of type {0} occured with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            print message
+            print(message)
             logging.info(message)
             return str(message)
-        print 'No match'
+        print('No match')
         logging.info('No match')
         return False
 

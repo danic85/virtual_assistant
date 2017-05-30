@@ -8,7 +8,7 @@ try:
     import speech_recognition as sr
     from pydub import AudioSegment
 except ImportError as e:
-    print str(e)
+    print (str(e))
 
 
 def speak(self, response):

@@ -45,10 +45,10 @@ def house_empty(self):
             empty = False
 
         if empty:
-            print 'House is empty'
+            print ('House is empty')
             return on(self)
         else:
-            print 'House is not empty'
+            print ('House is not empty')
             return off(self)
 
     return ''

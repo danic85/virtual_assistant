@@ -77,9 +77,9 @@ def take_video(self):
 
     p = subprocess.Popen('MP4Box -add ' + h264 + ' ' + mp4, stdout=subprocess.PIPE, shell=True)
     for line in p.communicate():
-        print line
+        print(line)
     p.wait()
-    print p.returncode
+    print(p.returncode)
 
     f = open(mp4, 'rb')
     self.sendVideo(self.user, f)

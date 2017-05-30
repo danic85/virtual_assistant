@@ -84,7 +84,7 @@ def log_expense(self):
 def write_to_file(self, expense):
     with open(current_file(self), 'a') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        print expense
+        print(expense)
         csvwriter.writerow([expense[1], expense[0], expense[3], self.user, expense[2]])
     self.user = self.config.get('Config', 'Users').split(',')
     return ('Logged expense: ' + str(expense[0] * -1) + " " + expense[1] + "\n").decode("utf8") + self.do_command('budget')

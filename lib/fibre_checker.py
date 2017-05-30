@@ -29,7 +29,7 @@ def check(self):
         for td in tds:
             if match and td.text != '--' and not is_number(td.text) and td.text != 'Yes':
                 if td.text != 'Waiting list':
-                    print 'Change detected'
+                    print('Change detected')
                     return 'It looks like the status of fibre broadband has changed! http://dslchecker.bt.com'
             if td.text in ("FTTC Range A (Clean)", "FTTC Range B (Impacted)", "VDSL Range A (Clean)", "VDSL Range B (Impacted)"):
                 match = True
@@ -38,7 +38,7 @@ def check(self):
     if not found_something:
         return 'Could not parse fibre checker website'
 
-    print ('executed')
+    print('executed')
     return 'No change to fibre broadband availability.' if random.randint(0, 3) > 2 else ''
 
 

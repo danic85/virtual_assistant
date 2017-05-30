@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import json
-import urllib2
-import os
+import sys
+
+if sys.version_info < (3, 0):
+    from urllib2 import urlopen
+else:
+    from urllib.request import urlopen
 
 
 def convert_usd(self):
@@ -13,7 +17,7 @@ def convert_usd(self):
 # Convert currency into GBP (as long as it's USD!)
 def convert(self, currency, amount, key):
     endpoint = 'https://openexchangerates.org/api/latest.json?app_id=' + key
-    gbp = json.load(urllib2.urlopen(endpoint))['rates']['GBP']
+    gbp = json.load(urlopen(endpoint))['rates']['GBP']
     conversion = float(amount) * float(gbp)
     # os.remove(key+'.json')
     return conversion

@@ -4,13 +4,17 @@
 
 from random import randint
 from json import load
-import urllib2
+import sys
+if sys.version_info < (3, 0):
+    from urllib2 import build_opener
+else:
+    from urllib.request import build_opener
 from profanity import profanity
 
 
 def get_json(url):
     """ Requests using custom header to avoid 'HTTP Error 429: Too Many Requests' error """
-    opener = urllib2.build_opener()
+    opener = build_opener()
     opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
     feeddata = opener.open(url)
     return load(feeddata)
