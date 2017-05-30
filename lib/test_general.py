@@ -7,10 +7,10 @@ class TestGeneralMethods(unittest.TestCase):
 
     def test_morning(self):
         bot = self.build_bot()
-        countdown = Mock(return_value = 'countdown response')
+        # countdown = Mock(return_value = 'countdown response')
         response = morning(bot)
         bot.chat.respond.assert_called_with('good morning', 1)
-        calls = [call('weather'), call('budget'), call('thought of the day'), call('did you know')]
+        calls = [call('get closest countdowns'), call('weather forecast'), call('budget'), call('thought of the day'), call('did you know')]
         bot.do_command.assert_has_calls(calls)
         self.assertNotEqual(response, '')
         self.assertNotEqual(response, None)
@@ -19,7 +19,7 @@ class TestGeneralMethods(unittest.TestCase):
         bot = self.build_bot()
         response = morning_others(bot)
         bot.chat.respond.assert_called_with('good morning', 1)
-        calls = [call('budget'), call('weather'), call('thought of the day'), call('did you know')]
+        calls = [call('get closest countdowns'), call('budget'), call('weather forecast'), call('thought of the day'), call('did you know')]
         bot.do_command.assert_has_calls(calls)
         self.assertNotEqual(response, '')
         self.assertNotEqual(response, None)
