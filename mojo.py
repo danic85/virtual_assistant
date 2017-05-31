@@ -5,71 +5,74 @@ import logging
 import os
 import schedule
 import time
-import datetime
-import re
 import telepot
-import importlib
-
-import inspect
-
-from lib import *
-from behaviours import *
+import datetime
+import traceback
 from db import Database
 
-import ConfigParser
+from behaviours import *
+from interaction import Interaction
 
 if sys.version_info < (3,0):
-    import aiml
+    import ConfigParser
+else:
+    import configparser
+
+# if sys.version_info < (3,0):
+#     import aiml
 
 logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
 
-
-# logging.debug('This message should go to the log file')
-# logging.info('So should this')
-# logging.warning('And this, too')
-
-
 class Mojo(telepot.Bot):
-    def __init__(self, *args, **kwargs):
-        self.behaviours = []
+    """The Bot Object that handles interactions and passes them to the behaviours for processing
 
+        Extends Telegram Bot
+
+        Attributes:
+            logging: logging object
+            behaviours: an object containing lists of behaviours, keyed by execution order
+            dir: path to application directory
+            files: path to application files directory
+            config: config key: value pairs
+            admin: telegram ID of admin account
+
+    """
+
+    def __init__(self, *args, **kwargs):
+        """ Initialise attributes and register all behaviours """
         self.logging = logging
-        logging.info('Starting Mojo')
-        self.config = ConfigParser.ConfigParser()
+        self.__log('Starting Mojo')
+        self.db = Database()
+
+        self.behaviours = {}
+
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
-        conf = self.dir + "/config.ini"
-        self.config.read(conf)
 
-        # Parse commands
-        p = ConfigParser.ConfigParser()
-        c = self.dir + "/commands.ini"
-        p.read(c)
-        self.commandList = p.items('Commands')
+        if sys.version_info < (3, 0):
+            self.config = ConfigParser.ConfigParser()
+        else:
+            self.config = configparser.ConfigParser()
+        self.config.read(self.dir + "/config.ini")
 
         super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
 
-        self.user = self.command = False
         self.admin = self.config.get('Config', 'Admin')
-        self.adminName = self.config.get('Config', 'AdminName')
-        self.monzo_tokens = []
 
-        if (sys.version_info < (3, 0)):
-            self.chat = aiml.Kernel()
+        # if (sys.version_info < (3, 0)):
+        #     self.chat = aiml.Kernel()
+        #
+        #     if os.path.isfile(self.files + "/bot_brain.brn"):
+        #         self.chat.bootstrap(brainFile=self.files + "/bot_brain.brn")
+        #     else:
+        #         self.chat.bootstrap(learnFiles=self.files + "/aiml/*", commands="load aiml b")
+        #         self.chat.saveBrain(self.files + "/bot_brain.brn")
 
-            if os.path.isfile(self.files + "/bot_brain.brn"):
-                self.chat.bootstrap(brainFile=self.files + "/bot_brain.brn")
-            else:
-                self.chat.bootstrap(learnFiles=self.files + "/aiml/*", commands="load aiml b")
-                self.chat.saveBrain(self.files + "/bot_brain.brn")
+        # security.init(self)
 
-        security.init(self)
-        monzo.init(self)
+        self.last_mtime = os.path.getmtime(__file__)  # @todo remove and use git sha instead for update script
+        self.__log("Version: " + str(self.last_mtime))
 
-        self.last_mtime = os.path.getmtime(__file__)
-        logging.info("Version: " + str(self.last_mtime))
-
-        self.db = Database()
         self.register_behaviours()
 
     def register_behaviours(self):
@@ -78,165 +81,126 @@ class Mojo(telepot.Bot):
         for path, subdirs, files in os.walk(dir_path):
             for name in files:
                 if name.endswith('.py') and '__' not in name and name != 'behaviour.py':
-                    module = name.split('.')[0]
-                    instance = getattr(globals()[module], module.title())()  # Get instance of class
-                    self.behaviours.append(instance)
+                    m = name.split('.')[0]
+                    instance = getattr(globals()[m], m.title())(db=self.db, config=self.config, dir=self.dir,
+                                                                logging=logging)  # Get instance of class
 
-    # Handle messages from users
-    def handle(self, msg):
-        if 'text' in msg:
-            logging.info(general.date_time(self) + ': Message received: ' + msg['text'])
-        try:
-            if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
-                self.admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
-                return
-        except Exception as e:
-            self.admin_message(str(e))
-            msg['chat']['id'] = self.admin
+                    # Add to behaviours list in order of execution
+                    if instance.execution_order not in self.behaviours:
+                        self.behaviours[instance.execution_order] = []
+                    self.behaviours[instance.execution_order].append(instance)
 
-        self.user = msg['chat']['id']
-        self.original_message = msg['text'].strip()
-        logging.info(msg)
-        if 'text' in msg:
-            command = msg['text'].lower().strip()
-        elif 'voice' in msg:
-            command = speech.getMessage(self, msg)
-        else:
-            return
-        response = False
-
-        # check command list
-        response = self.do_command(command)
-        # get a response from chat
-        if not response and response != '':
-            try:
-                logging.info('chatbot response:')
-                response = str(self.chat.respond(command, self.admin))
-                logging.info(response)
-                if response == '':
-                    response = "I'm sorry, I don't understand"
-            except Exception as e:
-                self.admin_message(str(e))
-        if response != '':
-            if 'voice' in msg:
-                # Respond with voice if audio input received
-                speech.speak(self, response)
-                self.sendAudio(self.admin, open(self.files + '/speech/output.mp3'))
-            elif 'console' in msg:
-                # Just print response if was sent from a console command
-                print(response)
-            else:
-                # Standard text response via telegram
-                self.message(response)
-        self.command = self.user = False
-
-    # Listen
     def listen(self):
+        """ Handle messages via telegram and run scheduled tasks """
         self.message_loop(self.handle)
 
-        print('Listening ...')
-
-        try:
-            self.admin_message(self.chat.respond('hello', self.admin))
-        except Exception as e:
-            self.admin_message('Hello!', self.admin)
+        self.__log('Listening ...')
+        self.__admin_message('Hello!')
 
         # Keep the program running.
         while 1:
             schedule.run_pending()
+            self.__idle_behaviours()
             time.sleep(1)
 
-    def message(self, msg):
-        if self.user:
-            if type(self.user) is list:
-                for u in self.user:
-                    print('sending to')
-                    print(u)
-                    self.sendMessage(u, msg, None, True)
-            else:
-                self.sendMessage(self.user, msg, None, True)
-                if self.config.get('Config', 'BraillespeakPort'):
-                    braillespeak.speak(self, msg)
-        else:
-            self.admin_message(msg)
-
-    def admin_message(self, msg):
-        self.sendMessage(self.admin, msg)
-
-    def do_command(self, command):
-        print('Received command: ' + command)
+    def handle(self, msg):
+        """ Handle messages from users (must be public for telegram) """
+        if 'text' in msg:
+            self.__log(self.__datetime() + ': Message received: ' + msg['text'])
         try:
-            self.command = command
+            if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
+                self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
+                return
+        except Exception as e:
+            self.__admin_message(str(e))
+            msg['chat']['id'] = self.admin
 
+        act = Interaction(user=[msg['chat']['id']],
+                          command={'text': msg['text'].strip()},
+                          config=self.config)
+
+        self.__log(act.command['text'])
+
+        if 'voice' in msg:
+            pass
+            # command = speech.getMessage(self, msg)
+
+        act = self.__interact(act)
+
+        if len(act.response) > 0:
+            if 'voice' in msg:
+                # Respond with voice if audio input received
+                # speech.speak(self, response)
+                self.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
+            elif 'console' in msg:
+                # Just print response if was sent from a console command
+                self.__log(act.get_response_str())
+            else:
+                # Standard text response via telegram
+                self.__message(act)
+
+            # Handle chained commands
+            for r in act.response:
+                if 'command' in r:
+                    new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
+                    if 'console' in msg:
+                        new_cmd['console'] = True
+                    self.handle(new_cmd)
+
+    def __idle_behaviours(self):
+        """ Call idle method for each behaviour """
+        act = self.__interact(Interaction(user=[self.admin], config=self.config, method='idle'))
+        self.__message(act)
+
+    def __interact(self, act):
+        """ Send interaction to behaviours, in order of execution.
+            Stop when response returned if act.finish == True
+        """
+        self.__log('Received command: ' + act.command['text'])
+        try:
             # Try observers first
-            responses = []
-            for behaviour in self.behaviours:
-                r = behaviour.handle(self)
-                if r is not None:
-                    responses.append(r)
-            if len(responses) > 0:
-                return '\n\n'.join(responses)
-
-            # Fallback to lib behaviours (@todo remove these)
-            for theRegex, theMethod in self.commandList:
-                if re.search(theRegex, command, flags=0):
-                    logging.info('Match on ' + theRegex)
-                    if "." in theMethod:
-                        mod_name, func_name = theMethod.rsplit('.', 1)
-                        mod = importlib.import_module('lib.' + mod_name)
-                        func = getattr(mod, func_name)
-                        return func(self)
-                    else:
-                        func = getattr(self, theMethod)
-                        return func()
+            for ex_order in self.behaviours:
+                for behaviour in self.behaviours[ex_order]:
+                    r = getattr(behaviour, act.method)(act)  # call method specified in interaction object
+                    if r is not None:
+                        act.respond(r)
+                if len(act.response) > 0 and act.finish:
+                    break
 
         except Exception as e:
-            template = "An exception of type {0} occured with the message '{1}'. Arguments:\n{2!r}"
+            template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            print(message)
-            logging.info(message)
-            return str(message)
-        print('No match')
-        logging.info('No match')
-        return False
+            print(traceback.print_tb(e.__traceback__))
+            self.__log(message)
+            act.respond(message)
+            return act
 
+        if len(act.response) == 0:
+            self.__log('No match')
+            act.respond("I'm sorry I don't know what to say")
+        return act
 
-def execute_bot_command_console(bot, command):
-    msg = {"chat": {"id": bot.admin}, "text": command, "console": True}
-    bot.handle(msg)
+    def __message(self, act):
+        """ Parse interaction object and convert to user friendly response message """
+        msg = act.get_response_str()
 
+        if act.user:
+            for u in act.user:
+                self.__log('sending to' + str(u))
+                self.sendMessage(u, msg, None, True)
+        else:
+            self.__admin_message(msg)
 
-def execute_bot_command(bot, command):
-    msg = {"chat": {"id": bot.admin}, "text": command}
-    bot.handle(msg)
+    def __admin_message(self, msg):
+        self.sendMessage(self.admin, msg)
 
+    @staticmethod
+    def __log(text):
+        """ Output and log text """
+        print(Mojo.__datetime() + text)
+        logging.info(Mojo.__datetime() + text)
 
-def execute_bot_command_monthly(bot, command):
-    now = datetime.datetime.now()
-    if now.day == 1:
-        execute_bot_command(bot, command)
-
-# If method call defined on launch, call. 'startx' = listen for commands from telegram
-if len(sys.argv) == 2:
-    # Start mojo
-    if sys.argv[1] == 'startx':
-        bot = Mojo()
-        # Load scheduled tasks
-        schedule.clear()
-        # schedule.every().minute.do(execute_bot_command, 'is house empty')
-        schedule.every(10).minutes.do(execute_bot_command, bot, 'get recent transactions')
-        schedule.every().day.at("00:00").do(execute_bot_command, bot, 'rotate log')
-        schedule.every().day.at("6:30").do(execute_bot_command, bot, 'morning')
-        schedule.every().day.at("8:30").do(execute_bot_command, bot, 'morning others')
-        schedule.every().day.at("13:00").do(execute_bot_command, bot, 'new houses')
-        # schedule.every().monday.at("8:00").do(execute_bot_command, bot, 'check fibre')
-        schedule.every().day.at("7:00").do(
-            execute_bot_command_monthly,
-            bot,
-            '-700 budget')  # reset budget at beginning of month
-        bot.listen()
-    # Execute command without listening (ignore discover unittest)
-    elif sys.argv[1] != 'discover':
-        bot = Mojo()
-        execute_bot_command_console(bot, sys.argv[1])
-
+    @staticmethod
+    def __datetime():
+        """ Return readable datetime """
+        return datetime.datetime.now().strftime('%d-%m-%y %I:%M %p - ')

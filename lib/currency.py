@@ -19,5 +19,4 @@ def convert(self, currency, amount, key):
     endpoint = 'https://openexchangerates.org/api/latest.json?app_id=' + key
     gbp = json.load(urlopen(endpoint))['rates']['GBP']
     conversion = float(amount) * float(gbp)
-    # os.remove(key+'.json')
     return conversion

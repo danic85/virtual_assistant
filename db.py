@@ -13,7 +13,9 @@ class Database(object):
         return result.inserted_id
 
     def find(self, collection_name, criteria={}, sort=[]):
-        results = self.db[collection_name].find(criteria).sort(sort)
+        results = self.db[collection_name].find(criteria)
+        if len(sort) > 0:
+            return results.sort(sort)
         return results
 
     def delete(self, document):

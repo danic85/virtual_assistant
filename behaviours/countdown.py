@@ -4,7 +4,7 @@
 from dateutil import parser
 import datetime
 import inflect
-from behaviour import Behaviour
+from behaviours.behaviour import Behaviour
 
 
 class Countdown(Behaviour):
@@ -15,8 +15,8 @@ class Countdown(Behaviour):
         '^get closest countdowns$': 'get_closest'
     }
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, **kwargs):
+        super(self.__class__, self).__init__(**kwargs)
         self.collection = 'countdowns'
 
     def set_countdown(self):

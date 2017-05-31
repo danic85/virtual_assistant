@@ -3,7 +3,6 @@ Name=Mojo
 Admin=1111111
 AdminName=Someone
 Users=1234,1235
-FibreTel=0800111111
 Telbot=123456
 OpenWeatherMapKey=abcdefg
 OpenExchangeRatesKey=1234

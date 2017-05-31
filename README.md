@@ -10,12 +10,13 @@ A home automation bot via telegram
 - Raspberry Pi compatible
 - Camera and PIR sensor integration
 - Chat bot
-- Integrated [Braillespeak](https://github.com/danic85/braillespeak) on responses 
+- Integrated [Braillespeak](https://github.com/danic85/braillespeak) on responses
+- Compatible with Python 2 and Python 3
 
 ## Commands
 ### General
 - "What time is it / what is the time / time": Current time 
-- "Help / List commands / command list": Show all commands with regex
+- "Help / List commands / command list": Show all commands
 - "Update": Automatic self-update from git
 - "Morning / Morning Others": Configurable wake-up message at predefined time, daily.
 - "Get Log": Retrieve log file for inspection via telegram
@@ -24,16 +25,14 @@ A home automation bot via telegram
 - "Weather": Get current weather for preconfigured location
 - "Weather Forecast": Get a 5 day forecast for rain or ice
 - "Word of the day": Return a word of the day with definition
-- "Check fibre": Parse html site and notify if fibre broadband availability changes
 - "News": Top 5 BBC News stories
-- "Riddle / Riddle Answer": Return a random riddle. Return answer to riddle
 - "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
 - "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
 ### Camera
 Required: RPI Camera
 - "Camera": Take photo from Raspberry Pi camera and send to user via telegram.
 - "Video": Record short video from Raspberry Pi camera and send to user via telegram.
-### Budgetting
+### Budgeting
 - "[amount] [expense type]": Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
 - "Budget": Show remaining monthly budget
 - "Get Expenses": Download current and previous month's expenses in CSV format via telegram
@@ -52,16 +51,17 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "Hello / We're back/home/here /Security Off": Disable security system
 - "test security": Light up LED when motion detected, but do not take picture
 ### Property Search
-- "Houses": Specific property search via Zoopla.
+- "Properties": Specific property search via Zoopla.
 
 ## Getting Started
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
 2. Navigate to directory `mojo_home_bot`
-3. `pip install -r requirements.txt`
+3. `pip3 install -r requirements.txt`
 4. `sudo apt-get install libav-tools` and `sudo apt-get install flac` (Required for pydub as part of speech recognition)
+5. `apt-get install mongodb` to install the database
 
 ### Execute command from the terminal
-To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py 'time'`)
+To execute a command, run `python3 main.py 'the command'` (e.g. `python3 main.py 'time'`)
 
 ### Initialize with Telegram
 1. Rename the config file: `mv config.ini.example config.ini`
@@ -70,27 +70,20 @@ To execute a command, run `python mojo.py 'the command'` (e.g. `python mojo.py '
   * Telbot: Telegram Bot Key https://core.telegram.org/bots (REQUIRED for telegram integration)
   * Admin: Telegram User ID (REQUIRED for telegram integration)
   * AdminName: Your name
-  * FibreTel: Telephone number for fibre broadband availability checker
   * OpenWeatherMapKey: Location key from Open Weather Map
   * Users: Telegram User IDs, comma separated
   * OpenExchangeRatesKey: Key for Open Exchange Rates
   * RouterIP: Your router's IP (for automatic security check)
   * MacAddresses: List of MAC addresses to detect on network (for automatic security check)
   * BraillespeakPort: The serial port to connect to braillespeak arduino (e.g. `/dev/ttyUSB0`)
-3. `python mojo.py startx`
+3. `python3 main.py startx`
 
 ### Start on Boot
 1. Add execute permission to mojo.py `chmod +x mojo.py`
-2. Add `(sleep 10; python /home/pi/mojo_home_bot/mojo.py startx) &` to `/etc/rc.local` replacing path if appropriate.
-
-### Restart script
-This project is a WIP. Occasionally the script may exit due to an unhandled exception. Enable `restart_script.sh` to check for the process and restart if necessary: (Optional)
-1. `chmod +x restart_script.sh`
-2. `sudo crontab -e` 
-3. Add `30 * * * * sudo python /home/pi/mojo_home_bot/restart_script.sh` 
+2. Add `(sleep 10; python3 /home/pi/mojo_home_bot/mojo.py startx) &` to `/etc/rc.local` replacing path if appropriate.
 
 ## Unit testing
-Execute `python -m unittest discover` in the project directory to run all unit tests
+Execute `python3 -m unittest discover` in the project directory to run all unit tests
 
 ### Code Coverage
 * Execute `coverage run -m unittest discover` to run all tests with coverage
@@ -107,5 +100,3 @@ Execute `python -m unittest discover` in the project directory to run all unit t
 * Send message to Mojo "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
 * Wait for transactions or Send 'Get Transactions'
 
-### Database
-* run `apt-get install mongodb`
