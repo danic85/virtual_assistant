@@ -43,6 +43,7 @@ class Mojo(telepot.Bot):
         self.logging = logging
         self.__log('Starting Mojo')
         self.db = Database()
+        self.mode = 'telegram'
 
         self.behaviours = {}
 
@@ -90,17 +91,26 @@ class Mojo(telepot.Bot):
                         self.behaviours[instance.execution_order] = []
                     self.behaviours[instance.execution_order].append(instance)
 
-    def listen(self):
+    def listen(self, **kwargs):
         """ Handle messages via telegram and run scheduled tasks """
-        self.message_loop(self.handle)
+        self.mode = kwargs.get('mode', 'telegram')
+        if self.mode == 'telegram':
+            self.message_loop(self.handle)
+            self.__admin_message('Hello!')
 
         self.__log('Listening ...')
-        self.__admin_message('Hello!')
 
         # Keep the program running.
         while 1:
+            if self.mode == 'console':
+                if sys.version_info < (3, 0):
+                    command = raw_input("Enter command: ")
+                else:
+                    command = input("Enter command: ")
+                print(command)
+                self.handle({"chat": {"id": self.admin}, "text": command, "console": True})
             schedule.run_pending()
-            self.__idle_behaviours()
+            # self.__idle_behaviours()  # @todo this is doing strange things. Disabled for now
             time.sleep(1)
 
     def handle(self, msg):
@@ -142,6 +152,7 @@ class Mojo(telepot.Bot):
             # Handle chained commands
             for r in act.response:
                 if 'command' in r:
+                    print("I think theres another command: " + r)
                     new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
                     if 'console' in msg:
                         new_cmd['console'] = True
@@ -184,6 +195,10 @@ class Mojo(telepot.Bot):
         """ Parse interaction object and convert to user friendly response message """
         msg = act.get_response_str()
 
+        if self.mode == 'console':
+            self.__log(msg)
+            return
+
         if act.user:
             for u in act.user:
                 self.__log('sending to' + str(u))
@@ -192,6 +207,9 @@ class Mojo(telepot.Bot):
             self.__admin_message(msg)
 
     def __admin_message(self, msg):
+        if self.mode == 'console':
+            self.__log(msg)
+            return
         self.sendMessage(self.admin, msg)
 
     @staticmethod

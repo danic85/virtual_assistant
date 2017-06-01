@@ -2,7 +2,7 @@ class Interaction(object):
 
     def __init__(self, **kwargs):
         self.user = kwargs.get('user', None)
-        self.command = kwargs.get('command', {})
+        self.command = kwargs.get('command', {'text': ''})
         self.response = []
         self.finish = kwargs.get('finish', True)
         self.method = kwargs.get('method', 'handle')

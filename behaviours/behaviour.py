@@ -4,7 +4,7 @@
 from abc import ABCMeta
 import re
 from db import Database
-from datetime import datetime
+from datetime import datetime, timedelta
 import collections
 
 class Behaviour(object):
@@ -16,6 +16,7 @@ class Behaviour(object):
         collection: name of db collection
         match: result of regular expression search (including capture groups)
         execution_order: Order in which to execute command against behaviour (useful to command vs chat behaviour)
+        history: collection of history json objects for each user
 
     """
     __metaclass__ = ABCMeta
@@ -32,7 +33,7 @@ class Behaviour(object):
         self.match = None
         self.execution_order = 1
         self.logging = kwargs.get('logging', None)
-        self.last_response = {}
+        self.history = {}
 
     def handle(self, act):
         self.act = act
@@ -45,11 +46,29 @@ class Behaviour(object):
                 print('Match on ' + theRegex)
                 func = getattr(self, self.routes[theRegex])
                 response = func()
-                self.last_response[int(self.act.user[0])] = {'msg': response, 'time': datetime.now()}
                 return response
 
         return None
 
-    def idle(self):
+    def idle(self, act):
         """ Anything that needs to be executed continuously during operation """
         pass
+
+    def set_history(self, user, history):
+        if 'time' not in history:
+            history['time'] = datetime.now()
+        self.history[int(user)] = history
+        print('History added:')
+        print(self.history)
+
+    def get_recent_history(self, user):
+        if int(user) not in self.history:
+            print('No history found')
+            return None
+        recent = self.history[int(user)]
+        if recent['time'] < datetime.now() - timedelta(minutes=1):
+            print('Found history but expired')
+            return None
+        print('Found history')
+        print(recent)
+        return recent
