@@ -25,11 +25,11 @@ class Echochat(Behaviour):
         # routes set here due to use OrderedDict
         self.routes['train echochat'] = 'train'
         self.routes['(.*)'] = 'chat'
-    #
-    # def idle(self, act):
-    #     if datetime.now() < self.train_time:
-    #         self.__set_training_interval(self.interval)
-    #         self.train()
+
+    def idle(self, act):
+        if datetime.now() < self.train_time:
+            self.__set_training_interval(self.interval)
+            self.train()
 
     def __set_training_interval(self, interval):
         self.train_time = datetime.now() + timedelta(hours=interval)
@@ -51,7 +51,8 @@ class Echochat(Behaviour):
                 self.set_history(self.act.user[0], results[0])
                 return results[0].get('msg')
 
-        return "I'm sorry I don't know what to say. How would you respond to that?"  # If not found repeat message to user for training
+        # If not found repeat message to user for training
+        return "I'm sorry I don't know what to say. How would you respond to that?"
 
     def __log_new_response(self):
         previous_id = None

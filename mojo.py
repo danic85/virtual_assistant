@@ -110,7 +110,7 @@ class Mojo(telepot.Bot):
                 print(command)
                 self.handle({"chat": {"id": self.admin}, "text": command, "console": True})
             schedule.run_pending()
-            # self.__idle_behaviours()  # @todo this is doing strange things. Disabled for now
+            self.__idle_behaviours()  # @todo this is doing strange things. Disabled for now
             time.sleep(1)
 
     def handle(self, msg):
@@ -161,13 +161,16 @@ class Mojo(telepot.Bot):
     def __idle_behaviours(self):
         """ Call idle method for each behaviour """
         act = self.__interact(Interaction(user=[self.admin], config=self.config, method='idle'))
-        self.__message(act)
+        if len(act.response) > 0:
+            self.__message(act)
 
     def __interact(self, act):
         """ Send interaction to behaviours, in order of execution.
             Stop when response returned if act.finish == True
         """
-        self.__log('Received command: ' + act.command['text'])
+        if act.method != 'idle':
+            self.__log('Received command: ' + act.command['text'])
+
         try:
             # Try observers first
             for ex_order in self.behaviours:
@@ -186,7 +189,7 @@ class Mojo(telepot.Bot):
             act.respond(message)
             return act
 
-        if len(act.response) == 0:
+        if len(act.response) == 0 and act.method != 'idle':
             self.__log('No match')
             act.respond("I'm sorry I don't know what to say")
         return act
