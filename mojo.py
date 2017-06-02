@@ -103,15 +103,18 @@ class Mojo(telepot.Bot):
         # Keep the program running.
         while 1:
             if self.mode == 'console':
-                if sys.version_info < (3, 0):
-                    command = raw_input("Enter command: ")
-                else:
-                    command = input("Enter command: ")
-                print(command)
-                self.handle({"chat": {"id": self.admin}, "text": command, "console": True})
+                self.console_input()
             schedule.run_pending()
-            self.__idle_behaviours()  # @todo this is doing strange things. Disabled for now
+            self.__idle_behaviours()
             time.sleep(1)
+
+    def console_input(self):
+        if sys.version_info < (3, 0):
+            command = raw_input("Enter command: ")
+        else:
+            command = input("Enter command: ")
+        print(command)
+        self.handle({"chat": {"id": self.admin}, "text": command, "console": True})
 
     def handle(self, msg):
         """ Handle messages from users (must be public for telegram) """
