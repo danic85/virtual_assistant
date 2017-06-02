@@ -8,6 +8,7 @@ import time
 import telepot
 import datetime
 import traceback
+import lib
 from db import Database
 
 from behaviours import *
@@ -60,17 +61,6 @@ class Mojo(telepot.Bot):
 
         self.admin = self.config.get('Config', 'Admin')
 
-        # if (sys.version_info < (3, 0)):
-        #     self.chat = aiml.Kernel()
-        #
-        #     if os.path.isfile(self.files + "/bot_brain.brn"):
-        #         self.chat.bootstrap(brainFile=self.files + "/bot_brain.brn")
-        #     else:
-        #         self.chat.bootstrap(learnFiles=self.files + "/aiml/*", commands="load aiml b")
-        #         self.chat.saveBrain(self.files + "/bot_brain.brn")
-
-        # security.init(self)
-
         self.last_mtime = os.path.getmtime(__file__)  # @todo remove and use git sha instead for update script
         self.__log("Version: " + str(self.last_mtime))
 
@@ -118,6 +108,9 @@ class Mojo(telepot.Bot):
 
     def handle(self, msg):
         """ Handle messages from users (must be public for telegram) """
+        if 'voice' in msg:
+            msg['text'] = lib.speech.get_message(self, msg)
+
         if 'text' in msg:
             self.__log(self.__datetime() + ': Message received: ' + msg['text'])
         try:
@@ -134,16 +127,12 @@ class Mojo(telepot.Bot):
 
         self.__log(act.command['text'])
 
-        if 'voice' in msg:
-            pass
-            # command = speech.getMessage(self, msg)
-
         act = self.__interact(act)
 
         if len(act.response) > 0:
             if 'voice' in msg:
                 # Respond with voice if audio input received
-                # speech.speak(self, response)
+                lib.speech.speak(self, act.get_response_str())
                 self.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
             elif 'console' in msg:
                 # Just print response if was sent from a console command

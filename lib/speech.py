@@ -16,7 +16,7 @@ def speak(self, response):
     tts.save(self.files + '/speech/output.mp3')
 
 
-def getMessage(self, msg):
+def get_message(self, msg):
     try:
         command = 'voice received'
         fpath = self.files + '/speech/input'  # includes filename without extension
@@ -35,8 +35,8 @@ def getMessage(self, msg):
         r = sr.Recognizer()
         with sr.AudioFile(fpath + '.wav') as source:
             audio = r.record(source)  # read the entire audio file
-    except Exception as e:
-        return e.getMessage();
+    except Exception as ex:
+        return str(ex)
 
     # @todo configure Sphinx with https://pypi.python.org/pypi/SpeechRecognition/
     # recognize speech using Sphinx

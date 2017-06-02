@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-import serial, time
+import serial
+import time
 
 
 def speak(self, message):
