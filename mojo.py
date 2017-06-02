@@ -155,7 +155,7 @@ class Mojo(telepot.Bot):
             # Handle chained commands
             for r in act.response:
                 if 'command' in r:
-                    print("I think theres another command: " + r)
+                    print("I think theres another command: " + str(r))
                     new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
                     if 'console' in msg:
                         new_cmd['console'] = True

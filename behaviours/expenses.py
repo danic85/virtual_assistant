@@ -5,8 +5,15 @@ import csv
 import datetime
 import os
 import calendar
-import lib.currency
+import json
+import sys
+import requests
 from behaviours.behaviour import Behaviour
+
+if sys.version_info < (3, 0):
+    from urllib2 import urlopen
+else:
+    from urllib.request import urlopen
 
 
 class Expenses(Behaviour):
@@ -84,7 +91,7 @@ class Expenses(Behaviour):
         print(expense)
 
         if expense[0].find("$") == 0:
-            expense[0] = str(lib.currency.convert(self, 'USD', expense[0].replace('$', ''),
+            expense[0] = str(self.convert(self, 'USD', expense[0].replace('$', ''),
                                                   self.config.get('Config', 'OpenExchangeRatesKey')))
 
         expense[0] = float(expense[0].strip()) * -1
@@ -121,3 +128,13 @@ class Expenses(Behaviour):
             self.sendDocument(self.user, f)
 
         return ''
+
+    # Convert currency into GBP (as long as it's USD!)
+    @staticmethod
+    def convert(self, currency, amount, key):
+        endpoint = 'https://openexchangerates.org/api/latest.json?app_id=' + key
+
+        r = requests.get(endpoint, verify=False)
+        gbp = r.json()['rates']['GBP']
+        conversion = float(amount) * float(gbp)
+        return conversion
