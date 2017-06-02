@@ -16,6 +16,20 @@ class Interaction(object):
         else:
             raise ValueError('Response is not correct format')
 
+    def respond_photo(self, response):
+        """ Add response to list """
+        if type(response) is str or type(response) is unicode:
+            self.response.append({'file': 'photo', 'path': response})
+        else:
+            raise ValueError('Response is not correct format')
+
+    def respond_video(self, response):
+        """ Add response to list """
+        if type(response) is str or type(response) is unicode:
+            self.response.append({'file': 'video', 'path': response})
+        else:
+            raise ValueError('Response is not correct format')
+
     def chain_command(self, command):
         """ Add response to list """
         if type(command) is dict and 'text' in command:
@@ -36,3 +50,10 @@ class Interaction(object):
                 r_txt.append(r['text'])
 
         return '\n'.join(r_txt)
+
+    def get_response_files(self):
+        files = []
+        for r in self.response:
+            if 'file' in r and r['path']:
+                files.append(r)
+        return r

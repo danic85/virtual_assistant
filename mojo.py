@@ -212,6 +212,23 @@ class Mojo(telepot.Bot):
         else:
             self.__admin_message(msg)
 
+
+        files = act.get_response_files()
+        if len(files) > 0:
+            for f in files:
+                if f['file'] == 'photo':
+                    photo = open(f['path'], 'rb')
+                    for u in act.user:
+                        self.__log('sending photo to' + str(u))
+                        self.sendPhoto(u, photo)
+                    os.remove(photo)
+                if f['file'] == 'video':
+                    video = open(f['path'], 'rb')
+                    for u in act.user:
+                        self.__log('sending video to' + str(u))
+                        self.sendVideo(u, video)
+                    os.remove(video)
+
     def __admin_message(self, msg):
         if self.mode == 'console':
             self.__log(msg)
