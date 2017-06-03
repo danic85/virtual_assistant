@@ -21,11 +21,11 @@ def execute_bot_command_monthly(bot, command):
     if now.day == 1:
         execute_bot_command(bot, command)
 
-bot = Mojo()
 
 # If method call defined on launch, call. 'startx' = listen for commands from telegram
 # Start mojo
 if len(sys.argv) == 2 and sys.argv[1] == 'startx':
+    bot = Mojo()
     # Load scheduled tasks
     schedule.clear()
     # schedule.every().minute.do(execute_bot_command, 'is house empty')
@@ -42,5 +42,6 @@ if len(sys.argv) == 2 and sys.argv[1] == 'startx':
 # Execute command without listening (ignore discover unittest)
 
 elif (len(sys.argv) == 1 and 'unittest' not in sys.argv[0]) or (len(sys.argv) == 2 and sys.argv[1] != 'discover'):
+    bot = Mojo()
     bot.listen(mode='console')
 
