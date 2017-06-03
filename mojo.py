@@ -204,7 +204,6 @@ class Mojo(telepot.Bot):
         files = act.get_response_files()
         if len(files) > 0:
             for f in files:
-                print f
                 if f['file'] == 'photo':
                     photo = open(f['path'], 'rb')
                     for u in act.user:
