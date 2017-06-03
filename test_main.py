@@ -1,10 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-import datetime, os, unittest
+import datetime, os, unittest, sys
 import main
 from mock import Mock, call, patch
 from freezegun import freeze_time
 
+if sys.version_info < (3,0):
+    import ConfigParser
+else:
+    import configparser
 
 class TestMainMethods(unittest.TestCase):
 
@@ -29,6 +33,10 @@ class TestMainMethods(unittest.TestCase):
         bot.handle.assert_not_called()
 
     def build_bot(self):
+        if sys.version_info < (3, 0):
+            ConfigParser.ConfigParser = Mock()
+        else:
+            configparser.ConfigParser = Mock()
         bot = Mock(return_value=456)
         bot.chat = Mock()
         bot.admin = 1
