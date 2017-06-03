@@ -54,10 +54,10 @@ class TestMojoMethods(unittest.TestCase):
             ConfigParser.ConfigParser = Mock()
         else:
             configparser.ConfigParser = Mock()
+        Database = Mock()
         bot = mojo.Mojo()
         bot.sendMessage = Mock()
         bot.admin = '1'
-        # bot.message = Mock()
         bot.config = Mock()
         bot.config.get = Mock(return_value='1,2')
         return bot
