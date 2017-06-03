@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import datetime, os, unittest
-import mojo, aiml, ConfigParser
+import mojo, ConfigParser
 from mock import Mock, call, patch
-from freezegun import freeze_time
 
 
 class TestMojoMethods(unittest.TestCase):
