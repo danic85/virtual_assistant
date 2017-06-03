@@ -11,7 +11,10 @@ else:
 
 class TestMojoMethods(unittest.TestCase):
     def test_mojo(self):
-        ConfigParser.ConfigParser = Mock()
+        if sys.version_info < (3, 0):
+            ConfigParser.ConfigParser = Mock()
+        else:
+            configparser.ConfigParser = Mock()
         bot = mojo.Mojo()
         self.assertEqual(bot.dir, os.path.dirname(os.path.realpath(__file__)))
         self.assertEqual(bot.files, os.path.dirname(os.path.realpath(__file__)) + '/files')
@@ -47,7 +50,10 @@ class TestMojoMethods(unittest.TestCase):
         return bot
 
     def build_mojo(self):
-        ConfigParser.ConfigParser = Mock()
+        if sys.version_info < (3, 0):
+            ConfigParser.ConfigParser = Mock()
+        else:
+            configparser.ConfigParser = Mock()
         bot = mojo.Mojo()
         bot.sendMessage = Mock()
         bot.admin = '1'
