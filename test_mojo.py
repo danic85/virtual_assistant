@@ -1,9 +1,13 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import datetime, os, unittest
-import mojo, ConfigParser
+import mojo, sys
 from mock import Mock, call, patch
 
+if sys.version_info < (3,0):
+    import ConfigParser
+else:
+    import configparser
 
 class TestMojoMethods(unittest.TestCase):
     def test_mojo(self):
