@@ -56,4 +56,4 @@ class Interaction(object):
         for r in self.response:
             if 'file' in r and r['path']:
                 files.append(r)
-        return r
+        return files

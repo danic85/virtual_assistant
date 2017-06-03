@@ -71,7 +71,7 @@ class Mojo(telepot.Bot):
         dir_path = self.dir + '/behaviours'
         for path, subdirs, files in os.walk(dir_path):
             for name in files:
-                if name.endswith('.py') and '__' not in name and name != 'behaviour.py':
+                if name.endswith('.py') and '__' not in name and name != 'behaviour.py' and 'test_' not in name:
                     m = name.split('.')[0]
                     instance = getattr(globals()[m], m.title())(db=self.db, config=self.config, dir=self.dir,
                                                                 logging=logging)  # Get instance of class
@@ -201,10 +201,10 @@ class Mojo(telepot.Bot):
         else:
             self.__admin_message(msg)
 
-
         files = act.get_response_files()
         if len(files) > 0:
             for f in files:
+                print f
                 if f['file'] == 'photo':
                     photo = open(f['path'], 'rb')
                     for u in act.user:

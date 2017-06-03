@@ -4,7 +4,6 @@ telepot
 bs4
 feedparser
 pyowm
-aiml
 coverage
 mock
 freezegun

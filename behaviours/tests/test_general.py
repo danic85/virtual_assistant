@@ -1,10 +1,14 @@
-# from general import time, morning, morning_others, broadcast, date_time, command_list, update_self, get_log
-# import datetime, unittest
-# from mock import Mock, call, patch
-#
-#
-# class TestGeneralMethods(unittest.TestCase):
-#
+
+
+import datetime, unittest
+import os, sys
+from mock import Mock, call, patch
+
+# sys.path.append(os.path.abspath('..'))
+# import behaviours
+from behaviours import general
+
+class TestGeneralMethods(unittest.TestCase):
 #     def test_morning(self):
 #         bot = self.build_bot()
 #         # countdown = Mock(return_value = 'countdown response')
@@ -31,11 +35,13 @@
 #         bot.config.get.assert_called_with('Config','Users')
 #         self.assertEqual(bot.user, bot.config.get('Config','Users').split(','))
 #
-#     def test_time(self):
-#         self.assertEqual(time(self), datetime.datetime.now().strftime('%I:%M %p'))
-#
-#     def test_datetime(self):
-#         self.assertEqual(date_time(self), datetime.datetime.now().strftime('%d-%m-%y %I:%M %p'))
+    def test_time(self):
+        g = general.General(db=None, config={}, dir='')
+        self.assertEqual(g.time(), datetime.datetime.now().strftime('%I:%M %p'))
+
+    def test_datetime(self):
+        g = general.General(db=None, config={}, dir='')
+        self.assertEqual(g.date_time(), datetime.datetime.now().strftime('%d-%m-%y %I:%M %p'))
 #
 #     # @patch('__builtin__.open')
 #     # def test_set_countdown(self, open_mock):
@@ -76,5 +82,5 @@
 #         bot.config.get = Mock(return_value = '1,2')
 #         return bot
 #
-# if __name__ == '__main__':
-#     unittest.main()
+if __name__ == '__main__':
+    unittest.main()
