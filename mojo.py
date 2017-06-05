@@ -16,7 +16,7 @@ from lib.db import Database
 
 from behaviours import *
 
-if sys.version_info < (3,0):
+if sys.version_info < (3, 0):  # pragma: no cover
     import ConfigParser
 else:
     import configparser
@@ -53,7 +53,7 @@ class Mojo(telepot.Bot):
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
 
-        if sys.version_info < (3, 0):
+        if sys.version_info < (3, 0):  # pragma: no cover
             self.config = ConfigParser.ConfigParser()
         else:
             self.config = configparser.ConfigParser()
@@ -93,15 +93,15 @@ class Mojo(telepot.Bot):
         self.__log('Listening ...')
 
         # Keep the program running.
-        while 1:
+        while 1:  # pragma: no cover
             if self.mode == 'console':
                 self.console_input()
             schedule.run_pending()
             self.__idle_behaviours()
             time.sleep(1)
 
-    def console_input(self):
-        if sys.version_info < (3, 0):
+    def console_input(self):   # pragma: no cover
+        if sys.version_info < (3, 0):  # pragma: no cover
             command = raw_input("Enter command: ")
         else:
             command = input("Enter command: ")
