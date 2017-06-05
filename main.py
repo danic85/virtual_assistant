@@ -6,11 +6,6 @@ import datetime
 from mojo import Mojo
 
 
-def execute_bot_command_console(bot, command):
-    msg = {"chat": {"id": bot.admin}, "text": command, "console": True}
-    bot.handle(msg)
-
-
 def execute_bot_command(bot, command):
     msg = {"chat": {"id": bot.admin}, "text": command}
     bot.handle(msg)

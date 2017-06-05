@@ -38,12 +38,12 @@ class Echochat(Behaviour):
         previous_id = self.__log_new_response()
 
         for stuff in self.db.find(self.collection, {}):
-            print(stuff)
+            self.logging.info(stuff)
             # self.db.delete(stuff)
 
         match = self.db.find(self.collection, {'msg': self.act.command['text'], 'previous_id': previous_id})
-        print('FOUND:')
-        print(match.count())
+        self.logging.info('FOUND:')
+        self.logging.info(match.count())
         for r in match:
             id = r.get('_id')
             results = self.db.find(self.collection, {'previous_id': id})
@@ -58,22 +58,22 @@ class Echochat(Behaviour):
         previous_id = None
         usr = int(self.act.user[0])
 
-        print(usr)
+        self.logging.info(usr)
 
         history = self.get_recent_history(usr)
         if history:
             previous_id = history.get('_id')
 
-        print(previous_id)
+        self.logging.info(previous_id)
         exists = self.db.find(self.collection, {'msg': re.compile(self.match.group(0), re.IGNORECASE),
                                                 'previous_id': previous_id})
         if exists.count() == 0:
-            print('does not exist')
+            self.logging.info('does not exist')
             new_response = {'msg': self.match.group(0), 'previous_id': previous_id}
             new_response['id'] = self.db.insert(self.collection, new_response)
             self.set_history(usr, new_response)
         else:
-            print('already exists')
+            self.logging.info('already exists')
         return previous_id
 
     def train(self):

@@ -1,26 +1,25 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-import sys
+import datetime
 import logging
 import os
-import schedule
+import sys
 import time
-import telepot
-import datetime
 import traceback
+
+import schedule
+import telepot
+
 import lib
 from db import Database
+from interaction import Interaction
 
 from behaviours import *
-from interaction import Interaction
 
 if sys.version_info < (3,0):
     import ConfigParser
 else:
     import configparser
-
-# if sys.version_info < (3,0):
-#     import aiml
 
 logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
 
@@ -104,7 +103,7 @@ class Mojo(telepot.Bot):
         else:
             command = input("Enter command: ")
         print(command)
-        self.handle({"chat": {"id": self.admin}, "text": command, "console": True})
+        self.handle({"chat": {"id": self.admin}, "text": command})
 
     def handle(self, msg):
         """ Handle messages from users (must be public for telegram) """
@@ -113,13 +112,10 @@ class Mojo(telepot.Bot):
 
         if 'text' in msg:
             self.__log(self.__datetime() + ': Message received: ' + msg['text'])
-        try:
-            if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
-                self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
-                return
-        except Exception as e:
-            self.__admin_message(str(e))
-            msg['chat']['id'] = self.admin
+
+        if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
+            self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
+            return
 
         act = Interaction(user=[msg['chat']['id']],
                           command={'text': msg['text'].strip()},
@@ -134,9 +130,6 @@ class Mojo(telepot.Bot):
                 # Respond with voice if audio input received
                 lib.speech.speak(self, act.get_response_str())
                 self.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
-            elif 'console' in msg:
-                # Just print response if was sent from a console command
-                self.__log(act.get_response_str())
             else:
                 # Standard text response via telegram
                 self.__message(act)
@@ -146,8 +139,6 @@ class Mojo(telepot.Bot):
                 if 'command' in r:
                     print("I think theres another command: " + str(r))
                     new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
-                    if 'console' in msg:
-                        new_cmd['console'] = True
                     self.handle(new_cmd)
 
     def __idle_behaviours(self):
@@ -176,7 +167,8 @@ class Mojo(telepot.Bot):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            print(traceback.print_tb(e.__traceback__))
+            if '__traceback__' in e:
+                print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
             return act
@@ -189,9 +181,10 @@ class Mojo(telepot.Bot):
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """
         msg = act.get_response_str()
+        self.__log(msg)
 
         if self.mode == 'console':
-            self.__log(msg)
+            print(msg)
             return
 
         if act.user:
@@ -220,13 +213,13 @@ class Mojo(telepot.Bot):
     def __admin_message(self, msg):
         if self.mode == 'console':
             self.__log(msg)
+            print(msg)
             return
         self.sendMessage(self.admin, msg)
 
     @staticmethod
     def __log(text):
         """ Output and log text """
-        print(Mojo.__datetime() + text)
         logging.info(Mojo.__datetime() + text)
 
     @staticmethod

@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import datetime, os, unittest
-import mojo, sys
-from mock import Mock, call, patch
+import mojo, sys, lib
+from mock import Mock, call, patch, mock_open
 
 if sys.version_info < (3,0):
     import ConfigParser
@@ -34,6 +34,46 @@ class TestMojoMethods(unittest.TestCase):
         # bot.sendMessage.assert_not_called_with('1', 'Unauthorized access attempt by: 3')
         bot.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
 
+    def test_handle_console(self):
+        bot = self.build_mojo()
+        bot.mode = 'console'
+        bot.handle({'text': 'time', 'chat': {'id': 1}})
+        # bot.sendMessage.assert_not_called_with('1', 'Unauthorized access attempt by: 3')
+        bot.sendMessage.assert_not_called()
+
+    @patch("__main__.open")
+    def test_handle_voice(self, mock_open):
+        mock_open.side_effect = [
+            mock_open(read_data="Data1").return_value
+        ]
+        bot = self.build_mojo()
+        lib.speech = Mock()
+        lib.speech.get_message = Mock(return_value='voice')
+        bot.sendAudio = Mock(return_value='sendAudio')
+
+        bot.handle({'text': 'time', 'chat': {'id': 1}, 'voice': True})
+
+        bot.sendMessage.assert_not_called()
+        mock_open.assert_called_once_with(read_data="Data1")
+        mock_open.reset_mock()
+        bot.sendAudio.assert_called()
+
+    def test_handle_no_behaviours(self):
+        bot = self.build_mojo()
+        bot.behaviours = []
+        bot.handle({'text': 'time', 'chat': {'id': 1}})
+        bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
+
+    def test_handle_behaviour_exception(self):
+        bot = self.build_mojo()
+        mock_behaviour = Mock()
+        mock_behaviour.handle = Mock(return_value='Test')
+        # mock_behaviour.side_effect = Exception(Mock(status=404), 'not found')
+        mock_behaviour.handle.side_effect = Mock(side_effect=Exception('Test'))
+        bot.behaviours = {0: [mock_behaviour]}
+        bot.handle({'text': 'time', 'chat': {'id': 1}})
+        bot.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
+
     def test_handle_no_command(self):
         bot = self.build_mojo()
         bot.handle({'text': 'bob', 'chat': {'id': 1}})
@@ -61,7 +101,6 @@ class TestMojoMethods(unittest.TestCase):
         bot.config = Mock()
         bot.config.get = Mock(return_value='1,2')
         return bot
-
 
 if __name__ == '__main__':
     unittest.main()

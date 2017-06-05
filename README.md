@@ -88,7 +88,7 @@ Execute `python3 -m unittest discover` in the project directory to run all unit 
 ### Code Coverage
 * Execute `coverage run -m unittest discover` to run all tests with coverage
 * To display coverage report execute `coverage report`
-* Omit directories from the report with the `--omit` flag. E.g. `coverage report  --omit=/home/rof/.virtualenv/lib/python2.7/site-packages/*`
+* Omit directories from the report with the `--omit` flag. E.g. `coverage report --omit=/home/rof/python3_venv/lib/python3.4/site-packages/*` or `/home/rof/.virtualenv/lib/python2.7/site-packages/*` for python 2.x
 
 ### Monzo
 * Sign in to developers.monzo.com

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from abc import ABCMeta
-import re
-from db import Database
-from datetime import datetime, timedelta
 import collections
+import re
+from abc import ABCMeta
+from datetime import datetime, timedelta
+
+from db import Database
+
 
 class Behaviour(object):
     """An abstract base class to define all behaviours
@@ -41,9 +43,9 @@ class Behaviour(object):
         # @todo i18n support on regular expressions
         for theRegex in self.routes:
             self.match = re.search(theRegex, self.act.command['text'], re.IGNORECASE)
-            # print('Trying: ' + theRegex)
+            # self.logging.info('Trying: ' + theRegex)
             if self.match:
-                print('Match on ' + theRegex)
+                self.logging.info('Match on ' + theRegex)
                 func = getattr(self, self.routes[theRegex])
                 response = func()
                 return response
@@ -58,17 +60,17 @@ class Behaviour(object):
         if 'time' not in history:
             history['time'] = datetime.now()
         self.history[int(user)] = history
-        print('History added:')
-        print(self.history)
+        self.logging.info('History added:')
+        self.logging.info(self.history)
 
     def get_recent_history(self, user):
         if int(user) not in self.history:
-            print('No history found')
+            self.logging.info('No history found')
             return None
         recent = self.history[int(user)]
         if recent['time'] < datetime.now() - timedelta(minutes=1):
-            print('Found history but expired')
+            self.logging.info('Found history but expired')
             return None
-        print('Found history')
-        print(recent)
+        self.logging.info('Found history')
+        self.logging.info(recent)
         return recent
