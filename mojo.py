@@ -21,7 +21,10 @@ if sys.version_info < (3,0):
 else:
     import configparser
 
-logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
+try:
+    logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
+except OSError as ex:
+    pass
 
 class Mojo(telepot.Bot):
     """The Bot Object that handles interactions and passes them to the behaviours for processing
