@@ -61,7 +61,7 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 5. `apt-get install mongodb` to install the database
 
 ### Execute command from the terminal
-To execute a command, run `python3 main.py 'the command'` (e.g. `python3 main.py 'time'`)
+To execute a command, run `python3 main.py` and then enter the command at the prompt
 
 ### Initialize with Telegram
 1. Rename the config file: `mv config.ini.example config.ini`
@@ -87,8 +87,7 @@ Execute `python3 -m unittest discover` in the project directory to run all unit 
 
 ### Code Coverage
 * Execute `coverage run -m unittest discover` to run all tests with coverage
-* To display coverage report execute `coverage report`
-* Omit directories from the report with the `--omit` flag. E.g. `coverage report --omit=/home/rof/python3_venv/lib/python3.4/site-packages/*` or `/home/rof/.virtualenv/lib/python2.7/site-packages/*` for python 2.x
+* To display coverage report execute `coverage report`. A list of omitted directories and lines are included in .coveragerc
 
 ### Monzo
 * Sign in to developers.monzo.com
