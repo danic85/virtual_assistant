@@ -19,7 +19,7 @@ def execute_bot_command_monthly(bot, command):
 
 # If method call defined on launch, call. 'startx' = listen for commands from telegram
 # Start mojo
-if len(sys.argv) == 2 and sys.argv[1] == 'startx':
+if len(sys.argv) == 2 and sys.argv[1] == 'startx':  # pragma: no cover
     bot = Mojo()
     # Load scheduled tasks
     schedule.clear()
@@ -36,7 +36,7 @@ if len(sys.argv) == 2 and sys.argv[1] == 'startx':
     bot.listen()
 # Execute command without listening (ignore discover unittest)
 
-elif (len(sys.argv) == 1 and 'unittest' not in sys.argv[0]) or (len(sys.argv) == 2 and sys.argv[1] != 'discover'):
+elif (len(sys.argv) == 1 and 'unittest' not in sys.argv[0]) or (len(sys.argv) == 2 and sys.argv[1] != 'discover'):  # pragma: no cover
     bot = Mojo()
     bot.listen(mode='console')
 
