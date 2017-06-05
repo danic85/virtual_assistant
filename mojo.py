@@ -11,8 +11,8 @@ import schedule
 import telepot
 
 import lib
-from db import Database
 from interaction import Interaction
+from lib.db import Database
 
 from behaviours import *
 

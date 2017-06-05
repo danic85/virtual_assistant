@@ -6,7 +6,7 @@ import re
 from abc import ABCMeta
 from datetime import datetime, timedelta
 
-from db import Database
+from lib.db import Database
 
 
 class Behaviour(object):
