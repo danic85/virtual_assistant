@@ -52,7 +52,7 @@ class Behaviour(object):
 
         return None
 
-    def idle(self, act):
+    def idle(self, act):   # pragma: no cover
         """ Anything that needs to be executed continuously during operation """
         pass
 

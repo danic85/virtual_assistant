@@ -41,6 +41,17 @@ class TestMojoMethods(unittest.TestCase):
         # bot.sendMessage.assert_not_called_with('1', 'Unauthorized access attempt by: 3')
         bot.sendMessage.assert_not_called()
 
+    def test_handle_voice(self):
+        bot = self.build_mojo()
+        lib.speech = Mock()
+        bot.sendAudio = Mock()
+        lib.speech.get_message = Mock(return_value='audio message')
+        bot.handle({'voice': 'something', 'chat': {'id': 1}})
+
+        bot.sendMessage.assert_not_called()
+        bot.sendAudio.assert_called_once()
+        lib.speech.get_message.assert_called_once()
+
     # @patch("__main__.open")
     # def test_handle_voice(self, mock_open):
     #     mock_open.side_effect = [
@@ -58,21 +69,36 @@ class TestMojoMethods(unittest.TestCase):
     #     mock_open.reset_mock()
     #     bot.sendAudio.assert_called()
 
+    def test_handle_chain_commands(self):
+        bot = self.build_mojo()
+
+        mock_behaviour = Mock()
+        mock_behaviour.handle = Mock(return_value='Test')
+        mock_behaviour.handle.side_effect = self.chain_command
+        bot.behaviours = {0: [mock_behaviour]}
+
+        bot.handle({'text': 'time', 'chat': {'id': 1}})
+        assert bot.sendMessage.call_count == 2
+
+    def chain_command(self, act):
+        if act.command['text'] != 'chain':
+            act.response = [{'text': 'first'},
+                            {'command': {'text': 'chain'}}]
+
     def test_handle_no_behaviours(self):
         bot = self.build_mojo()
-        bot.behaviours = []
+        bot.behaviours = {}
         bot.handle({'text': 'time', 'chat': {'id': 1}})
         bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
-    # def test_handle_behaviour_exception(self):
-    #     bot = self.build_mojo()
-    #     mock_behaviour = Mock()
-    #     mock_behaviour.handle = Mock(return_value='Test')
-    #     # mock_behaviour.side_effect = Exception(Mock(status=404), 'not found')
-    #     mock_behaviour.handle.side_effect = Mock(side_effect=Exception('Test'))
-    #     bot.behaviours = {0: [mock_behaviour]}
-    #     bot.handle({'text': 'time', 'chat': {'id': 1}})
-    #     bot.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
+    def test_handle_behaviour_exception(self):
+        bot = self.build_mojo()
+        mock_behaviour = Mock()
+        mock_behaviour.handle = Mock(return_value='Test')
+        mock_behaviour.handle.side_effect = Mock(side_effect=Exception('Test'))
+        bot.behaviours = {0: [mock_behaviour]}
+        bot.handle({'text': 'time', 'chat': {'id': 1}})
+        bot.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
 
     def test_handle_no_command(self):
         bot = self.build_mojo()

@@ -11,7 +11,7 @@ import schedule
 import telepot
 
 import lib
-from interaction import Interaction
+from lib.interaction import Interaction
 from lib.db import Database
 
 from behaviours import *
@@ -83,7 +83,7 @@ class Mojo(telepot.Bot):
                         self.behaviours[instance.execution_order] = []
                     self.behaviours[instance.execution_order].append(instance)
 
-    def listen(self, **kwargs):
+    def listen(self, **kwargs):  # pragma: no cover
         """ Handle messages via telegram and run scheduled tasks """
         self.mode = kwargs.get('mode', 'telegram')
         if self.mode == 'telegram':
@@ -93,7 +93,7 @@ class Mojo(telepot.Bot):
         self.__log('Listening ...')
 
         # Keep the program running.
-        while 1:  # pragma: no cover
+        while 1:
             if self.mode == 'console':
                 self.console_input()
             schedule.run_pending()
@@ -115,6 +115,10 @@ class Mojo(telepot.Bot):
 
         if 'text' in msg:
             self.__log(self.__datetime() + ': Message received: ' + msg['text'])
+
+        if 'chat' not in msg or 'id' not in msg['chat']:
+            self.__admin_message('Could not find user for : ' + str(msg['text']))
+            return
 
         if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
             self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
@@ -194,8 +198,6 @@ class Mojo(telepot.Bot):
             for u in act.user:
                 self.__log('sending to' + str(u))
                 self.sendMessage(u, msg, None, True)
-        else:
-            self.__admin_message(msg)
 
         files = act.get_response_files()
         if len(files) > 0:
