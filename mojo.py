@@ -174,7 +174,7 @@ class Mojo(telepot.Bot):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            if '__traceback__' in e:
+            if self.mode == 'console':
                 print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
