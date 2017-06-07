@@ -1,8 +1,8 @@
 [report]
 omit =
-    /home/rof/python3_venv/lib/python3.4/site-packages/*
+    /home/rof/python3_venv/lib/python3.*/site-packages/*
     /home/rof/.virtualenv/lib/python2.7/site-packages/*
-    /home/rof/python3_venv/lib/python3.4/distutils/__init__.py
+    /home/rof/python3_venv/lib/python3.*/distutils/__init__.py
     /Library/Python/2.7/site-packages/*
     /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/*
     ./*/test_*.py
