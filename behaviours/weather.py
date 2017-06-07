@@ -3,7 +3,7 @@
 
 import datetime
 import pyowm
-import requests
+from lib import feeds
 from datetime import datetime
 import calendar
 from behaviours.behaviour import Behaviour
@@ -39,13 +39,13 @@ class Weather(Behaviour):
             'id=2642182',
             'units=metric'
         ]
-        forecast = requests.get(self.endpoints['forecast']+'?' + '&'.join(args)).json()
+        forecast = feeds.get_json(self.endpoints['forecast']+'?' + '&'.join(args))
 
         occurrences = {'rain': set(), 'ice': set()}
 
         for f in forecast['list']:
             if f['main']['temp'] < 1:
-                occurrences['ice'].add(f['dt'])
+                occurrences['ice'].add(datetime.fromtimestamp(f['dt']).weekday())
 
             for w in f['weather']:
                 if 'Rain' in w['main']:

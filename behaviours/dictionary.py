@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import feedparser
 from behaviours.behaviour import Behaviour
+from lib import feeds
 
 
 class Dictionary(Behaviour):
@@ -16,6 +16,5 @@ class Dictionary(Behaviour):
     }
 
     def word_of_the_day(self):
-        d = feedparser.parse(self.endpoints['wotd'])
-        intro = 'The word of the day is '
-        return intro + d['entries'][0]['summary_detail']['value']
+        d = feeds.get_rss(self.endpoints['wotd'])
+        return 'The word of the day is ' + d['entries'][0]['summary_detail']['value']

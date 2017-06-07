@@ -9,6 +9,7 @@ if sys.version_info < (3,0):
 else:
     import configparser
 
+
 class TestMojoMethods(unittest.TestCase):
     def test_mojo(self):
         if sys.version_info < (3, 0):
@@ -31,44 +32,25 @@ class TestMojoMethods(unittest.TestCase):
     def test_handle(self):
         bot = self.build_mojo()
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        # bot.sendMessage.assert_not_called_with('1', 'Unauthorized access attempt by: 3')
         bot.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
 
     def test_handle_console(self):
         bot = self.build_mojo()
         bot.mode = 'console'
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        # bot.sendMessage.assert_not_called_with('1', 'Unauthorized access attempt by: 3')
         bot.sendMessage.assert_not_called()
 
-    @patch("__main__.open", mock_open)
     def test_handle_voice(self):
-        bot = self.build_mojo()
-        lib.speech = Mock()
-        bot.sendAudio = Mock()
-        lib.speech.get_message = Mock(return_value='audio message')
-        bot.handle({'voice': 'something', 'chat': {'id': 1}})
-
-        bot.sendMessage.assert_not_called()
-        bot.sendAudio.assert_called_once()
-        lib.speech.get_message.assert_called_once()
-
-    # @patch("__main__.open")
-    # def test_handle_voice(self, mock_open):
-    #     mock_open.side_effect = [
-    #         mock_open(read_data="Data1").return_value
-    #     ]
-    #     bot = self.build_mojo()
-    #     lib.speech = Mock()
-    #     lib.speech.get_message = Mock(return_value='voice')
-    #     bot.sendAudio = Mock(return_value='sendAudio')
-    #
-    #     bot.handle({'text': 'time', 'chat': {'id': 1}, 'voice': True})
-    #
-    #     bot.sendMessage.assert_not_called()
-    #     mock_open.assert_called_once_with(read_data="Data1")
-    #     mock_open.reset_mock()
-    #     bot.sendAudio.assert_called()
+        mocked_open = mock_open(read_data='file contents\nas needed\n')
+        with patch('mojo.open', mocked_open, create=True):
+                bot = self.build_mojo()
+                lib.speech = Mock()
+                bot.sendAudio = Mock()
+                lib.speech.get_message = Mock(return_value='audio message')
+                bot.handle({'voice': 'something', 'chat': {'id': 1}})
+                lib.speech.get_message.assert_called_once()
+                bot.sendMessage.assert_not_called()
+                bot.sendAudio.assert_called_once()
 
     def test_handle_chain_commands(self):
         bot = self.build_mojo()

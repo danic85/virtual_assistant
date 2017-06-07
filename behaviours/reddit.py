@@ -3,15 +3,10 @@
 # Source: https://github.com/xDHILEx/Shower-Thoughts/blob/master/Reddit.py
 
 from random import randint
-import json
-import sys
 from profanity import profanity
 from behaviours.behaviour import Behaviour
+from lib import feeds
 
-if sys.version_info < (3, 0):
-    from urllib2 import build_opener
-else:
-    from urllib.request import build_opener
 
 class Reddit(Behaviour):
 
@@ -55,11 +50,7 @@ class Reddit(Behaviour):
 
     @staticmethod
     def __get_json(url):
-        """ Requests using custom header to avoid 'HTTP Error 429: Too Many Requests' error """
-        opener = build_opener()
-        opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
-        data = opener.open(url).read().decode('utf8')
-        return json.loads(data)
+        return feeds.get_json(url, [('User-Agent', 'Mozilla/5.0')])
 
     @staticmethod
     def __get_titles(json_obj):

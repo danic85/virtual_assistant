@@ -188,6 +188,10 @@ class Mojo(telepot.Bot):
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """
         msg = act.get_response_str()
+
+        if msg == '':
+            return
+
         self.__log(msg)
 
         if self.mode == 'console':
@@ -216,6 +220,8 @@ class Mojo(telepot.Bot):
                     os.remove(video)
 
     def __admin_message(self, msg):
+        if msg == '':
+            return
         if self.mode == 'console':
             self.__log(msg)
             print(msg)

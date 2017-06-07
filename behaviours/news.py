@@ -3,9 +3,9 @@
 
 """ Powered by NewsAPI.org """
 
-import requests
+from lib import feeds
 from behaviours.behaviour import Behaviour
-
+import json
 
 class News(Behaviour):
 
@@ -43,12 +43,11 @@ class News(Behaviour):
 
         return self.__parse_feed(feeds, num_items)
 
-    def __parse_feed(self, feeds, num_items):
+    @staticmethod
+    def __parse_feed(feed_list, num_items):
         response = []
-        for feed in feeds:
-            r = requests.get(feed, verify=False)
-            d = r.json()
-
+        for feed in feed_list:
+            d = feeds.get_json(feed)
             if d['status'] == 'error':
                 response.append(d['message'] + '\n' + feed)
                 continue
@@ -63,8 +62,7 @@ class News(Behaviour):
         return '\n\n'.join(response)
 
     def __get_sources(self):
-        r = requests.get(self.endpoints['sources'] + '?language=en', verify=False)  # @todo make language user specific
-        return r.json()
+        return feeds.get_json(self.endpoints['sources'] + '?language=en')  # @todo make language user specific
 
     @staticmethod
     def __sort_sources(source, sources_json):
