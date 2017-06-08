@@ -3,6 +3,7 @@
 import datetime, os, unittest
 import mojo, sys, lib
 from mock import Mock, call, patch, mock_open
+from behaviours.general import General
 
 if sys.version_info < (3,0):
     import ConfigParser
@@ -109,6 +110,9 @@ class TestMojoMethods(unittest.TestCase):
         bot.admin = '1'
         bot.config = Mock()
         bot.config.get = Mock(return_value='1,2')
+        logging = Mock()
+        logging.info = Mock()
+        bot.behaviours[0] = [General(db=None, config=bot.config, dir='', logging=logging)]
         return bot
 
 if __name__ == '__main__':
