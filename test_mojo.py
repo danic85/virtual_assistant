@@ -17,13 +17,18 @@ class TestMojoMethods(unittest.TestCase):
             ConfigParser.ConfigParser = Mock()
         else:
             configparser.ConfigParser = Mock()
-        bot = mojo.Mojo()
-        self.assertEqual(bot.dir, os.path.dirname(os.path.realpath(__file__)))
-        self.assertEqual(bot.files, os.path.dirname(os.path.realpath(__file__)) + '/files')
-        self.assertNotEqual(bot.logging, None)
-        self.assertNotEqual(bot.config, None)
-        self.assertNotEqual(bot.behaviours, None)
-        self.assertNotEqual(bot.admin, None)
+
+        with patch('os.walk') as mockwalk:
+            mockwalk.return_value = [
+                ('/foo', ('bar',), ('baz',)),
+            ]
+            bot = mojo.Mojo()
+            self.assertEqual(bot.dir, os.path.dirname(os.path.realpath(__file__)))
+            self.assertEqual(bot.files, os.path.dirname(os.path.realpath(__file__)) + '/files')
+            self.assertNotEqual(bot.logging, None)
+            self.assertNotEqual(bot.config, None)
+            self.assertNotEqual(bot.behaviours, None)
+            self.assertNotEqual(bot.admin, None)
 
     def test_handle_no_access(self):
         bot = self.build_mojo()
@@ -32,6 +37,7 @@ class TestMojoMethods(unittest.TestCase):
 
     def test_handle(self):
         bot = self.build_mojo()
+        bot.behaviours[0] = [General(db=None, config=bot.config, dir='', logging=bot.logging)]
         bot.handle({'text': 'time', 'chat': {'id': 1}})
         bot.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
 
@@ -87,7 +93,7 @@ class TestMojoMethods(unittest.TestCase):
     def test_handle_no_command(self):
         bot = self.build_mojo()
         bot.handle({'text': 'bob', 'chat': {'id': 1}})
-        bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say. How would you respond to that?", None, True)
+        bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
     def build_bot(self):
         bot = Mock(return_value=456)
@@ -105,14 +111,21 @@ class TestMojoMethods(unittest.TestCase):
         else:
             configparser.ConfigParser = Mock()
         Database = Mock()
-        bot = mojo.Mojo()
+
+        # Do not load any behaviours so we are testing those methods separately
+        with patch('os.walk') as mockwalk:
+            mockwalk.return_value = [
+                ('/foo', ('bar',), ('baz',)),
+            ]
+            bot = mojo.Mojo()
+
         bot.sendMessage = Mock()
         bot.admin = '1'
         bot.config = Mock()
         bot.config.get = Mock(return_value='1,2')
         logging = Mock()
         logging.info = Mock()
-        bot.behaviours[0] = [General(db=None, config=bot.config, dir='', logging=logging)]
+
         return bot
 
 if __name__ == '__main__':
