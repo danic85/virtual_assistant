@@ -86,9 +86,7 @@ class TestCountdownMethods(unittest.TestCase):
         b.db.delete = Mock()
         b.db.insert = Mock()
 
-        key, value = next(iter(b.routes.items()))
-
-        b.match = re.search(key, 'countdown 02-01-2017 my countdown message', re.IGNORECASE)
+        b.match = re.search('^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z]+)', 'countdown 02-01-2017 my countdown message', re.IGNORECASE)
 
         b.db.find = Mock(return_value=[
             {'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'},

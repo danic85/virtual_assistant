@@ -18,8 +18,7 @@ class TestTranslatorMethods(unittest.TestCase):
         feeds.get_json.side_effect = [data, translate]
 
         b = translator.Translator(db=None, config={}, dir='')
-        key, value = next(iter(b.routes.items()))
-        b.match = re.search(key, 'translate this is a test to spanish', re.IGNORECASE)
+        b.match = re.search('^translate (.*) (to|from) (\w*)$', 'translate this is a test to spanish', re.IGNORECASE)
         self.assertEqual(b.translate(), "Esto Es un prueba")
 
     def test_translate_back(self):
@@ -32,8 +31,7 @@ class TestTranslatorMethods(unittest.TestCase):
         feeds.get_json.side_effect = [data, translate]
 
         b = translator.Translator(db=None, config={}, dir='')
-        key, value = next(iter(b.routes.items()))
-        b.match = re.search(key, 'translate Esto Es un prueba from spanish', re.IGNORECASE)
+        b.match = re.search('^translate (.*) (to|from) (\w*)$', 'translate Esto Es un prueba from spanish', re.IGNORECASE)
         self.assertEqual(b.translate(), "This is a test")
 
     def test_translate_no_language(self):
@@ -48,6 +46,5 @@ class TestTranslatorMethods(unittest.TestCase):
         feeds.get_json.side_effect = [data, translate]
 
         b = translator.Translator(db=None, config={}, dir='')
-        key, value = next(iter(b.routes.items()))
-        b.match = re.search(key, 'translate this is a test to Unknown', re.IGNORECASE)
+        b.match = re.search('^translate (.*) (to|from) (\w*)$', 'translate this is a test to Unknown', re.IGNORECASE)
         self.assertEqual(b.translate(), "I can't translate to Unknown")
