@@ -68,7 +68,4 @@ class Reddit(Behaviour):
     @staticmethod
     def __lower_first(s):
         """ Return string with lowercase first letter (for prefixing text to sentence) """
-        if len(s) == 0:
-            return s
-        else:
-            return s[0].lower() + s[1:]
+        return s[0].lower() + s[1:]
