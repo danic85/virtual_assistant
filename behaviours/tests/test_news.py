@@ -37,7 +37,7 @@ class TestNewsMethods(unittest.TestCase):
         self.assertEqual(g.top_stories()[0:30], "Election 2017 live updates: Th")
 
     @freeze_time("2017-06-07")
-    def test_top_stories(self):
+    def test_top_stories_error(self):
 
         data = {'status': 'error', 'message': 'error!'}
         path = os.path.dirname(os.path.realpath(__file__)) + '/testdata/news_news_sources.json'
