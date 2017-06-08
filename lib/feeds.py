@@ -13,8 +13,10 @@ else:
     from urllib.request import build_opener
 
 
-def get_json(endpoint, headers=None):
+def get_json(endpoint, params=None, headers=None):
     """ Returns json object from request url """
+    if params:
+        endpoint = endpoint + '?' + '&'.join(params)
     if headers:
         opener = build_opener()
         opener.addheaders = headers

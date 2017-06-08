@@ -50,7 +50,7 @@ class Reddit(Behaviour):
 
     @staticmethod
     def __get_json(url):
-        return feeds.get_json(url, [('User-Agent', 'Mozilla/5.0')])
+        return feeds.get_json(url, None, [('User-Agent', 'Mozilla/5.0')])
 
     @staticmethod
     def __get_titles(json_obj):

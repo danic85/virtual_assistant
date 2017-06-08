@@ -36,7 +36,7 @@ Required: RPI Camera
 - "[amount] [expense type]": Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
 - "Budget": Show remaining monthly budget
 - "Get Expenses": Download current and previous month's expenses in CSV format via telegram
-#### Monzo Integration
+### Monzo Integration
 - "add monzo token <auth_code> <client_id> <client_secret>": Add a Monzo authentication for 'Get Transactions' command.
 - "Get Transactions": Downloads all transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
 - "Get Recent Transactions": As above, but limited to the last day
@@ -52,6 +52,9 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "test security": Light up LED when motion detected, but do not take picture
 ### Property Search
 - "Properties": Specific property search via Zoopla.
+### Universal Translator
+- "Translate <something> to <language>" - Translate a phrase to a specified language
+- "Translate <something> from <language>" - Translate a phrase from a specified language to English
 
 ## Getting Started
 1. `git clone https://github.com/danic85/mojo_home_bot.git`
