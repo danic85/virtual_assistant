@@ -99,6 +99,6 @@ Execute `python3 -m unittest discover` in the project directory to run all unit 
 * Get your access token by navigating to https://auth.getmondo.co.uk/?client_id=<client_id>&redirect_uri=http://localhost&response_type=code&state=<unique_string>
 * Authorise access via email
 * Extract code from return URL
-* Send message to Mojo "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
+* Send message to Assistant "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
 * Wait for transactions or Send 'Get Transactions'
 

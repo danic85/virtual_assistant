@@ -22,11 +22,11 @@ else:
     import configparser
 
 try:
-    logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/mojo_debug.log', level=logging.DEBUG)
+    logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/assistant_debug.log', level=logging.DEBUG)
 except OSError as ex:
     pass
 
-class Mojo(telepot.Bot):
+class Assistant(telepot.Bot):
     """The Bot Object that handles interactions and passes them to the behaviours for processing
 
         Extends Telegram Bot
@@ -44,7 +44,7 @@ class Mojo(telepot.Bot):
     def __init__(self, *args, **kwargs):
         """ Initialise attributes and register all behaviours """
         self.logging = logging
-        self.__log('Starting Mojo')
+        self.__log('Starting Assistant')
         self.db = Database()
         self.mode = 'telegram'
 
@@ -59,7 +59,7 @@ class Mojo(telepot.Bot):
             self.config = configparser.ConfigParser()
         self.config.read(self.dir + "/config.ini")
 
-        super(Mojo, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
+        super(Assistant, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
 
         self.admin = self.config.get('Config', 'Admin')
 
@@ -236,7 +236,7 @@ class Mojo(telepot.Bot):
     @staticmethod
     def __log(text):
         """ Output and log text """
-        logging.info(Mojo.__datetime() + text)
+        logging.info(Assistant.__datetime() + text)
 
     @staticmethod
     def __datetime():

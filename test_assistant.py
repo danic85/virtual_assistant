@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import datetime, os, unittest
-import mojo, sys, lib
+import assistant, sys, lib
 from mock import Mock, call, patch, mock_open
 from behaviours.general import General
 
@@ -11,8 +11,8 @@ else:
     import configparser
 
 
-class TestMojoMethods(unittest.TestCase):
-    def test_mojo(self):
+class TestAssistantMethods(unittest.TestCase):
+    def test_assistant(self):
         if sys.version_info < (3, 0):
             ConfigParser.ConfigParser = Mock()
         else:
@@ -22,7 +22,7 @@ class TestMojoMethods(unittest.TestCase):
             mockwalk.return_value = [
                 ('/foo', ('bar',), ('baz',)),
             ]
-            bot = mojo.Mojo()
+            bot = assistant.Assistant()
             self.assertEqual(bot.dir, os.path.dirname(os.path.realpath(__file__)))
             self.assertEqual(bot.files, os.path.dirname(os.path.realpath(__file__)) + '/files')
             self.assertNotEqual(bot.logging, None)
@@ -31,26 +31,26 @@ class TestMojoMethods(unittest.TestCase):
             self.assertNotEqual(bot.admin, None)
 
     def test_handle_no_access(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         bot.handle({'text': 'test', 'chat': {'id': 3}})
         bot.sendMessage.assert_called_with('1', 'Unauthorized access attempt by: 3')
 
     def test_handle(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         bot.behaviours[0] = [General(db=None, config=bot.config, dir='', logging=bot.logging)]
         bot.handle({'text': 'time', 'chat': {'id': 1}})
         bot.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
 
     def test_handle_console(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         bot.mode = 'console'
         bot.handle({'text': 'time', 'chat': {'id': 1}})
         bot.sendMessage.assert_not_called()
 
     def test_handle_voice(self):
         mocked_open = mock_open(read_data='file contents\nas needed\n')
-        with patch('mojo.open', mocked_open, create=True):
-                bot = self.build_mojo()
+        with patch('assistant.open', mocked_open, create=True):
+                bot = self.build_assistant()
                 lib.speech = Mock()
                 bot.sendAudio = Mock()
                 lib.speech.get_message = Mock(return_value='audio message')
@@ -60,7 +60,7 @@ class TestMojoMethods(unittest.TestCase):
                 bot.sendAudio.assert_called_once()
 
     def test_handle_chain_commands(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
 
         mock_behaviour = Mock()
         mock_behaviour.handle = Mock(return_value='Test')
@@ -76,13 +76,13 @@ class TestMojoMethods(unittest.TestCase):
                             {'command': {'text': 'chain'}}]
 
     def test_handle_no_behaviours(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         bot.behaviours = {}
         bot.handle({'text': 'time', 'chat': {'id': 1}})
         bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
     def test_handle_behaviour_exception(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         mock_behaviour = Mock()
         mock_behaviour.handle = Mock(return_value='Test')
         mock_behaviour.handle.side_effect = Mock(side_effect=Exception('Test'))
@@ -91,7 +91,7 @@ class TestMojoMethods(unittest.TestCase):
         bot.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
 
     def test_handle_no_command(self):
-        bot = self.build_mojo()
+        bot = self.build_assistant()
         bot.handle({'text': 'bob', 'chat': {'id': 1}})
         bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
@@ -105,7 +105,7 @@ class TestMojoMethods(unittest.TestCase):
         bot.config.get = Mock(return_value='1,2')
         return bot
 
-    def build_mojo(self):
+    def build_assistant(self):
         if sys.version_info < (3, 0):
             ConfigParser.ConfigParser = Mock()
         else:
@@ -117,7 +117,7 @@ class TestMojoMethods(unittest.TestCase):
             mockwalk.return_value = [
                 ('/foo', ('bar',), ('baz',)),
             ]
-            bot = mojo.Mojo()
+            bot = assistant.Assistant()
 
         bot.sendMessage = Mock()
         bot.admin = '1'

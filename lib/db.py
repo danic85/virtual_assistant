@@ -5,7 +5,7 @@ import random
 class Database(object):
     def __init__(self):
         client = pymongo.MongoClient()
-        self.db = client.mojo_db
+        self.db = client.assistant_db
 
     def insert(self, collection_name, data_json):
         data_json['collection'] = collection_name  # this will mean we don't need to pass it explicitly to delete
