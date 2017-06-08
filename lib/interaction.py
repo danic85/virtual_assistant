@@ -16,6 +16,13 @@ class Interaction(object):
         else:
             raise ValueError('Response is not correct format')
 
+    def respond_file(self, response):
+        """ Add response to list """
+        if type(response) is str or type(response) is unicode:
+            self.response.append({'file': 'file', 'path': response})
+        else:
+            raise ValueError('Response is not correct format')
+
     def respond_photo(self, response):
         """ Add response to list """
         if type(response) is str or type(response) is unicode:

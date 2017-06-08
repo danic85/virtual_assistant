@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from dateutil import parser
+# from dateutil import parser
 import datetime
 import inflect
 from behaviours.behaviour import Behaviour
+
+import dateparser
 
 
 class Countdown(Behaviour):
@@ -22,7 +24,8 @@ class Countdown(Behaviour):
     def set_countdown(self):
         """ Add countdown to countdowns list """
         date_str, description = self.match.groups()
-        date = parser.parse(date_str)
+        # date = parser.parse(date_str)
+        date = dateparser.parse(date_str, date_formats=['%d-%m-%Y'])
         self.db.insert(self.collection, {'date': date, 'description': description})
         return self.get_all()
 
@@ -40,7 +43,7 @@ class Countdown(Behaviour):
         """ Parse countdowns from db collection """
         countdowns = []
         for countdown in self.db.find(self.collection, {}, [('date', 1)]):
-            days = (countdown['date'] - datetime.datetime.now()).days + 1
+            days = (countdown['date'] - datetime.datetime.now()).days
             if days < 0:
                 self.db.delete(countdown)  # remove old countdown
             elif days == 0:
@@ -49,4 +52,7 @@ class Countdown(Behaviour):
                 p = inflect.engine()
                 countdowns.append('%d %s until %s' % (days, p.plural("day", days),
                                                       countdown['description']))  # @todo i18n
+
+        if len(countdowns) < 1:
+            countdowns.append("You have no countdowns active")
         return countdowns

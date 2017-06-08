@@ -218,6 +218,11 @@ class Mojo(telepot.Bot):
                         self.__log('sending video to' + str(u))
                         self.sendVideo(u, video)
                     os.remove(video)
+                if f['file'] == 'file':
+                    doc = open(f['path'], 'rb')
+                    for u in act.user:
+                        self.__log('sending document to' + str(u))
+                        self.sendDocument(u, doc)
 
     def __admin_message(self, msg):
         if msg == '':

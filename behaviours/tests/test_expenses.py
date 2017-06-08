@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import unittest
+from mock import Mock, call, patch, mock_open
+import datetime
+from lib.interaction import Interaction
+from behaviours import expenses
+import re
+from freezegun import freeze_time
+
+
+class TestExpensesMethods(unittest.TestCase):
+
+    def test_routes(self):
+        b = expenses.Expenses(db=None, config={}, dir='')
+        act = Interaction()
+        b.logging = Mock()
+        b.logging.info = Mock(return_value=True)
+
+        b.log_expense = Mock()
+        b.expenses_remaining_weekly = Mock()
+        b.expenses_remaining = Mock()
+        b.expenses_get = Mock()
+
+        response = b.handle(act)
+        self.assertEqual(response, None)
+
+        act.command = {'text': 'budget'}
+        b.handle(act)
+        b.expenses_remaining_weekly.assert_called_once()
+
+        act.command = {'text': 'get expenses'}
+        b.handle(act)
+        b.expenses_get.assert_called_once()
+
+        act.command = {'text': '12.35 test expense'}
+        b.handle(act)
+        b.log_expense.assert_called_once()
+        self.assertEqual(b.match.group(1), '12.35')
+        self.assertEqual(b.match.group(2), 'test expense')
+
+    @freeze_time('2017-01-01')
+    def test_log_expense(self):
+        b = expenses.Expenses(db=None, config={}, dir='')
+
+        b.match = re.search('^([$-1234567890.]*) ([a-zA-Z\s]*)', '12.35 test expense', re.IGNORECASE)
+        b.write_to_file = Mock(return_value='There is £-12.35 left this month.')
+
+        self.assertEqual(b.log_expense(), 'There is £-12.35 left this month.')
+        b.write_to_file.assert_called_with([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
+
+    @freeze_time('2017-01-01')
+    def test_write_to_file(self):
+        b = expenses.Expenses(db=None, config={}, dir='')
+        b.act = Interaction()
+        b.act.user = [1]
+        mocked_open = mock_open(read_data='file contents\nas needed\n')
+        with patch('behaviours.expenses.open', mocked_open, create=True):
+            response = b.write_to_file([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
+            self.assertEqual(response, 'Logged expense: 12.35 test expense\n')
+            self.assertEqual(b.act.response, [{'command': {'text': 'budget'}}])
