@@ -14,7 +14,7 @@ import lib
 from lib.interaction import Interaction
 from lib.db import Database
 from lib import config
-
+from responders import console, telegram
 from behaviours import *
 
 try:
@@ -22,7 +22,8 @@ try:
 except OSError as ex:
     pass
 
-class Assistant(telepot.Bot):
+
+class Assistant(object):
     """The Bot Object that handles interactions and passes them to the behaviours for processing
 
         Extends Telegram Bot
@@ -42,7 +43,7 @@ class Assistant(telepot.Bot):
         self.logging = logging
         self.__log('Starting Assistant')
         self.db = Database()
-        self.mode = 'telegram'
+        self.mode = kwargs.get('mode', 'console')
 
         self.behaviours = {}
 
@@ -50,15 +51,20 @@ class Assistant(telepot.Bot):
         self.files = self.dir + '/files'
 
         self.config = config.Config()
-
-        super(Assistant, self).__init__(self.config.get_or_request('Telbot'), **kwargs)
+        self.responder = None
 
         self.admin = self.config.get_or_request('Admin')
 
-        self.last_mtime = os.path.getmtime(__file__)  # @todo remove and use git sha instead for update script
-        self.__log("Version: " + str(self.last_mtime))
-
         self.register_behaviours()
+        self.register_responders()
+
+    def register_responders(self):
+        if self.mode == 'telegram':
+            print('loading telegram')
+            self.responder = telegram.Telegram(config=self.config)
+        else:
+            print('loading console')
+            self.responder = console.Console(config=self.config)
 
     def register_behaviours(self):
         """ Instantiate and create reference to all behaviours as observers """
@@ -78,27 +84,18 @@ class Assistant(telepot.Bot):
     def listen(self, **kwargs):  # pragma: no cover
         """ Handle messages via telegram and run scheduled tasks """
         self.mode = kwargs.get('mode', 'telegram')
-        if self.mode == 'telegram':
-            self.message_loop(self.handle)
-            self.__admin_message('Hello!')
+        self.responder.admin_message('Hello!')
+        self.responder.message_loop(self.handle)
 
         self.__log('Listening ...')
 
         # Keep the program running.
         while 1:
             if self.mode == 'console':
-                self.console_input()
+                self.responder.message_loop(self.handle)  # @todo handle in the same way as telegram, with threading
             schedule.run_pending()
             self.__idle_behaviours()
             time.sleep(1)
-
-    def console_input(self):   # pragma: no cover
-        if sys.version_info < (3, 0):  # pragma: no cover
-            command = raw_input("Enter command: ")
-        else:
-            command = input("Enter command: ")
-        print(command)
-        self.handle({"chat": {"id": self.admin}, "text": command})
 
     def handle(self, msg):
         """ Handle messages from users (must be public for telegram) """
@@ -109,11 +106,11 @@ class Assistant(telepot.Bot):
             self.__log(self.__datetime() + ': Message received: ' + msg['text'])
 
         if 'chat' not in msg or 'id' not in msg['chat']:
-            self.__admin_message('Could not find user for : ' + str(msg['text']))
+            self.responder.admin_message('Could not find user for : ' + str(msg['text']))
             return
 
         if str(msg['chat']['id']) not in self.config.get_or_request('Users').split(','):
-            self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
+            self.responder.admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
             return
 
         act = Interaction(user=[msg['chat']['id']],
@@ -128,7 +125,7 @@ class Assistant(telepot.Bot):
             if 'voice' in msg:
                 # Respond with voice if audio input received
                 lib.speech.speak(self, act.get_response_str())
-                self.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
+                self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
             else:
                 # Standard text response via telegram
                 self.__message(act)
@@ -166,8 +163,8 @@ class Assistant(telepot.Bot):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            if self.mode == 'console':
-                print(traceback.print_tb(e.__traceback__))
+            # if self.mode == 'console':
+            #     print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
             return act
@@ -186,14 +183,10 @@ class Assistant(telepot.Bot):
 
         self.__log(msg)
 
-        if self.mode == 'console':
-            print(msg)
-            return
-
         if act.user:
             for u in act.user:
                 self.__log('sending to' + str(u))
-                self.sendMessage(u, msg, None, True)
+                self.responder.sendMessage(u, msg, None, True)
 
         files = act.get_response_files()
         if len(files) > 0:
@@ -202,28 +195,19 @@ class Assistant(telepot.Bot):
                     photo = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending photo to' + str(u))
-                        self.sendPhoto(u, photo)
+                        self.responder.sendPhoto(u, photo)
                     os.remove(photo)
                 if f['file'] == 'video':
                     video = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending video to' + str(u))
-                        self.sendVideo(u, video)
+                        self.responder.sendVideo(u, video)
                     os.remove(video)
                 if f['file'] == 'file':
                     doc = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending document to' + str(u))
-                        self.sendDocument(u, doc)
-
-    def __admin_message(self, msg):
-        if msg == '':
-            return
-        if self.mode == 'console':
-            self.__log(msg)
-            print(msg)
-            return
-        self.sendMessage(self.admin, msg)
+                        self.responder.sendDocument(u, doc)
 
     @staticmethod
     def __log(text):

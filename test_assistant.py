@@ -25,19 +25,19 @@ class TestAssistantMethods(unittest.TestCase):
     def test_handle_no_access(self):
         bot = self.build_assistant()
         bot.handle({'text': 'test', 'chat': {'id': 3}})
-        bot.sendMessage.assert_called_with('1', 'Unauthorized access attempt by: 3')
+        bot.responder.admin_message.assert_called_with('Unauthorized access attempt by: 3')
 
     def test_handle(self):
         bot = self.build_assistant()
         bot.behaviours[0] = [General(db=None, config=bot.config, dir='', logging=bot.logging)]
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        bot.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
+        bot.responder.sendMessage.assert_called_with(1, datetime.datetime.now().strftime('%I:%M %p'), None, True)
 
     def test_handle_console(self):
         bot = self.build_assistant()
         bot.mode = 'console'
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        bot.sendMessage.assert_not_called()
+        bot.responder.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
     def test_handle_voice(self):
         mocked_open = mock_open(read_data='file contents\nas needed\n')
@@ -48,8 +48,8 @@ class TestAssistantMethods(unittest.TestCase):
                 lib.speech.get_message = Mock(return_value='audio message')
                 bot.handle({'voice': 'something', 'chat': {'id': 1}})
                 lib.speech.get_message.assert_called_once()
-                bot.sendMessage.assert_not_called()
-                bot.sendAudio.assert_called_once()
+                bot.responder.sendMessage.assert_not_called()
+                bot.responder.sendAudio.assert_called_once()
 
     def test_handle_chain_commands(self):
         bot = self.build_assistant()
@@ -60,7 +60,7 @@ class TestAssistantMethods(unittest.TestCase):
         bot.behaviours = {0: [mock_behaviour]}
 
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        assert bot.sendMessage.call_count == 2
+        assert bot.responder.sendMessage.call_count == 2
 
     def chain_command(self, act):
         if act.command['text'] != 'chain':
@@ -71,7 +71,7 @@ class TestAssistantMethods(unittest.TestCase):
         bot = self.build_assistant()
         bot.behaviours = {}
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
+        bot.responder.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
     def test_handle_behaviour_exception(self):
         bot = self.build_assistant()
@@ -80,12 +80,12 @@ class TestAssistantMethods(unittest.TestCase):
         mock_behaviour.handle.side_effect = Mock(side_effect=Exception('Test'))
         bot.behaviours = {0: [mock_behaviour]}
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        bot.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
+        bot.responder.sendMessage.assert_called_with(1, "An exception of type Exception occurred with the message 'Test'. Arguments:\n('Test',)", None, True)
 
     def test_handle_no_command(self):
         bot = self.build_assistant()
         bot.handle({'text': 'bob', 'chat': {'id': 1}})
-        bot.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
+        bot.responder.sendMessage.assert_called_with(1, "I'm sorry I don't know what to say", None, True)
 
     def build_bot(self):
         bot = Mock(return_value=456)
@@ -106,14 +106,15 @@ class TestAssistantMethods(unittest.TestCase):
                 ('/foo', ('bar',), ('baz',)),
             ]
             bot = assistant.Assistant()
+            bot.responder = Mock()
+            bot.responder.sendMessage = Mock()
+            bot.admin = '1'
+            bot.config = Mock()
+            bot.config.get = Mock(return_value='1,2')
+            bot.config.get_or_request = Mock(return_value='1,2')
+            logging = Mock()
+            logging.info = Mock()
 
-        bot.sendMessage = Mock()
-        bot.admin = '1'
-        bot.config = Mock()
-        bot.config.get = Mock(return_value='1,2')
-        bot.config.get_or_request = Mock(return_value='1,2')
-        logging = Mock()
-        logging.info = Mock()
 
         return bot
 

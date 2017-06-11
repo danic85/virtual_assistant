@@ -20,7 +20,7 @@ def execute_bot_command_monthly(bot, command):
 # If method call defined on launch, call. 'startx' = listen for commands from telegram
 # Start assistant
 if len(sys.argv) == 2 and sys.argv[1] == 'startx':  # pragma: no cover
-    bot = Assistant()
+    bot = Assistant(mode='telegram')
     # Load scheduled tasks
     schedule.clear()
     # schedule.every().minute.do(execute_bot_command, 'is house empty')
