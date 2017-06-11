@@ -54,7 +54,7 @@ class Monzo(Behaviour):
     def add_token(self):
         """ Add token via command 'add monzo token <auth_code> <client_id> <client_secret>'"""
         response = self.authenticate(self.match.group(2), self.match.group(3), 'http://localhost', self.match.group(1))
-        if isinstance(response, basestring):
+        if isinstance(response, str):
             return response
         self.monzo_tokens.append(response)
         self.write_tokens()
