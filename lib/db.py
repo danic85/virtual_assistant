@@ -12,6 +12,17 @@ class Database(object):
         result = self.db[collection_name].insert_one(data_json)
         return result.inserted_id
 
+    def update(self, collection_name, data_json):
+        data_json['collection'] = collection_name  # this will mean we don't need to pass it explicitly to delete
+        return self.db[collection_name].update(data_json)
+
+    def upsert(self, collection_name, data_json):
+        if '__id' in data_json:
+            self.db.update(collection_name, data_json)
+        else:
+            data_json['__id'] = self.db.insert(collection_name, data_json)
+        return data_json
+
     def find_random(self, collection_name, criteria={}):
         results = self.db[collection_name].find(criteria)
         return results.skip(random.randrange(0, results.count(), 1)).next()
