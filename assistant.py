@@ -13,13 +13,9 @@ import telepot
 import lib
 from lib.interaction import Interaction
 from lib.db import Database
+from lib import config
 
 from behaviours import *
-
-if sys.version_info < (3, 0):  # pragma: no cover
-    import ConfigParser
-else:
-    import configparser
 
 try:
     logging.basicConfig(filename=os.path.dirname(os.path.realpath(__file__)) + '/files/assistant_debug.log', level=logging.DEBUG)
@@ -53,11 +49,11 @@ class Assistant(telepot.Bot):
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
 
-        self.config = lib.config.Config()
+        self.config = config.Config()
 
-        super(Assistant, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
+        super(Assistant, self).__init__(self.config.get_or_request('Telbot'), **kwargs)
 
-        self.admin = self.config.get('Config', 'Admin')
+        self.admin = self.config.get_or_request('Admin')
 
         self.last_mtime = os.path.getmtime(__file__)  # @todo remove and use git sha instead for update script
         self.__log("Version: " + str(self.last_mtime))
@@ -116,7 +112,7 @@ class Assistant(telepot.Bot):
             self.__admin_message('Could not find user for : ' + str(msg['text']))
             return
 
-        if str(msg['chat']['id']) not in self.config.get('Config', 'Users').split(','):
+        if str(msg['chat']['id']) not in self.config.get_or_request('Users').split(','):
             self.__admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
             return
 

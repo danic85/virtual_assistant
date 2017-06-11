@@ -21,7 +21,7 @@ def get_message(self, msg):
         command = 'voice received'
         fpath = self.files + '/speech/input'  # includes filename without extension
         f = self.getFile(msg['voice']['file_id'])
-        filepath = 'https://api.telegram.org/file/bot' + self.config.get('Config', 'Telbot') + '/' + str(f['file_path'])
+        filepath = 'https://api.telegram.org/file/bot' + self.config.get('Telbot') + '/' + str(f['file_path'])
         self.logging.info(filepath)
 
         # Retrieve from URL and save to files

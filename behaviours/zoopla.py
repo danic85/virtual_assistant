@@ -27,7 +27,7 @@ class Zoopla(Behaviour):
         return self.get_properties(False)
 
     def get_properties(self, only_new=True):
-        api_key = self.config.get('Config', 'ZooplaAPI')
+        api_key = self.config.get('ZooplaAPI')
 
         args = [
             'latitude=' + '55.168039',
@@ -84,7 +84,7 @@ class Zoopla(Behaviour):
             response.append(' '.join(r))
         self.__remove_old(listings)
         if only_new:
-            self.act.user = self.config.get('Config', 'Users').split(',')
+            self.act.user = self.config.get('Users').split(',')
         return '\n\n'.join(response)
 
     def __save_if_new(self, listing):

@@ -4,11 +4,7 @@ import datetime, os, unittest
 import assistant, sys, lib
 from mock import Mock, call, patch, mock_open
 from behaviours.general import General
-
-if sys.version_info < (3,0):
-    import ConfigParser
-else:
-    import configparser
+from lib import config
 
 
 class TestAssistantMethods(unittest.TestCase):
@@ -17,6 +13,8 @@ class TestAssistantMethods(unittest.TestCase):
             mockwalk.return_value = [
                 ('/foo', ('bar',), ('baz',)),
             ]
+            config.Config = Mock()
+            config.Config.get = Mock(return_value=1234)
             bot = assistant.Assistant()
             self.assertEqual(bot.dir, os.path.dirname(os.path.realpath(__file__)))
             self.assertEqual(bot.files, os.path.dirname(os.path.realpath(__file__)) + '/files')
@@ -100,10 +98,6 @@ class TestAssistantMethods(unittest.TestCase):
         return bot
 
     def build_assistant(self):
-        if sys.version_info < (3, 0):
-            ConfigParser.ConfigParser = Mock()
-        else:
-            configparser.ConfigParser = Mock()
         Database = Mock()
 
         # Do not load any behaviours so we are testing those methods separately
@@ -117,6 +111,7 @@ class TestAssistantMethods(unittest.TestCase):
         bot.admin = '1'
         bot.config = Mock()
         bot.config.get = Mock(return_value='1,2')
+        bot.config.get_or_request = Mock(return_value='1,2')
         logging = Mock()
         logging.info = Mock()
 

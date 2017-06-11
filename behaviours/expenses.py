@@ -72,7 +72,7 @@ class Expenses(Behaviour):
 
         if expense[0].find("$") == 0:
             expense[0] = str(self.__convert('USD', expense[0].replace('$', ''),
-                                                  self.config.get('Config', 'OpenExchangeRatesKey')))
+                                                  self.config.get('OpenExchangeRatesKey')))
 
         expense[0] = float(expense[0].strip()) * -1
         expense.append('')
@@ -104,7 +104,7 @@ class Expenses(Behaviour):
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             print(expense)
             csvwriter.writerow([expense[1], expense[0], expense[3], self.act.user, expense[2]])
-        self.act.user = self.config.get('Config', 'Users').split(',')
+        self.act.user = self.config.get('Users').split(',')
         self.act.chain_command('budget')
         return 'Logged expense: ' + str(expense[0] * -1) + " " + expense[1] + "\n"
 

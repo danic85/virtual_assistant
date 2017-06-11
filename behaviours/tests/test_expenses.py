@@ -76,6 +76,8 @@ class TestExpensesMethods(unittest.TestCase):
         b = expenses.Expenses(db=None, config={}, dir='')
         b.act = Interaction()
         b.act.user = [1]
+        b.config = Mock()
+        b.config.get = Mock(return_value='1234, 12345')
         mocked_open = mock_open(read_data='file contents\nas needed\n')
         with patch('behaviours.expenses.open', mocked_open, create=True):
             response = b.write_to_file([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])

@@ -21,7 +21,7 @@ class Weather(Behaviour):
     }
 
     def get(self):
-        owm = pyowm.OWM(self.config.get('Config', 'OpenWeatherMapKey'))
+        owm = pyowm.OWM(self.config.get('OpenWeatherMapKey'))
 
         try:
             observation = owm.weather_at_id(2642182)
@@ -35,7 +35,7 @@ class Weather(Behaviour):
 
     def forecast(self):
         args = [
-            'appid=' + self.config.get('Config', 'OpenWeatherMapKey'),
+            'appid=' + self.config.get('OpenWeatherMapKey'),
             'id=2642182',
             'units=metric'
         ]

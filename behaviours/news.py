@@ -28,7 +28,7 @@ class News(Behaviour):
         return '\n'.join(response)
 
     def top_stories(self):
-        sources = self.config.get('Config', 'News')  # @todo Make user specific
+        sources = self.config.get('News')  # @todo Make user specific
         source_list = sources.split(',')
 
         sources_json = self.__get_sources()
@@ -39,7 +39,7 @@ class News(Behaviour):
         for s in source_list:
             feeds.append(self.endpoints['articles'] + '?source=' + s +
                          '&sortBy=' + self.__sort_sources(s, sources_json) +
-                         '&apiKey=' + self.config.get('Config', 'NewsAPIKey'))
+                         '&apiKey=' + self.config.get('NewsAPIKey'))
 
         return self.__parse_feed(feeds, num_items)
 

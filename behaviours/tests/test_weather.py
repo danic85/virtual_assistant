@@ -18,4 +18,6 @@ class TestWeatherMethods(unittest.TestCase):
 
         feeds.get_json = Mock(return_value=data)
         g = weather.Weather(db=None, config={}, dir='')
+        g.config = Mock()
+        g.config.get = Mock(return_value='value')
         self.assertEqual(g.forecast(), "It is likely to rain on Monday, Wednesday, Thursday, Friday, Saturday and Sunday\nIt is likely to be icy on Wednesday")

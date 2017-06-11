@@ -1,5 +1,5 @@
 from lib.db import Database
-
+import sys
 
 class Config(object):
 
@@ -15,8 +15,24 @@ class Config(object):
         self.db.insert('config', {'key': key, 'value': value})
         return 'Config set'
 
-    def get(self, section, key):
+    def get(self, key):
         results = self.db.find_one('config', {'key': key})
         if results is None:
+            raise ValueError(key + ' is not set in config')
             return None
         return results['value']
+
+    def request(self, key):  # pragma: no cover
+        if sys.version_info < (3, 0):
+            value = raw_input("Enter value for config '" + key + "': ")
+        else:
+            value = input("Enter value for config '" + key + "': ")
+        self.set(key, value)
+        return value
+
+    def get_or_request(self, key):
+        try:
+            value = self.get(key)
+        except ValueError:
+            value = self.request(key)
+        return value

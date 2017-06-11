@@ -71,10 +71,13 @@ class TestGeneralMethods(unittest.TestCase):
         b.logging.info = Mock(return_value=True)
         b.config.db = Mock()
         b.config.db.find_one = Mock(return_value=None)
-        self.assertEquals(b.config_get('Config', 'something'), None)
+        try:
+            self.assertEquals(b.config_get('something'), None)
+        except ValueError as e:
+            self.assertEqual(str(e), 'something is not set in config')
 
         b.config.db.find_one = Mock(return_value={'key': 'configItem', 'value': '1234'})
-        self.assertEquals(b.config_get('Config', 'something'), '1234')
+        self.assertEquals(b.config_get('something'), '1234')
 
 
 

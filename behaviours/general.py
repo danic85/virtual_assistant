@@ -32,8 +32,8 @@ class General(Behaviour):
     def config_set(self):
         return self.config.set(self.match.group(1), self.match.group(2))
 
-    def config_get(self, section, key):
-        return self.config.get(section, key)
+    def config_get(self, key):
+        return self.config.get(key)
 
     def morning(self):
         """
@@ -52,7 +52,7 @@ class General(Behaviour):
         """
         Compile morning message for non-admin users
         """
-        self.act.user = self.config.get('Config', 'Users').split(',')
+        self.act.user = self.config.get('Users').split(',')
         self.act.user.pop(0)
         self.act.chain_command('get closest countdowns')
         # response = self.chat.respond('good morning', self.admin) + '\n\n'
@@ -65,7 +65,7 @@ class General(Behaviour):
 
     def broadcast(self):
         """ Send message to all users """
-        self.act.user = self.config.get('Config', 'Users').split(',')
+        self.act.user = self.config.get('Users').split(',')
         return self.match.group(0)
 
     def command_list(self):
