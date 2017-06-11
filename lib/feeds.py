@@ -13,7 +13,7 @@ else:
     from urllib.request import build_opener
 
 
-def get_json(endpoint, params=None, headers=None):
+def get_json(endpoint, params=None, headers=None, secure=True):
     """ Returns json object from request url """
     if params:
         endpoint = endpoint + '?' + '&'.join(params)
@@ -23,7 +23,7 @@ def get_json(endpoint, params=None, headers=None):
         data = opener.open(endpoint).read().decode('utf8')
         return json.loads(data)
     else:
-        return requests.get(endpoint, verify=False).json()
+        return requests.get(endpoint, verify=secure).json()
 
 
 def get_rss(endpoint):

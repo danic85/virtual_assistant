@@ -47,7 +47,7 @@ class News(Behaviour):
     def __parse_feed(feed_list, num_items):
         response = []
         for feed in feed_list:
-            d = feeds.get_json(feed)
+            d = feeds.get_json(feed, None, None, False)
             if d['status'] == 'error':
                 response.append(d['message'] + '\n' + feed)
                 continue
@@ -62,7 +62,8 @@ class News(Behaviour):
         return '\n\n'.join(response)
 
     def __get_sources(self):
-        return feeds.get_json(self.endpoints['sources'] + '?language=en')  # @todo make language user specific
+        params = {'language=en'}
+        return feeds.get_json(self.endpoints['sources'], params, None, False)  # @todo make language user specific
 
     @staticmethod
     def __sort_sources(source, sources_json):
