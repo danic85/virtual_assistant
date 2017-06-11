@@ -96,6 +96,13 @@ class TestExpensesMethods(unittest.TestCase):
         b.files = path
         self.assertEqual(b.expenses_remaining_weekly(), 'There is £-188.81 left this week and £254.52 left this month')
 
+    @freeze_time('2017-06-30')
+    def test_expenses_remaining_weekly_end_of_month(self):
+        b = expenses.Expenses(db=None, config={}, dir='')
+        path = os.path.dirname(os.path.realpath(__file__)) + '/testdata'
+        b.files = path
+        self.assertEqual(b.expenses_remaining_weekly(), 'There is £254.52 left this week and £254.52 left this month')
+
     @freeze_time('2017-06-11')
     def test_transaction_exists(self):
         b = expenses.Expenses(db=None, config={}, dir='')
@@ -124,6 +131,24 @@ class TestExpensesMethods(unittest.TestCase):
         self.assertEqual(len(b.act.response), 2)
 
         pattern = '^.*/tests/testdata/expenses/expenses-2017-.\.csv$'
+        for r in b.act.response:
+            match = re.search(pattern, r['path'], re.IGNORECASE)
+            assert match
+
+    @freeze_time('2017-01-11')
+    def test_expenses_get_jan(self):
+        b = expenses.Expenses(db=None, config={}, dir='')
+        b.act = Interaction()
+        b.act.user = [1]
+
+        path = os.path.dirname(os.path.realpath(__file__)) + '/testdata'
+        b.files = path
+        b.expenses_get()
+
+        print(b.act.response)
+        self.assertEqual(len(b.act.response), 2)
+
+        pattern = '^.*/tests/testdata/expenses/expenses-201.-.+\.csv$'
         for r in b.act.response:
             match = re.search(pattern, r['path'], re.IGNORECASE)
             assert match

@@ -5,16 +5,8 @@ import csv
 import datetime
 import os
 import calendar
-import json
-import sys
-from behaviours.behaviour import Behaviour
 from behaviours.behaviour import Behaviour
 from lib import feeds
-
-if sys.version_info < (3, 0):
-    from urllib2 import urlopen
-else:
-    from urllib.request import urlopen
 
 
 class Expenses(Behaviour):
