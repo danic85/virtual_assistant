@@ -8,14 +8,14 @@ import requests
 from datetime import datetime, timedelta
 from behaviours.behaviour import Behaviour
 from behaviours.expenses import Expenses
-
+from lib import feeds
 
 class Monzo(Behaviour):
 
     routes = {
         'get transactions': 'log_all_transactions',
         'get recent transactions': 'log_recent_transactions',
-        'add monzo token': 'add_token'
+        '^add monzo token (.*) (.*) (.*)$': 'add_token'
     }
 
     def __init__(self, **kwargs):
@@ -38,8 +38,10 @@ class Monzo(Behaviour):
                   "client_secret": client_secret,
                   "redirect_uri": redirect_uri,
                   "code": code}
-        response = requests.post("https://api.monzo.com/oauth2/token", data=params).json()
-        print(response)
+
+        print(params)
+        response = feeds.post_json("https://api.monzo.com/oauth2/token", params)
+        print(json.dumps(response))
         if 'error' in response.keys():
             return response['message']
 
@@ -51,10 +53,7 @@ class Monzo(Behaviour):
 
     def add_token(self):
         """ Add token via command 'add monzo token <auth_code> <client_id> <client_secret>'"""
-        token = self.original_message.replace('add monzo token ', '')
-        input = token.split(' ')
-        print(input)
-        response = self.__authenticate(input[1], input[2], 'http://localhost', input[0])
+        response = self.authenticate(self.match.group(2), self.match.group(3), 'http://localhost', self.match.group(1))
         if isinstance(response, basestring):
             return response
         self.monzo_tokens.append(response)
@@ -68,7 +67,7 @@ class Monzo(Behaviour):
                   "client_secret": monzo_token['client_secret'],
                   "redirect_uri": 'http://localhost',
                   "refresh_token": monzo_token['refresh_token']}
-        response = requests.post("https://api.monzo.com/oauth2/token", data=params).json()
+        response = feeds.post_json("https://api.monzo.com/oauth2/token", params)
         new_token = {'access_token': response['access_token'],
                      'refresh_token': response['refresh_token'],
                      'client_id': monzo_token['client_id'],
@@ -95,7 +94,7 @@ class Monzo(Behaviour):
     @staticmethod
     def get_account_id(access_token, account_index):
         """ Return Account ID of given account index """
-        return __get_accounts(access_token)[account_index]['id']
+        return Monzo.__get_accounts(access_token)[account_index]['id']
 
     @staticmethod
     def get_balance(access_token, account_id):
@@ -125,12 +124,12 @@ class Monzo(Behaviour):
         return response
 
     def log_recent_transactions(self):
-        return self.__log_transactions(self, False)
+        return self.__log_transactions(False)
 
     def log_all_transactions(self):
-        return self.__log_transactions(self, True)
+        return self.__log_transactions(True)
 
-    def __log_transactions(self, all):
+    def __log_transactions(self, log_all):
         """ Get monzo transactions for every account in each stored token """
         response = []
         count = 0
@@ -142,7 +141,7 @@ class Monzo(Behaviour):
                 monzo_token = self.__refresh_token(monzo_token)
             if self.__is_authenticated(monzo_token['access_token']):
                 for account in self.__get_accounts(monzo_token['access_token']):
-                    if all:
+                    if log_all:
                         transaction_list = self.get_all_transactions(monzo_token['access_token'], account['id'])
                     else:
                         transaction_list = self.get_recent_transactions(monzo_token['access_token'], account['id'])
