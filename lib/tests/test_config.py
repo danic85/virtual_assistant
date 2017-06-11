@@ -1,7 +1,7 @@
 import unittest
 from mock import Mock, call, patch
 from lib.config import Config
-import re
+
 
 class TestGeneralMethods(unittest.TestCase):
     def test_set_config(self):
@@ -9,7 +9,7 @@ class TestGeneralMethods(unittest.TestCase):
         b.db = Mock()
         b.db.insert = Mock(return_value=1234)
 
-        self.assertEquals(b.set('configItem', 'value'), 'Config set')
+        self.assertEquals(b.set('configItem', 'value'), 'Config set: configItem = value')
         b.db.insert.assert_called_with('config', {'key': 'configItem', 'value': 'value'})
 
 
