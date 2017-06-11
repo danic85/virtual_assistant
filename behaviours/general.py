@@ -14,7 +14,7 @@ class General(Behaviour):
 
     routes = {
         '(what time is it|what is the time|time)\??$': 'time',
-        '^(?:set )?config (.*)(?:=|\:)(.*)$': 'config_set',
+        '^(?:set )?config (.*)=(.*)$': 'config_set',
         'list commands|help|command list': 'command_list',
         'update': 'update_self',
         'shutdown pi': 'shutdown_self',

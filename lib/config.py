@@ -13,7 +13,7 @@ class Config(object):
             self.db.delete(results)
 
         self.db.insert('config', {'key': key, 'value': value})
-        return 'Config set'
+        return 'Config set: ' + key + ' = ' + value
 
     def get(self, key):
         results = self.db.find_one('config', {'key': key})
