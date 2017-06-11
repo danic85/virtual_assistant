@@ -13,11 +13,6 @@ else:
 
 class TestAssistantMethods(unittest.TestCase):
     def test_assistant(self):
-        if sys.version_info < (3, 0):
-            ConfigParser.ConfigParser = Mock()
-        else:
-            configparser.ConfigParser = Mock()
-
         with patch('os.walk') as mockwalk:
             mockwalk.return_value = [
                 ('/foo', ('bar',), ('baz',)),
@@ -28,7 +23,6 @@ class TestAssistantMethods(unittest.TestCase):
             self.assertNotEqual(bot.logging, None)
             self.assertNotEqual(bot.config, None)
             self.assertNotEqual(bot.behaviours, None)
-            self.assertNotEqual(bot.admin, None)
 
     def test_handle_no_access(self):
         bot = self.build_assistant()

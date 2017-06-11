@@ -10,11 +10,11 @@ import pip
 
 from behaviours.behaviour import Behaviour
 
-
 class General(Behaviour):
 
     routes = {
         '(what time is it|what is the time|time)\??$': 'time',
+        '^(?:set )?config (.*)(?:=|\:)(.*)$': 'config_set',
         'list commands|help|command list': 'command_list',
         'update': 'update_self',
         'shutdown pi': 'shutdown_self',
@@ -25,6 +25,15 @@ class General(Behaviour):
         'rotate log': 'rotate_log',
         'broadcast ([ a-z]+)': 'broadcast'
     }
+
+    def __init__(self, **kwargs):
+        super(self.__class__, self).__init__(**kwargs)
+
+    def config_set(self):
+        return self.config.set(self.match.group(1), self.match.group(2))
+
+    def config_get(self, section, key):
+        return self.config.get(section, key)
 
     def morning(self):
         """

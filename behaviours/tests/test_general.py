@@ -7,9 +7,79 @@ from mock import Mock, call, patch
 # sys.path.append(os.path.abspath('..'))
 # import behaviours
 from behaviours import general
+from lib.interaction import Interaction
+from lib.config import Config
+import re
 
 class TestGeneralMethods(unittest.TestCase):
-#     def test_morning(self):
+    def test_routes(self):
+        b = general.General(db=None, config={}, dir='')
+        act = Interaction()
+        b.logging = Mock()
+        b.logging.info = Mock(return_value=True)
+
+        b.log_expense = Mock()
+        b.config_set = Mock()
+        b.time = Mock()
+        b.datetime = Mock()
+
+        response = b.handle(act)
+        self.assertEqual(response, None)
+
+        act.command = {'text': 'time'}
+        b.handle(act)
+        b.time.assert_called_once()
+
+        act.command = {'text': 'set config something=avalue'}
+        b.handle(act)
+        b.config_set.assert_called_once()
+        self.assertEqual(b.match.group(1), 'something')
+        self.assertEqual(b.match.group(2), 'avalue')
+
+        b.config_set = Mock()
+        act.command = {'text': 'config something=anothervalue'}
+        b.handle(act)
+        b.config_set.assert_called_once()
+        self.assertEqual(b.match.group(1), 'something')
+        self.assertEqual(b.match.group(2), 'anothervalue')
+
+        b.config_set = Mock()
+        act.command = {'text': 'config something:avalue'}
+        b.handle(act)
+        b.config_set.assert_called_once()
+        self.assertEqual(b.match.group(1), 'something')
+        self.assertEqual(b.match.group(2), 'avalue')
+
+    def test_set_config(self):
+        b = general.General(db=None, config=Config(), dir='')
+        act = Interaction()
+        b.logging = Mock()
+        b.logging.info = Mock(return_value=True)
+        b.config.db = Mock()
+        b.config.db.insert = Mock(return_value=1234)
+
+        b.match = re.search('^(?:set )?config (.*)(?:=|\:)(.*)$', 'set config configItem=value',
+                            re.IGNORECASE)
+
+        self.assertEquals(b.config_set(), 'Config set')
+        b.config.db.insert.assert_called_with('config', {'key': 'configItem', 'value': 'value'})
+
+    def test_get_config(self):
+        b = general.General(db=None, config=Config(), dir='')
+        act = Interaction()
+        b.logging = Mock()
+        b.logging.info = Mock(return_value=True)
+        b.config.db = Mock()
+        b.config.db.find_one = Mock(return_value=None)
+        self.assertEquals(b.config_get('Config', 'something'), None)
+
+        b.config.db.find_one = Mock(return_value={'key': 'configItem', 'value': '1234'})
+        self.assertEquals(b.config_get('Config', 'something'), '1234')
+
+
+
+
+    #     def test_morning(self):
 #         bot = self.build_bot()
 #         # countdown = Mock(return_value = 'countdown response')
 #         response = morning(bot)

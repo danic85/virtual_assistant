@@ -53,11 +53,7 @@ class Assistant(telepot.Bot):
         self.dir = os.path.dirname(os.path.realpath(__file__))
         self.files = self.dir + '/files'
 
-        if sys.version_info < (3, 0):  # pragma: no cover
-            self.config = ConfigParser.ConfigParser()
-        else:
-            self.config = configparser.ConfigParser()
-        self.config.read(self.dir + "/config.ini")
+        self.config = lib.config.Config()
 
         super(Assistant, self).__init__(self.config.get('Config', 'Telbot'), **kwargs)
 
