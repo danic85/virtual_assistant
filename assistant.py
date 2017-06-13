@@ -14,7 +14,7 @@ import lib
 from lib.interaction import Interaction
 from lib.db import Database
 from lib import config
-from responders import console, telegram
+from responders import console, telegram, audio
 from behaviours import *
 
 try:
@@ -62,6 +62,9 @@ class Assistant(object):
         if self.mode == 'telegram':
             print('loading telegram')
             self.responder = telegram.Telegram(config=self.config)
+        elif self.mode == 'audio':
+            print('loading audio')
+            self.responder = audio.Audio(config=self.config, files=self.files)
         else:
             print('loading console')
             self.responder = console.Console(config=self.config)
@@ -83,7 +86,6 @@ class Assistant(object):
 
     def listen(self, **kwargs):  # pragma: no cover
         """ Handle messages via telegram and run scheduled tasks """
-        self.mode = kwargs.get('mode', 'telegram')
         self.responder.admin_message('Hello!')
         self.responder.message_loop(self.handle)
 
@@ -91,7 +93,7 @@ class Assistant(object):
 
         # Keep the program running.
         while 1:
-            if self.mode == 'console':
+            if self.mode != 'telegram':
                 self.responder.message_loop(self.handle)  # @todo handle in the same way as telegram, with threading
             schedule.run_pending()
             self.__idle_behaviours()
@@ -99,33 +101,28 @@ class Assistant(object):
 
     def handle(self, msg):
         """ Handle messages from users (must be public for telegram) """
-        if 'voice' in msg:
-            msg['text'] = lib.speech.get_message(self, msg)
-
-        if 'text' in msg:
-            self.__log(self.__datetime() + ': Message received: ' + msg['text'])
-
-        if 'chat' not in msg or 'id' not in msg['chat']:
-            self.responder.admin_message('Could not find user for : ' + str(msg['text']))
+        text = self.responder.get_text(msg)
+        if text == '':
             return
 
-        if str(msg['chat']['id']) not in self.config.get_or_request('Users').split(','):
-            self.responder.admin_message('Unauthorized access attempt by: ' + str(msg['chat']['id']))
-            return
+        self.__log(self.__datetime() + ': Message received: ' + text)
 
         act = Interaction(user=[msg['chat']['id']],
-                          command={'text': msg['text'].strip()},
+                          command={'text': text.strip()},
                           config=self.config)
-
-        self.__log(act.command['text'])
 
         act = self.__interact(act)
 
+        # Handle response(s)
         if len(act.response) > 0:
             if 'voice' in msg:
                 # Respond with voice if audio input received
                 lib.speech.speak(self, act.get_response_str())
-                self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
+                print(act.get_response_str())
+                if self.mode == 'telegram':
+                    self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
+                else:
+                    self.responder.sendAudio(act.user, self.files + '/speech/output.mp3')
             else:
                 # Standard text response via telegram
                 self.__message(act)
@@ -163,8 +160,8 @@ class Assistant(object):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            # if self.mode == 'console':
-            #     print(traceback.print_tb(e.__traceback__))
+            if self.mode == 'audio':
+                print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
             return act

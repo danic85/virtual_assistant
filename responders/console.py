@@ -7,6 +7,12 @@ class Console(object):
         self.config = kwargs.get('config', None)
         self.callback = None
 
+    @staticmethod
+    def get_text(msg):
+        if 'text' not in msg:
+            return ''
+        return msg['text']
+
     def admin_message(self, msg):
         if msg == '':
             return
@@ -19,13 +25,16 @@ class Console(object):
         print(msg)
 
     def sendPhoto(self, user, file):
-        print('sendPhoto not supported in console mode')
+        self.sendMessage(user, 'sendPhoto not supported in console mode')
 
     def sendDocument(self, user, file):
-        print('sendDocument not supported in console mode')
+        self.sendMessage(user, 'sendDocument not supported in console mode')
 
     def sendVideo(self, user, file):
-        print('sendVideo not supported in console mode')
+        self.sendMessage(user, 'sendVideo not supported in console mode')
+
+    def sendAudio(self, user, file):
+        self.sendMessage(user, 'sendAudio not supported in console mode')
 
     def message_loop(self, callback):
         self.callback = callback
@@ -36,7 +45,7 @@ class Console(object):
             command = input("Enter command: ")
 
         if self.callback is not None:
-            self.callback({"chat": {"id": self.config.get_or_request('Admin')}, "text": command})
+            self.callback({"chat": {"id": 0}, "text": command})
 
     # def message_loop(self, callback):
     #     self.callback = callback

@@ -101,4 +101,3 @@ Execute `python3 -m unittest discover` in the project directory to run all unit 
 * Extract code from return URL
 * Send message to Assistant "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
 * Wait for transactions or Send 'Get Transactions'
-

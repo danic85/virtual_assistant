@@ -18,7 +18,7 @@ def execute_bot_command_monthly(bot, command):
 
 
 # If method call defined on launch, call. 'startx' = listen for commands from telegram
-# Start assistant
+# Start assistant with telegram
 if len(sys.argv) == 2 and sys.argv[1] == 'startx':  # pragma: no cover
     bot = Assistant(mode='telegram')
     # Load scheduled tasks
@@ -34,9 +34,12 @@ if len(sys.argv) == 2 and sys.argv[1] == 'startx':  # pragma: no cover
         bot,
         '-700 budget')  # reset budget at beginning of month
     bot.listen()
-# Execute command without listening (ignore discover unittest)
-
+# Start with audio responder
+elif len(sys.argv) == 2 and sys.argv[1] == 'audio':
+    bot = Assistant(mode='audio')
+    bot.listen()
+# Start with console responder
 elif (len(sys.argv) == 1 and 'unittest' not in sys.argv[0]) or (len(sys.argv) == 2 and sys.argv[1] != 'discover'):  # pragma: no cover
-    bot = Assistant()
-    bot.listen(mode='console')
+    bot = Assistant(mode='console')
+    bot.listen()
 

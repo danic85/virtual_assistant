@@ -10,9 +10,12 @@ freezegun
 nmap
 gTTS
 SpeechRecognition
+PocketSphinx
 pydub
 pyserial
 profanity
 pymongo
 inflect
 dateparser
+pyaudio
+pygame
