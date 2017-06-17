@@ -55,8 +55,8 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "Houses": Specific property search via Zoopla.
 
 ## Getting Started
-1. `git clone https://github.com/danic85/mojo_home_bot.git`
-2. Navigate to directory `mojo_home_bot`
+1. `git clone https://github.com/danic85/virtual_assistant.git`
+2. Navigate to directory `virtual_assistant`
 3. `pip install -r requirements.txt`
 4. `sudo apt-get install libav-tools` and `sudo apt-get install flac` (Required for pydub as part of speech recognition)
 
