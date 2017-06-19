@@ -25,7 +25,7 @@ A home automation bot via telegram
 - "Weather": Get current weather for preconfigured location
 - "Weather Forecast": Get a 5 day forecast for rain or ice
 - "Word of the day": Return a word of the day with definition
-- "News": Top 5 BBC News stories
+- "News": Top news stories from selected sources (defined in config)
 - "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
 - "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
 ### Camera
@@ -63,22 +63,30 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 4. `sudo apt-get install libav-tools` and `sudo apt-get install flac` (Required for pydub as part of speech recognition)
 5. `apt-get install mongodb` to install the database
 
+## Add Configuration Keys
+Enter the command `set config <key>=<value>` for the following keys:
+- Users=<user_id1>,<user_id2>
+- Admin=<user_id>
+- Telbot=<telegram_bot_key>
+- OpenWeatherMapKey=<owm_key>
+- OpenExchangeRatesKey=<open_exchange_rates_key>
+- News=<source_one>,<source_two>
+- NewsAPIKey=<newsapi_key>
+
 ### Execute command from the terminal
 To execute a command, run `python3 main.py` and then enter the command at the prompt
 
 ### Initialize with Telegram
 1. Rename the config file: `mv config.ini.example config.ini`
-2. Complete the config.ini file: 
-  * Name: The Bot's Name
+2. Enter the command `set config <key>=<value>` for the following keys:
   * Telbot: Telegram Bot Key https://core.telegram.org/bots (REQUIRED for telegram integration)
   * Admin: Telegram User ID (REQUIRED for telegram integration)
-  * AdminName: Your name
   * OpenWeatherMapKey: Location key from Open Weather Map
   * Users: Telegram User IDs, comma separated
   * OpenExchangeRatesKey: Key for Open Exchange Rates
-  * RouterIP: Your router's IP (for automatic security check)
-  * MacAddresses: List of MAC addresses to detect on network (for automatic security check)
-  * BraillespeakPort: The serial port to connect to braillespeak arduino (e.g. `/dev/ttyUSB0`)
+  * News: Comma separated list of news sources from newsapi.org
+  * NewsAPIKey: newsapi.org key
+  * ZooplaAPI: API key for zoopla
 3. `python3 main.py startx`
 
 ### Start on Boot

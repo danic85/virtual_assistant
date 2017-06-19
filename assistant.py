@@ -14,7 +14,7 @@ import lib
 from lib.interaction import Interaction
 from lib.db import Database
 from lib import config
-from responders import console, telegram, audio
+from responders import console, telegram
 from behaviours import *
 
 try:
@@ -62,9 +62,6 @@ class Assistant(object):
         if self.mode == 'telegram':
             print('loading telegram')
             self.responder = telegram.Telegram(config=self.config)
-        elif self.mode == 'audio':
-            print('loading audio')
-            self.responder = audio.Audio(config=self.config, files=self.files)
         else:
             print('loading console')
             self.responder = console.Console(config=self.config)
