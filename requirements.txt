@@ -10,7 +10,6 @@ freezegun
 nmap
 gTTS
 SpeechRecognition
-PocketSphinx
 pydub
 pyserial
 profanity
