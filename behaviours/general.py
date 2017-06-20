@@ -28,6 +28,9 @@ class General(Behaviour):
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
+        self.define_idle(self.rotate_log, 24, self.get_datetime_from_time(0,0))
+        self.define_idle(self.morning, 24, self.get_datetime_from_time(6,30))
+        self.define_idle(self.morning_others, 24, self.get_datetime_from_time(8,0))
 
     def config_set(self):
         return self.config.set(self.match.group(1), self.match.group(2))
@@ -40,12 +43,8 @@ class General(Behaviour):
         Compile morning message for admin
         """
         self.act.chain_command('get closest countdowns')
-        # response = self.chat.respond('good morning', self.admin) + '\n\n'
-        # response += self.do_command('get closest countdowns') + '\n\n'
-        # response += self.do_command('weather forecast') + '\n\n'
-        # response += self.do_command('budget') + '\n\n'
-        # response += self.do_command('thought of the day') + '\n\n'
-        # response += self.do_command('did you know')
+        self.act.chain_command('weather forecast')
+        self.act.chain_command('budget')
         return 'Good Morning!'
 
     def morning_others(self):
@@ -55,12 +54,8 @@ class General(Behaviour):
         self.act.user = self.config.get('Users').split(',')
         self.act.user.pop(0)
         self.act.chain_command('get closest countdowns')
-        # response = self.chat.respond('good morning', self.admin) + '\n\n'
-        # response += self.do_command('get closest countdowns') + '\n\n'
-        # response += self.do_command('budget') + '\n\n'
-        # response += self.do_command('weather forecast') + '\n\n'
-        # response += self.do_command('thought of the day') + '\n\n'
-        # response += self.do_command('did you know')
+        self.act.chain_command('weather forecast')
+        self.act.chain_command('budget')
         return 'Good Morning!'
 
     def broadcast(self):
@@ -71,7 +66,7 @@ class General(Behaviour):
     def command_list(self):
         """ List available commands """
         return "Check out the full list of commands:" \
-               "\nhttps://github.com/danic85/mojo_home_bot/blob/master/README.md#commands"
+               "\nhttps://github.com/danic85/virtual_assistant/blob/master/README.md#commands"
 
     def update_self(self):
         """ Pull from github repo and restart if appropriate """
@@ -101,14 +96,14 @@ class General(Behaviour):
 
     def get_log(self):
         """ Send log file to user """
-        f = open(self.files + '/mojo_debug.log', 'r')
+        f = open(self.files + '/assistant_debug.log', 'r')
         self.sendDocument(self.act.user, f)
         return ''
 
     def rotate_log(self):
-        copyfile(self.files + '/mojo_debug.log',
-                 self.files + '/mojo_debug.log.' + str(datetime.datetime.today().weekday()))
-        open(self.files + '/mojo_debug.log', 'w').close()
+        copyfile(self.files + '/assistant_debug.log',
+                 self.files + '/assistant_debug.log.' + str(datetime.datetime.today().weekday()))
+        open(self.files + '/assistant_debug.log', 'w').close()
         return ''
 
     @staticmethod
