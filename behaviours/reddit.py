@@ -6,7 +6,7 @@ from random import randint
 from profanity import profanity
 from behaviours.behaviour import Behaviour
 from lib import feeds
-
+from datetime import datetime
 
 class Reddit(Behaviour):
 
@@ -14,6 +14,11 @@ class Reddit(Behaviour):
         'thought of the day': 'shower_thought',
         'did you know|teach me something': 'did_you_know'
     }
+
+    def __init__(self, **kwargs):
+        super(self.__class__, self).__init__(**kwargs)
+        self.define_idle(self.did_you_know, randint(2, 36))
+        self.define_idle(self.shower_thought(), randint(18, 120))
 
     def shower_thought(self):
         """ returns a (one) random shower thought """

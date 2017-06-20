@@ -29,6 +29,8 @@ class Monzo(Behaviour):
                     self.monzo_tokens = json.load(data_file)
                 except ValueError:
                     pass
+    def idle(self):
+        self.log_recent_transactions()
 
     @staticmethod
     def authenticate(client_id, client_secret, redirect_uri, code):

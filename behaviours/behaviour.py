@@ -36,6 +36,7 @@ class Behaviour(object):
         self.execution_order = 1
         self.logging = kwargs.get('logging', None)
         self.history = {}
+        self.idle_methods = []
 
     def handle(self, act):
         self.act = act
@@ -52,9 +53,26 @@ class Behaviour(object):
 
         return None
 
-    def idle(self, act):   # pragma: no cover
+    def idle(self, act):
         """ Anything that needs to be executed continuously during operation """
-        pass
+        for method in self.idle_methods:
+            if datetime.now() < method['next']:
+                method['next'] = datetime.now() + timedelta(hours=method['interval'])
+                return getattr(self, method['method'])()
+
+    @staticmethod
+    def get_datetime_from_time(hour, minute):
+        dt = datetime.now()
+        return datetime(dt.year, dt.month, dt.day, hour, minute, 0)
+
+    def define_idle(self, method, interval, first=None):
+        if first is None:
+            first = datetime.now() + timedelta(hours=interval)
+        self.idle_methods.append(
+            {'method': method,
+             'interval': interval,
+             'next': first
+            })
 
     def set_history(self, user, history):
         if 'time' not in history:

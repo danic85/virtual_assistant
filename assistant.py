@@ -93,7 +93,7 @@ class Assistant(object):
             if self.mode != 'telegram':
                 self.responder.message_loop(self.handle)  # @todo handle in the same way as telegram, with threading
             schedule.run_pending()
-            self.__idle_behaviours()
+            # self.__idle_behaviours()
             time.sleep(1)
 
     def handle(self, msg):
@@ -131,7 +131,7 @@ class Assistant(object):
                     new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
                     self.handle(new_cmd)
 
-    def __idle_behaviours(self):
+    def idle_behaviours(self):
         """ Call idle method for each behaviour """
         act = self.__interact(Interaction(user=[self.admin], config=self.config, method='idle'))
         if len(act.response) > 0:
@@ -172,15 +172,13 @@ class Assistant(object):
         """ Parse interaction object and convert to user friendly response message """
         msg = act.get_response_str()
 
-        if msg == '':
-            return
+        if msg != '':
+            self.__log(msg)
 
-        self.__log(msg)
-
-        if act.user:
-            for u in act.user:
-                self.__log('sending to' + str(u))
-                self.responder.sendMessage(u, msg, None, True)
+            if act.user:
+                for u in act.user:
+                    self.__log('sending to' + str(u))
+                    self.responder.sendMessage(u, msg, None, True)
 
         files = act.get_response_files()
         if len(files) > 0:

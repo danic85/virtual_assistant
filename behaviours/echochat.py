@@ -3,6 +3,7 @@
 
 from datetime import datetime, timedelta
 import re
+from random import randint
 from behaviours.behaviour import Behaviour
 
 
@@ -19,20 +20,12 @@ class Echochat(Behaviour):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'echochat'
         self.execution_order = 10  # execute after all other commands
-        self.interval = 16
-        self.__set_training_interval(self.interval)
 
         # routes set here due to use OrderedDict
         self.routes['train echochat'] = 'train'
         self.routes['(.*)'] = 'chat'
 
-    def idle(self, act):
-        if datetime.now() < self.train_time:
-            self.__set_training_interval(self.interval)
-            self.train()
-
-    def __set_training_interval(self, interval):
-        self.train_time = datetime.now() + timedelta(hours=interval)
+        self.define_idle(self.train, randint(2, 36))
 
     def chat(self):
         previous_id = self.__log_new_response()
