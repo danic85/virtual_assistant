@@ -56,7 +56,7 @@ class Behaviour(object):
     def idle(self, act):
         """ Anything that needs to be executed continuously during operation """
         for method in self.idle_methods:
-            if datetime.now() < method['next']:
+            if datetime.now() > method['next']:
                 method['next'] = datetime.now() + timedelta(hours=method['interval'])
                 return method['method']()
 
