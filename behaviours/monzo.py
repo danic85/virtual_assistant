@@ -23,14 +23,13 @@ class Monzo(Behaviour):
         self.collection = 'monzo'
         self.monzo_tokens = []
         filename = self.files + '/expenses/monzo-tokens.json'
+        self.define_idle(self.log_recent_transactions, 0)
         if os.path.isfile(filename):
             with open(filename) as data_file:
                 try:
                     self.monzo_tokens = json.load(data_file)
                 except ValueError:
                     pass
-    def idle(self):
-        self.log_recent_transactions()
 
     @staticmethod
     def authenticate(client_id, client_secret, redirect_uri, code):
