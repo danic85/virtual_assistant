@@ -57,8 +57,8 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "Translate <something> from <language>" - Translate a phrase from a specified language to English
 
 ## Getting Started
-1. `git clone https://github.com/danic85/mojo_home_bot.git`
-2. Navigate to directory `mojo_home_bot`
+1. `git clone https://github.com/danic85/virtual_assistant.git`
+2. Navigate to directory `virtual_assistant`
 3. `pip3 install -r requirements.txt`
 4. `sudo apt-get install libav-tools` and `sudo apt-get install flac` (Required for pydub as part of speech recognition)
 5. `apt-get install mongodb` to install the database
@@ -90,8 +90,8 @@ To execute a command, run `python3 main.py` and then enter the command at the pr
 3. `python3 main.py startx`
 
 ### Start on Boot
-1. Add execute permission to mojo.py `chmod +x mojo.py`
-2. Add `(sleep 10; python3 /home/pi/mojo_home_bot/mojo.py startx) &` to `/etc/rc.local` replacing path if appropriate.
+1. Add execute permission to main.py `chmod +x main.py`
+2. Add `(sleep 10; python3 /home/pi/virtual_assistant/main.py startx) &` to `/etc/rc.local` replacing path if appropriate.
 
 ## Unit testing
 Execute `python3 -m unittest discover` in the project directory to run all unit tests
