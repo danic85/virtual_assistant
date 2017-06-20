@@ -58,7 +58,7 @@ class Behaviour(object):
         for method in self.idle_methods:
             if datetime.now() < method['next']:
                 method['next'] = datetime.now() + timedelta(hours=method['interval'])
-                return getattr(self, method['method'])()
+                return method['method']()
 
     @staticmethod
     def get_datetime_from_time(hour, minute):
