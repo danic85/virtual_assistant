@@ -35,6 +35,13 @@ class TestCountdownMethods(unittest.TestCase):
         self.assertEqual(b.match.group(1), '12-05-2015')
         self.assertEqual(b.match.group(2), 'my countdown message')
 
+        b.set_countdown = Mock()
+        act.command = {'text': "countdown 12-05-2015 Bob's Birthday"}
+        b.handle(act)
+        b.set_countdown.assert_called_once()
+        self.assertEqual(b.match.group(1), '12-05-2015')
+        self.assertEqual(b.match.group(2), "Bob's Birthday")
+
     @freeze_time("2017-01-01")
     def test_get_all_none(self):
         b = countdown.Countdown(db=None, config={}, dir='')

@@ -12,7 +12,7 @@ import dateparser
 class Countdown(Behaviour):
 
     routes = {
-        '^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z]+)': 'set_countdown',
+        '^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z\'\"]+)': 'set_countdown',
         '^get countdowns$': 'get_all',
         '^get closest countdowns$': 'get_closest'
     }
