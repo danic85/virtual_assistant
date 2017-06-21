@@ -7,7 +7,7 @@ from abc import ABCMeta
 from datetime import datetime, timedelta
 
 from lib.db import Database
-
+from bson.json_util import dumps
 
 class Behaviour(object):
     """An abstract base class to define all behaviours
@@ -37,6 +37,7 @@ class Behaviour(object):
         self.logging = kwargs.get('logging', None)
         self.history = {}
         self.idle_methods = []
+        self.define_idle(self.export_db, 24, self.get_datetime_from_time(0, 0))  # export db nightly
 
     def handle(self, act):
         self.act = act
@@ -96,3 +97,18 @@ class Behaviour(object):
         self.logging.info('Found history')
         self.logging.info(recent)
         return recent
+
+    def export_db(self):
+        """ Export of database collection to json file """
+        if self.collection:
+            response = self.db.find(self.collection, {})
+            with open(self.files + '/db_exports/'+self.collection+'.txt', 'w') as outfile:
+                outfile.write(dumps(response))
+
+    def clear_db(self):
+        """ Call this from any behaviour to clear the given collection """
+        if self.collection:
+            print('*** Clearing db collection: '+ self.collection)
+            response = self.db.find(self.collection, {})
+            for r in response:
+                self.db.delete(r)
