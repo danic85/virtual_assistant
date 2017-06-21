@@ -16,3 +16,4 @@ profanity
 pymongo
 inflect
 dateparser
+pillow

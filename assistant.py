@@ -7,6 +7,10 @@ import sys
 import time
 import traceback
 
+from PIL import Image
+import requests
+from io import BytesIO
+
 import schedule
 import telepot
 
@@ -15,6 +19,7 @@ from lib.interaction import Interaction
 from lib.db import Database
 from lib import config
 from responders import console, telegram
+
 from behaviours import *
 
 try:
@@ -185,11 +190,18 @@ class Assistant(object):
         if len(files) > 0:
             for f in files:
                 if f['file'] == 'photo':
-                    photo = open(f['path'], 'rb')
+                    if 'http' in f['path']:
+                        response = requests.get(f['path'])
+                        photo = Image.open(BytesIO(response.content))
+                    else:
+                        photo = open(f['path'], 'rb')
+
                     for u in act.user:
                         self.__log('sending photo to' + str(u))
                         self.responder.sendPhoto(u, photo)
-                    os.remove(photo)
+
+                    if 'http' not in f['path']:
+                        os.remove(photo)
                 if f['file'] == 'video':
                     video = open(f['path'], 'rb')
                     for u in act.user:
