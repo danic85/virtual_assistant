@@ -7,18 +7,21 @@ from profanity import profanity
 from behaviours.behaviour import Behaviour
 from lib import feeds
 from datetime import datetime
+import json
 
 class Reddit(Behaviour):
 
     routes = {
         'thought of the day': 'shower_thought',
-        'did you know|teach me something': 'did_you_know'
+        'did you know|teach me something': 'did_you_know',
+        'funny image': 'funny_image'
     }
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.define_idle(self.did_you_know, randint(2, 36))
         self.define_idle(self.shower_thought, randint(18, 120))
+        self.define_idle(self.funny_image, randint(3, 12))
 
     def shower_thought(self):
         """ returns a (one) random shower thought """
@@ -34,6 +37,18 @@ class Reddit(Behaviour):
         if "Did you know" not in text:
             text = 'Did you know ' + self.__lower_first(text)
         return text
+
+    def funny_image(self):
+        """ returns a (one) random shower thought """
+        url = "http://www.reddit.com/r/funny/hot/.json"
+        response = self.__get_json(url)
+
+        for i in response['data']['children']:
+            if '.jpg' in i['data']['url']:
+                self.act.respond_photo(i['data']['url'])
+                return "%s" % i['data']['title']
+
+        return ''
 
     def __get_random_title(self, url):
         """ Returns a (one) random post title """
