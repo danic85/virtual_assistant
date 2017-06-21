@@ -12,7 +12,7 @@ import dateparser
 class Countdown(Behaviour):
 
     routes = {
-        '^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z\'\"]+)': 'set_countdown',
+        '^countdown ([0-9]{1,2}-[0-9]{1,2}-[0-9]{4}) ([ a-z0-9\'\"]+)': 'set_countdown',
         '^get countdowns$': 'get_all',
         '^get closest countdowns$': 'get_closest'
     }
@@ -20,13 +20,18 @@ class Countdown(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'countdowns'
+        # self.clear_db()
 
     def set_countdown(self):
         """ Add countdown to countdowns list """
         date_str, description = self.match.groups()
         # date = parser.parse(date_str)
         date = dateparser.parse(date_str, date_formats=['%d-%m-%Y'])
-        self.db.insert(self.collection, {'date': date, 'description': description})
+        countdown = self.db.find_one(self.collection, {'date': date})
+        if countdown is None:
+            countdown = {'date': date}
+        countdown['description'] = description
+        self.db.upsert(self.collection, countdown)
         return self.get_all()
 
     def get_closest(self):
@@ -43,7 +48,7 @@ class Countdown(Behaviour):
         """ Parse countdowns from db collection """
         countdowns = []
         for countdown in self.db.find(self.collection, {}, [('date', 1)]):
-            days = (countdown['date'] - datetime.datetime.now()).days
+            days = (countdown['date'] - datetime.datetime.now()).days + 1
             if days < 0:
                 self.db.delete(countdown)  # remove old countdown
             elif days == 0:

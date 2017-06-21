@@ -20,6 +20,7 @@ class Expenses(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'expenses'
+        # @todo add monthly budget automatically using define_idle()
 
     def expenses_remaining(self):
         remaining = 0.0

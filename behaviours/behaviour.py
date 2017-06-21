@@ -55,14 +55,18 @@ class Behaviour(object):
 
     def idle(self, act):
         """ Anything that needs to be executed continuously during operation """
+        self.act = act
         for method in self.idle_methods:
             if datetime.now() > method['next']:
                 method['next'] = datetime.now() + timedelta(hours=method['interval'])
-                return method['method']()
+                self.act.respond(method['method']())
+        return None
 
     @staticmethod
     def get_datetime_from_time(hour, minute):
         dt = datetime.now()
+        if dt.hour > hour and dt.minute > minute:  # don't fire straight away, make it for tomorrow if earlier than now
+            dt = datetime.now() + timedelta(days=1)
         return datetime(dt.year, dt.month, dt.day, hour, minute, 0)
 
     def define_idle(self, method, interval, first=None):

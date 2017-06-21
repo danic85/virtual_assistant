@@ -6,6 +6,7 @@ class Interaction(object):
         self.response = []
         self.finish = kwargs.get('finish', True)
         self.method = kwargs.get('method', 'handle')
+        self.msg = kwargs.get('msg', None)
 
     def respond(self, response):
         """ Add response to list """

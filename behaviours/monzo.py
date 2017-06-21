@@ -69,6 +69,10 @@ class Monzo(Behaviour):
                   "redirect_uri": 'http://localhost',
                   "refresh_token": monzo_token['refresh_token']}
         response = feeds.post_json("https://api.monzo.com/oauth2/token", params)
+
+        if 'access_token' not in response:
+            return None
+
         new_token = {'access_token': response['access_token'],
                      'refresh_token': response['refresh_token'],
                      'client_id': monzo_token['client_id'],
@@ -139,7 +143,9 @@ class Monzo(Behaviour):
         for monzo_token in self.monzo_tokens:
             if not self.__is_authenticated(monzo_token['access_token']):
                 changes = True
-                monzo_token = self.__refresh_token(monzo_token)
+                refreshed = self.__refresh_token(monzo_token)
+                if refreshed and 'access_token' in refreshed:
+                    monzo_token = refreshed
             if self.__is_authenticated(monzo_token['access_token']):
                 for account in self.__get_accounts(monzo_token['access_token']):
                     if log_all:

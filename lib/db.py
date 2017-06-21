@@ -2,6 +2,7 @@
 import pymongo
 import random
 
+
 class Database(object):
     def __init__(self):
         client = pymongo.MongoClient()
@@ -14,14 +15,17 @@ class Database(object):
 
     def update(self, collection_name, data_json):
         data_json['collection'] = collection_name  # this will mean we don't need to pass it explicitly to delete
-        return self.db[collection_name].update(data_json)
+        record_id = data_json.get('_id')
+        data_json.pop('_id', None)
+        return self.db[collection_name].update({'_id': record_id}, {'$set': data_json})
 
     def upsert(self, collection_name, data_json):
-        if '__id' in data_json:
-            self.db.update(collection_name, data_json)
-        else:
-            data_json['__id'] = self.db.insert(collection_name, data_json)
-        return data_json
+        data_json['collection'] = collection_name  # this will mean we don't need to pass it explicitly to delete
+        record_id = data_json.get('_id')
+        data_json.pop('_id', None)
+        if not record_id:
+            return self.insert(collection_name, data_json)
+        return self.db[collection_name].update({'_id': record_id}, {'$set': data_json}, upsert=True)
 
     def find_random(self, collection_name, criteria={}):
         results = self.db[collection_name].find(criteria)
@@ -37,5 +41,5 @@ class Database(object):
         return results
 
     def delete(self, document):
-        collection_name = document.get('collection','properties')  # default to properties @todo remove when not needed
-        return self.db[collection_name].delete_one(document)
+        collection_name = document.get('collection')
+        return self.db[collection_name].delete_one({'_id': document.get('_id')})

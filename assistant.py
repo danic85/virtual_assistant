@@ -58,6 +58,9 @@ class Assistant(object):
         self.register_behaviours()
         self.register_responders()
 
+        schedule.clear()
+        schedule.every(5).minutes.do(self.idle)
+
     def register_responders(self):
         if self.mode == 'telegram':
             print('loading telegram')
@@ -106,36 +109,14 @@ class Assistant(object):
 
         act = Interaction(user=[msg['chat']['id']],
                           command={'text': text.strip()},
-                          config=self.config)
+                          config=self.config,
+                          msg=msg)
 
-        act = self.__interact(act)
+        self.__interact(act)
 
-        # Handle response(s)
-        if len(act.response) > 0:
-            if 'voice' in msg:
-                # Respond with voice if audio input received
-                lib.speech.speak(self, act.get_response_str())
-                print(act.get_response_str())
-                if self.mode == 'telegram':
-                    self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
-                else:
-                    self.responder.sendAudio(act.user, self.files + '/speech/output.mp3')
-            else:
-                # Standard text response via telegram
-                self.__message(act)
-
-            # Handle chained commands
-            for r in act.response:
-                if 'command' in r:
-                    print("I think theres another command: " + str(r))
-                    new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
-                    self.handle(new_cmd)
-
-    def idle_behaviours(self):
+    def idle(self):
         """ Call idle method for each behaviour """
-        act = self.__interact(Interaction(user=[self.admin], config=self.config, method='idle'))
-        if len(act.response) > 0:
-            self.__message(act)
+        self.__interact(Interaction(user=[self.admin], config=self.config, method='idle'))
 
     def __interact(self, act):
         """ Send interaction to behaviours, in order of execution.
@@ -157,16 +138,36 @@ class Assistant(object):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            if self.mode == 'audio':
-                print(traceback.print_tb(e.__traceback__))
+            # if self.mode == 'audio':
+            print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
-            return act
+            return
 
         if len(act.response) == 0 and act.method != 'idle':
             self.__log('No match')
             act.respond("I'm sorry I don't know what to say")
-        return act
+
+        # Handle response(s)
+        if len(act.response) > 0:
+            if act.msg and 'voice' in act.msg:
+                # Respond with voice if audio input received
+                lib.speech.speak(self, act.get_response_str())
+                print(act.get_response_str())
+                if self.mode == 'telegram':
+                    self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
+                else:
+                    self.responder.sendAudio(act.user, self.files + '/speech/output.mp3')
+            else:
+                # Standard text response via telegram
+                self.__message(act)
+
+            # Handle chained commands
+            for r in act.response:
+                if 'command' in r:
+                    # print("I think theres another command: " + str(r))
+                    new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
+                    self.handle(new_cmd)
 
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """

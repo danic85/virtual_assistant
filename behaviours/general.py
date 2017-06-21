@@ -28,9 +28,9 @@ class General(Behaviour):
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
-        self.define_idle(self.rotate_log, 24, self.get_datetime_from_time(0,0))
-        self.define_idle(self.morning, 24, self.get_datetime_from_time(6,30))
-        self.define_idle(self.morning_others, 24, self.get_datetime_from_time(8,0))
+        self.define_idle(self.rotate_log, 24, self.get_datetime_from_time(0, 0))
+        self.define_idle(self.morning, 24, self.get_datetime_from_time(6, 30))
+        self.define_idle(self.morning_others, 24, self.get_datetime_from_time(8, 0))
 
     def config_set(self):
         return self.config.set(self.match.group(1), self.match.group(2))
@@ -96,8 +96,7 @@ class General(Behaviour):
 
     def get_log(self):
         """ Send log file to user """
-        f = open(self.files + '/assistant_debug.log', 'r')
-        self.sendDocument(self.act.user, f)
+        self.act.respond_file(self.files + '/assistant_debug.log')
         return ''
 
     def rotate_log(self):
