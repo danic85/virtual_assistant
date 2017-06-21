@@ -6,8 +6,7 @@ from random import randint
 from profanity import profanity
 from behaviours.behaviour import Behaviour
 from lib import feeds
-from datetime import datetime
-import json
+
 
 class Reddit(Behaviour):
 

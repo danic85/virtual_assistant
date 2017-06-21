@@ -6,6 +6,7 @@ import os
 import sys
 import time
 import traceback
+import urllib
 
 from PIL import Image
 import requests
@@ -191,17 +192,18 @@ class Assistant(object):
             for f in files:
                 if f['file'] == 'photo':
                     if 'http' in f['path']:
-                        response = requests.get(f['path'])
-                        photo = Image.open(BytesIO(response.content))
-                    else:
-                        photo = open(f['path'], 'rb')
+                        path = self.files + "/temp.jpg"
+                        urllib.request.urlretrieve(f['path'], path)
+                        f['path'] = path
+
+                    photo = open(f['path'], 'rb')
 
                     for u in act.user:
                         self.__log('sending photo to' + str(u))
                         self.responder.sendPhoto(u, photo)
 
-                    if 'http' not in f['path']:
-                        os.remove(photo)
+                    os.remove(f['path'])
+
                 if f['file'] == 'video':
                     video = open(f['path'], 'rb')
                     for u in act.user:
