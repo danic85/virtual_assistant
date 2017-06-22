@@ -44,8 +44,8 @@ class Reddit(Behaviour):
 
         for i in response['data']['children']:
             if '.jpg' in i['data']['url']:
-                self.act.respond_photo(i['data']['url'])
-                return "%s" % i['data']['title']
+                self.act.respond_photo(i['data']['url'], i['data']['title'])
+                return ''
 
         return ''
 

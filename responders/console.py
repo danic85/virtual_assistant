@@ -24,8 +24,9 @@ class Console(object):
                     disable_notification=None, reply_to_message_id=None, reply_markup=None):
         print(msg)
 
-    def sendPhoto(self, user, file):
+    def sendPhoto(self, user, file, caption):
         self.sendMessage(user, 'sendPhoto not supported in console mode')
+        self.sendMessage(user, caption)
 
     def sendDocument(self, user, file):
         self.sendMessage(user, 'sendDocument not supported in console mode')

@@ -200,7 +200,7 @@ class Assistant(object):
 
                     for u in act.user:
                         self.__log('sending photo to' + str(u))
-                        self.responder.sendPhoto(u, photo)
+                        self.responder.sendPhoto(u, photo, f['caption'])
 
                     os.remove(f['path'])
 

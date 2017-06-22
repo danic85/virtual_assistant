@@ -24,10 +24,10 @@ class Interaction(object):
         else:
             raise ValueError('Response is not correct format')
 
-    def respond_photo(self, response):
+    def respond_photo(self, response, caption=None):
         """ Add response to list """
         if type(response) is str or type(response) is unicode:
-            self.response.append({'file': 'photo', 'path': response})
+            self.response.append({'file': 'photo', 'path': response, 'caption': caption})
         else:
             raise ValueError('Response is not correct format')
 
