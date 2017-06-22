@@ -10,6 +10,7 @@ from behaviours.behaviour import Behaviour
 import json
 import re
 
+
 class Translator(Behaviour):
 
     routes = {
@@ -40,12 +41,15 @@ class Translator(Behaviour):
             params.append('to=' + language)
             params.append('from=en')
         r = feeds.get_json(self.endpoints['translate'], params)
+        if r is None:
+            return 'There was a problem with the translator'
         return r['translationText']
 
     def __get_language_code(self, language):
         if self.languages is None:
             self.languages = feeds.get_json(self.endpoints['languages'])
-        for r in self.languages:
-            if re.search(r['languageName'], language, re.IGNORECASE):
-                return r['languageCode']
+        if self.languages:
+            for r in self.languages:
+                if re.search(r['languageName'], language, re.IGNORECASE):
+                    return r['languageCode']
         return None

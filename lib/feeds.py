@@ -23,7 +23,10 @@ def get_json(endpoint, params=None, headers=None, secure=True):
         data = opener.open(endpoint).read().decode('utf8')
         return json.loads(data)
     else:
-        return requests.get(endpoint, verify=secure).json()
+        response = requests.get(endpoint, verify=secure)
+        if response.status_code != 200:
+            return None
+        return response.json()
 
 def post_json(endpoint, params=None):
     """ Returns json object from post request url """
