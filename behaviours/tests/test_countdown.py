@@ -50,7 +50,7 @@ class TestCountdownMethods(unittest.TestCase):
         self.assertEqual(b.get_all(), 'You have no countdowns active')
         b.db.delete.assert_not_called()
 
-    @freeze_time("2017-01-01")
+    @freeze_time("2017-01-01 11:00")
     def test_get_all(self):
         b = countdown.Countdown(db=None, config={}, dir='')
         b.db = Mock()
@@ -62,7 +62,7 @@ class TestCountdownMethods(unittest.TestCase):
         self.assertEqual(b.get_all(), 'Today is my today countdown!\n1 day until my tomorrow countdown\n10 days until my next countdown')
         b.db.delete.assert_not_called()
 
-    @freeze_time("2017-01-01")
+    @freeze_time("2017-01-01 11:00")
     def test_get_closest(self):
         b = countdown.Countdown(db=None, config={}, dir='')
         b.db = Mock()
@@ -75,7 +75,7 @@ class TestCountdownMethods(unittest.TestCase):
         self.assertEqual(b.get_closest(), '10 days until my countdown\n10 days until my countdown')
         b.db.delete.assert_not_called()
 
-    @freeze_time("2017-01-01")
+    @freeze_time("2017-01-01 11:00")
     def test_remove_old_countdowns(self):
         b = countdown.Countdown(db=None, config={}, dir='')
         b.db = Mock()
@@ -86,7 +86,7 @@ class TestCountdownMethods(unittest.TestCase):
         b.get_closest()
         b.db.delete.assert_called_once()
 
-    @freeze_time("2017-01-01")
+    @freeze_time("2017-01-01 11:00")
     def test_set_countdown(self):
         b = countdown.Countdown(db=None, config={}, dir='')
         b.db = Mock()
@@ -95,11 +95,10 @@ class TestCountdownMethods(unittest.TestCase):
 
         b.match = re.search('^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z]+)', 'countdown 02-01-2017 my countdown message', re.IGNORECASE)
 
-        b.db.find = Mock(return_value=[
-            {'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'},
-        ])
+        b.db.find_one = Mock(return_value=None)
+        b.db.find = Mock(return_value=[])
 
-        assert datetime.datetime.now() == datetime.datetime(2017, 1, 1)
+        assert datetime.datetime.now() == datetime.datetime(2017, 1, 1, 11, 0)
 
         self.assertEqual(b.set_countdown(), '1 day until my countdown message')
         b.db.insert.assert_called_with('countdowns', {'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'})

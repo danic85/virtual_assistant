@@ -12,25 +12,25 @@ else:
 
 class TestMainMethods(unittest.TestCase):
 
-    def test_execute_command(self):
-        bot = self.build_bot()
-        bot.handle = Mock()
-        main.execute_bot_command(bot, 'test')
-        bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
-
-    @freeze_time("2017-01-01")
-    def test_execute_command_monthly_first(self):
-        bot = self.build_bot()
-        bot.handle = Mock()
-        main.execute_bot_command_monthly(bot, 'test')
-        bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
-
-    @freeze_time("2017-01-02")
-    def test_execute_command_monthly_not_first(self):
-        bot = self.build_bot()
-        bot.handle = Mock()
-        main.execute_bot_command_monthly(bot, 'test')
-        bot.handle.assert_not_called()
+    # def test_execute_command(self):
+    #     bot = self.build_bot()
+    #     bot.handle = Mock()
+    #     main.execute_bot_command(bot, 'test')
+    #     bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
+    #
+    # @freeze_time("2017-01-01")
+    # def test_execute_command_monthly_first(self):
+    #     bot = self.build_bot()
+    #     bot.handle = Mock()
+    #     main.execute_bot_command_monthly(bot, 'test')
+    #     bot.handle.assert_called_with({'text': 'test', 'chat': {'id': 1}})
+    #
+    # @freeze_time("2017-01-02")
+    # def test_execute_command_monthly_not_first(self):
+    #     bot = self.build_bot()
+    #     bot.handle = Mock()
+    #     main.execute_bot_command_monthly(bot, 'test')
+    #     bot.handle.assert_not_called()
 
     def build_bot(self):
         if sys.version_info < (3, 0):

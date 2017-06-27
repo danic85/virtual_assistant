@@ -60,12 +60,12 @@ class TestAssistantMethods(unittest.TestCase):
         bot.behaviours = {0: [mock_behaviour]}
 
         bot.handle({'text': 'time', 'chat': {'id': 1}})
-        assert bot.responder.sendMessage.call_count == 2
+        self.assertEqual(bot.responder.sendMessage.call_count, 2)
 
     def chain_command(self, act):
         if act.command['text'] != 'chain':
-            act.response = [{'text': 'first'},
-                            {'command': {'text': 'chain'}}]
+            act.response = [{'text': 'first', 'user': act.user},
+                            {'command': {'text': 'chain'}, 'user': act.user}]
 
     def test_handle_no_behaviours(self):
         bot = self.build_assistant()

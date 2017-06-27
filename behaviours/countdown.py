@@ -48,7 +48,7 @@ class Countdown(Behaviour):
         """ Parse countdowns from db collection """
         countdowns = []
         for countdown in self.db.find(self.collection, {}, [('date', 1)]):
-            days = (countdown['date'] - datetime.datetime.now()).days + 1
+            days = (countdown['date'] - datetime.datetime.now()).days
             if days < 0:
                 self.db.delete(countdown)  # remove old countdown
             elif days == 0:

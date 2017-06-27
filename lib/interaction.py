@@ -11,7 +11,10 @@ class Interaction(object):
     def respond(self, response, user=None):
         """ Add response to list """
         if user is None:
-            user = self.user[0]
+            if self.user[0] is None:
+                user = self.admin
+            else:
+                user = self.user[0]
 
         if type(user) is str or type(user) is int:
             user = [user]

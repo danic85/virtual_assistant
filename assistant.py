@@ -144,12 +144,10 @@ class Assistant(object):
         except Exception as e:
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
-            # if self.mode == 'audio':
-            print(message)
-            print(traceback.print_tb(e.__traceback__))
+            if (len(sys.argv) == 2 and sys.argv[1] != 'discover'): # pragma: no cover
+                print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
-            return
 
         if len(act.response) == 0 and act.method != 'idle':
             self.__log('No match')
@@ -173,8 +171,8 @@ class Assistant(object):
             # Handle chained commands
             for r in act.response:
                 if 'command' in r:
-                    # print("I think theres another command: " + str(r))
-                    new_cmd = {'text': r['command']['text'], 'chat': {'id': act.user[0]}}
+                    print("I think theres another command: " + str(r))
+                    new_cmd = {'text': r['command']['text'], 'chat': {'id': r['user']}}
                     self.handle(new_cmd)
 
     def __message(self, act):
