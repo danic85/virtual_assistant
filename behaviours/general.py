@@ -17,13 +17,14 @@ class General(Behaviour):
         '^(?:set )?config (.*)=(.*)$': 'config_set',
         'list commands|help|command list': 'command_list',
         'update': 'update_self',
-        'shutdown pi': 'shutdown_self',
-        'reboot pi': 'reboot_self',
+        'emergency shutdown': 'shutdown_self',
+        'emergency reboot': 'reboot_self',
         'morning others$': 'morning_others',
         'morning|good morning$': 'morning',
         'get log': 'get_log',
         'rotate log': 'rotate_log',
-        'broadcast ([ a-z]+)': 'broadcast'
+        'broadcast ([ a-z]+)': 'broadcast',
+        '^exit|quit$': 'exit'
     }
 
     def __init__(self, **kwargs):
@@ -104,6 +105,10 @@ class General(Behaviour):
                  self.files + '/assistant_debug.log.' + str(datetime.datetime.today().weekday()))
         open(self.files + '/assistant_debug.log', 'w').close()
         return ''
+
+    @staticmethod
+    def exit():
+        quit()
 
     @staticmethod
     def time():
