@@ -31,8 +31,7 @@ class General(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.define_idle(self.rotate_log, 24, lib.dt.datetime_from_time(0, 0))
-        self.define_idle(self.morning, 24, lib.dt.datetime_from_time(6, 30))
-        self.define_idle(self.morning_others, 24, lib.dt.datetime_from_time(8, 0))
+        self.define_idle(self.morning, 24, lib.dt.datetime_from_time(8, 0))
 
     def config_set(self):
         return self.config.set(self.match.group(1), self.match.group(2))
@@ -42,21 +41,11 @@ class General(Behaviour):
 
     def morning(self):
         """
-        Compile morning message for admin
-        """
-        self.act.chain_command('get closest countdowns')
-        self.act.chain_command('weather forecast')
-        self.act.chain_command('budget')
-        return 'Good Morning!'
-
-    def morning_others(self):
-        """
-        Compile morning message for non-admin users
+        Compile morning message for all
         """
         self.act.user = self.config.get('Users').split(',')
-        self.act.user.pop(0)
         self.act.chain_command('get closest countdowns')
-        self.act.chain_command('weather forecast')
+        self.act.chain_command('detailed weather forecast')
         self.act.chain_command('budget')
         return 'Good Morning!'
 
