@@ -91,15 +91,15 @@ class TestCountdownMethods(unittest.TestCase):
         b = countdown.Countdown(db=None, config={}, dir='')
         b.db = Mock()
         b.db.delete = Mock()
-        b.db.insert = Mock()
+        b.db.upsert = Mock()
 
         b.match = re.search('^countdown ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([ a-z]+)', 'countdown 02-01-2017 my countdown message', re.IGNORECASE)
 
         b.db.find_one = Mock(return_value=None)
-        b.db.find = Mock(return_value=[])
+        b.db.find = Mock(return_value=[{'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'}])
 
         assert datetime.datetime.now() == datetime.datetime(2017, 1, 1, 11, 0)
 
         self.assertEqual(b.set_countdown(), '1 day until my countdown message')
-        b.db.insert.assert_called_with('countdowns', {'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'})
+        b.db.upsert.assert_called_with('countdowns', {'date': datetime.datetime(2017, 1, 2, 0, 0), 'description': 'my countdown message'})
         b.db.delete.assert_not_called()
