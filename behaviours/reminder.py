@@ -73,21 +73,11 @@ class Reminder(Behaviour):
         if self.match.group('tod_context') == 'tomorrow':
             dt = dt + datetime.timedelta(days=1)
 
-        time = 0
-        if self.match.group('tod_section') == 'morning':
-            time = 7
-
-        if self.match.group('tod_section') == 'lunch' or self.match.group('tod_section') == 'lunchtime':
-            time = 12
-
-        if self.match.group('tod_section') == 'afternoon':
-            time = 15
-
-        if self.match.group('tod_section') == 'evening':
-            time = 19
-
-        if self.match.group('tod_section') == 'night':
-            time = 22
+        sections = {'morning': 7, 'lunch': 12, 'lunchtime': 12, 'afternoon': 15, 'evening': 19, 'night': 22}
+        if self.match.group('tod_section') in sections.keys():
+            time = sections[self.match.group('tod_section')]
+        else:
+            time = 0
 
         dt = datetime.datetime(dt.year, dt.month, dt.day, time, 0)
 
