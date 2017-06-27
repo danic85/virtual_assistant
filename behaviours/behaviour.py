@@ -66,7 +66,7 @@ class Behaviour(object):
     @staticmethod
     def get_datetime_from_time(hour, minute):
         dt = datetime.now()
-        if dt.hour > hour and dt.minute > minute:  # don't fire straight away, make it for tomorrow if earlier than now
+        if dt.hour > hour or (dt.hour == hour and dt.minute > minute):  # don't fire straight away, make it for tomorrow if earlier than now
             dt = datetime.now() + timedelta(days=1)
         return datetime(dt.year, dt.month, dt.day, hour, minute, 0)
 
