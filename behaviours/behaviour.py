@@ -7,6 +7,7 @@ from abc import ABCMeta
 from datetime import datetime, timedelta
 
 from lib.db import Database
+import lib.dt
 from bson.json_util import dumps
 
 class Behaviour(object):
@@ -37,7 +38,7 @@ class Behaviour(object):
         self.logging = kwargs.get('logging', None)
         self.history = {}
         self.idle_methods = []
-        self.define_idle(self.export_db, 24, self.get_datetime_from_time(0, 0))  # export db nightly
+        self.define_idle(self.export_db, 24, lib.dt.datetime_from_time(0, 0))  # export db nightly
 
     def handle(self, act):
         self.act = act
@@ -62,13 +63,6 @@ class Behaviour(object):
                 method['next'] = datetime.now() + timedelta(hours=method['interval'])
                 self.act.respond(method['method']())
         return None
-
-    @staticmethod
-    def get_datetime_from_time(hour, minute):
-        dt = datetime.now()
-        if dt.hour > hour or (dt.hour == hour and dt.minute > minute):  # don't fire straight away, make it for tomorrow if earlier than now
-            dt = datetime.now() + timedelta(days=1)
-        return datetime(dt.year, dt.month, dt.day, hour, minute, 0)
 
     def define_idle(self, method, interval, first=None):
         if first is None:

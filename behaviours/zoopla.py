@@ -6,7 +6,7 @@ from decimal import Decimal
 import re
 import cgi
 from behaviours.behaviour import Behaviour
-
+import lib.dt
 
 class Zoopla(Behaviour):
 
@@ -22,7 +22,7 @@ class Zoopla(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'properties'
-        self.define_idle(self.get_properties, 24, self.get_datetime_from_time(13, 0))
+        self.define_idle(self.get_properties, 24, lib.dt.datetime_from_time(13, 0))
 
     def get_all_properties(self):
         return self.get_properties(False)

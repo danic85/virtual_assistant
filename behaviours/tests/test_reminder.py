@@ -27,8 +27,8 @@ class TestReminderMethods(unittest.TestCase):
         b.handle(act)
         b.set_reminder.assert_called_once()
         self.assertEqual(b.match.group('time'), '7')
-        self.assertEqual(b.match.group('tod_section'), None)
-        self.assertEqual(b.match.group('tod_context'), None)
+        self.assertEqual(b.match.group('which_period'), None)
+        self.assertEqual(b.match.group('which_day'), None)
         self.assertEqual(b.match.group('task'), 'do something')
 
         b.set_reminder = Mock()
@@ -37,8 +37,8 @@ class TestReminderMethods(unittest.TestCase):
         b.set_reminder.assert_called_once()
         self.assertEqual(b.match.group('time'), None)
         self.assertEqual(b.match.group('hours'), '3')
-        self.assertEqual(b.match.group('tod_section'), None)
-        self.assertEqual(b.match.group('tod_context'), None)
+        self.assertEqual(b.match.group('which_period'), None)
+        self.assertEqual(b.match.group('which_day'), None)
         self.assertEqual(b.match.group('task'), 'do something')
 
         b.set_reminder = Mock()
@@ -46,8 +46,8 @@ class TestReminderMethods(unittest.TestCase):
         b.handle(act)
         b.set_reminder.assert_called_once()
         self.assertEqual(b.match.group('time'), None)
-        self.assertEqual(b.match.group('tod_section'), 'night')
-        self.assertEqual(b.match.group('tod_context'), 'tomorrow')
+        self.assertEqual(b.match.group('which_period'), 'night')
+        self.assertEqual(b.match.group('which_day'), 'tomorrow')
         self.assertEqual(b.match.group('task'), 'do something')
 
         b.set_reminder = Mock()
@@ -55,8 +55,8 @@ class TestReminderMethods(unittest.TestCase):
         b.handle(act)
         b.set_reminder.assert_called_once()
         self.assertEqual(b.match.group('time'), None)
-        self.assertEqual(b.match.group('tod_section'), 'morning')
-        self.assertEqual(b.match.group('tod_context'), 'this')
+        self.assertEqual(b.match.group('which_period'), 'morning')
+        self.assertEqual(b.match.group('which_day'), 'this')
         self.assertEqual(b.match.group('task'), 'do something')
 
         b.set_reminder = Mock()
@@ -64,8 +64,8 @@ class TestReminderMethods(unittest.TestCase):
         b.handle(act)
         b.set_reminder.assert_called_once()
         self.assertEqual(b.match.group('time'), None)
-        self.assertEqual(b.match.group('tod_section'), 'morning')
-        self.assertEqual(b.match.group('tod_context'), 'tomorrow')
+        self.assertEqual(b.match.group('which_period'), 'morning')
+        self.assertEqual(b.match.group('which_day'), 'tomorrow')
         self.assertEqual(b.match.group('task'), 'do something')
 
     @freeze_time("2017-01-01 11:00")
@@ -132,7 +132,7 @@ class TestReminderMethods(unittest.TestCase):
         b.db.delete = Mock()
         b.db.insert = Mock()
 
-        regex = '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<tod_context>this|tomorrow|to) ?(?P<tod_section>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$'
+        regex = '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$'
 
         # test time setting, should increment day if after current time
         b.match = re.search(regex,

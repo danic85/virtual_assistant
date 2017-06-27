@@ -1,18 +1,18 @@
 import datetime
 import calendar
 
-def datetime_period_from_datetime(dt):
+
+def period_from_datetime(dt):
     now = datetime.datetime.now()
     delta = dt - datetime.datetime(now.year, now.month, now.day, 0, 0)
     output = []
     days = delta.days
-    print(days)
-    if days >= 7:
-        if days >= 14:
+    if days >= 7 or days < 0:
+        if days >= 14 or days < 0:
             output.append('a')
         else:
             output.append('next')
-    if days > 0:
+    if days > 0 or days < 0:
         output.append(calendar.day_name[dt.weekday()])
 
     period = None
@@ -38,14 +38,29 @@ def datetime_period_from_datetime(dt):
     output.append(period)
     return ' '.join(output)
 
-print(datetime_period_from_datetime(datetime.datetime(2017,5,29,3,0)))
-print(datetime_period_from_datetime(datetime.datetime(2017,6,29,23,0)))
-print(datetime_period_from_datetime(datetime.datetime(2017,7,1,12,0)))
-print(datetime_period_from_datetime(datetime.datetime(2017,6,29,14,0)))
-print(datetime_period_from_datetime(datetime.datetime(2017,6,29,21,0)))
-print('THE NEXT 20 DAYS:')
-for i in range(0,20):
-    print(datetime_period_from_datetime(datetime.datetime(2017,6,27,23,0)+datetime.timedelta(days=i)))
-print('THE FULL DAY')
-for i in range(0,24):
-    print(str(i) + ': ' + datetime_period_from_datetime(datetime.datetime(2017,6,27,i,0)))
+
+def datetime_from_time(hour, minute):
+    dt = datetime.datetime.now()
+    if dt.hour > hour or (dt.hour == hour and dt.minute > minute):  # don't fire straight away, make it for tomorrow if earlier than now
+        dt = datetime.datetime.now() + datetime.timedelta(days=1)
+    return datetime.datetime(dt.year, dt.month, dt.day, hour, minute, 0)
+
+
+def datetime_from_time_of_day(context, period):
+    dt = datetime.datetime.now()
+    if context == 'tomorrow':
+        dt = dt + datetime.timedelta(days=1)
+
+    periods = {'morning': 7, 'lunch': 12, 'lunchtime': 12, 'afternoon': 15, 'evening': 19, 'night': 22}
+    if period in periods.keys():
+        time = periods[period]
+    else:
+        time = 0
+
+    dt = datetime.datetime(dt.year, dt.month, dt.day, time, 0)
+
+    return dt
+
+
+def datetime_from_hours(hours):
+    return datetime.datetime.now() + datetime.timedelta(hours=int(hours))

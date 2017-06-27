@@ -18,9 +18,9 @@ class Reddit(Behaviour):
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
-        self.define_idle(self.did_you_know, randint(2, 36))
-        self.define_idle(self.shower_thought, randint(18, 120))
-        self.define_idle(self.funny_image, randint(3, 12))
+        self.define_idle(self.did_you_know, randint(100, 200))
+        self.define_idle(self.shower_thought, randint(50, 120))
+        self.define_idle(self.funny_image, randint(24, 72))
 
     def shower_thought(self):
         """ returns a (one) random shower thought """

@@ -5,6 +5,7 @@
 import datetime
 import inflect
 from behaviours.behaviour import Behaviour
+import lib.dt
 
 import dateparser
 
@@ -12,7 +13,7 @@ import dateparser
 class Reminder(Behaviour):
 
     routes = {
-        '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<tod_context>this|tomorrow|to) ?(?P<tod_section>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$': 'set_reminder',
+        '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$': 'set_reminder',
         '^check reminders$': 'check_reminders',
         '^output reminders$': 'output_reminders',
     }
@@ -52,11 +53,11 @@ class Reminder(Behaviour):
 
         dt = None
         if self.match.group('time'):
-            dt = self.__get_datetime_from_time(self.match.group('time'))
-        if dt is None and self.match.group('tod_context') and self.match.group('tod_section'):
-            dt = self.__get_datetime_from_time_of_day()
+            dt = lib.dt.datetime_from_time(int(self.match.group('time')), 0)
+        if dt is None and self.match.group('which_day') and self.match.group('which_period'):
+            dt = lib.dt.datetime_from_time_of_day(self.match.group('which_day'), self.match.group('which_period'))
         if dt is None and self.match.group('hours'):
-            dt = self.__get_datetime_from_hours(self.match.group('hours'))
+            dt = lib.dt.datetime_from_hours(self.match.group('hours'))
 
         reminders = []
         for user in self.act.user:
@@ -64,27 +65,6 @@ class Reminder(Behaviour):
 
         self.db.insert(self.collection, reminders)
         return 'Reminder set for ' + str(dt) + ' to ' + self.match.group('task')
-
-    def __get_datetime_from_time(self, time):
-        return self.get_datetime_from_time(int(time), 0)
-
-    def __get_datetime_from_time_of_day(self):
-        dt = datetime.datetime.now()
-        if self.match.group('tod_context') == 'tomorrow':
-            dt = dt + datetime.timedelta(days=1)
-
-        sections = {'morning': 7, 'lunch': 12, 'lunchtime': 12, 'afternoon': 15, 'evening': 19, 'night': 22}
-        if self.match.group('tod_section') in sections.keys():
-            time = sections[self.match.group('tod_section')]
-        else:
-            time = 0
-
-        dt = datetime.datetime(dt.year, dt.month, dt.day, time, 0)
-
-        return dt
-
-    def __get_datetime_from_hours(self, hours):
-        return datetime.datetime.now() + datetime.timedelta(hours=int(hours))
 
     def get_all(self):
         reminders = self.db.find(self.collection, {})
