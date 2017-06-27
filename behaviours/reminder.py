@@ -13,7 +13,8 @@ class Reminder(Behaviour):
 
     routes = {
         '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<tod_context>this|tomorrow|to) ?(?P<tod_section>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$': 'set_reminder',
-        '^get reminders$': 'get_all'
+        '^check reminders$': 'check_reminders',
+        '^output reminders$': 'output_reminders',
     }
 
     def __init__(self, **kwargs):
@@ -22,18 +23,24 @@ class Reminder(Behaviour):
         self.define_idle('check_reminders', 0)
         # self.clear_db()
 
+    def output_reminders(self):
+        reminders = self.get_all()
+        for r in reminders:
+            self.act.respond(str(r))
+        return None
+
     def check_reminders(self):
         """ Check all reminders and if there are any due message the user and delete the reminder """
         reminders = self.get_all()
         action = []
         for r in reminders:
-            if r.date <= datetime.datetime.now():
+            if r['date'] <= datetime.datetime.now():
                 action.append(r)
 
         if len(action) > 0:
             for r in action:
-                self.act.respond('Remember to ' + r.task)  # @todo send to the right person!
-            self.db.delete(action)
+                self.act.respond('Remember to ' + r['task'], r['user'])  # @todo send to the right person!
+                self.db.delete(r)
 
         return None
 
@@ -90,5 +97,5 @@ class Reminder(Behaviour):
         return datetime.datetime.now() + datetime.timedelta(hours=int(hours))
 
     def get_all(self):
-        reminders = self.db.find({})
+        reminders = self.db.find(self.collection, {})
         return reminders

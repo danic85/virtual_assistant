@@ -8,12 +8,18 @@ class Interaction(object):
         self.method = kwargs.get('method', 'handle')
         self.msg = kwargs.get('msg', None)
 
-    def respond(self, response):
+    def respond(self, response, user=None):
         """ Add response to list """
+        if user is None:
+            user = self.user[0]
+
+        if type(user) is str or type(user) is int:
+            user = [user]
+
         if type(response) is dict and 'text' in response:
             self.response.append(response)
         elif type(response) is str or type(response) is unicode:
-            self.response.append({'text': response})
+            self.response.append({'text': response, 'user': user})
         else:
             raise ValueError('Response is not correct format')
 
@@ -54,10 +60,10 @@ class Interaction(object):
 
         r_txt = []
         for r in self.response:
-            if 'text' in r and r['text']:
-                r_txt.append(r['text'])
+            if 'text' in r and r['text'] and 'user' in r:
+                r_txt.append({'text': r['text'], 'user': r['user']})
 
-        return '\n'.join(r_txt)
+        return r_txt
 
     def get_response_files(self):
         files = []

@@ -69,6 +69,48 @@ class TestReminderMethods(unittest.TestCase):
         self.assertEqual(b.match.group('task'), 'do something')
 
     @freeze_time("2017-01-01 11:00")
+    def test_check_reminders(self):
+        b = reminder.Reminder(db=None, config={'users': "1234,12345"}, dir='')
+        b.act = Interaction(user=[1234])
+        b.db = Mock()
+
+
+        # Test when all are in future
+        b.db.delete = Mock()
+        test_data = [{'date': datetime.datetime(2017, 1, 2, 22, 0),
+                      'task': 'do something', 'user': 1234}, {'date': datetime.datetime(2017, 1, 2, 22, 0),
+                                                              'task': 'do something', 'user': 12345}]
+        b.get_all = Mock(return_value=test_data)
+        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(b.act.response, [])
+        b.db.delete.assert_not_called()
+
+        # Test when one is due
+        b.db.delete = Mock()
+        test_data = [{'date': datetime.datetime(2017, 1, 1, 11, 0),
+                      'task': 'do something', 'user': 1234}, {'date': datetime.datetime(2017, 1, 2, 22, 0),
+                                                              'task': 'do something', 'user': 12345}]
+
+        b.act = Interaction(user=[1234])
+        b.get_all = Mock(return_value=test_data)
+        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(len(b.act.response), 1)
+        self.assertEqual(b.act.response, [{'text': 'Remember to do something', 'user': [1234]}])
+        b.db.delete.assert_called()
+
+        # Test when two are due
+        b.db.delete = Mock()
+        test_data = [{'date': datetime.datetime(2017, 1, 1, 11, 0),
+                      'task': 'do something', 'user': 1234}, {'date': datetime.datetime(2017, 1, 1, 11, 0),
+                                                              'task': 'do something', 'user': 12345}]
+        b.act = Interaction(user=[1234])
+        b.get_all = Mock(return_value=test_data)
+        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(len(b.act.response), 2)
+        self.assertEqual(b.act.response, [{'text': 'Remember to do something', 'user': [1234]}, {'text': 'Remember to do something', 'user': [12345]}])
+        b.db.delete.assert_called()
+    
+    @freeze_time("2017-01-01 11:00")
     def test_get_all(self):
         b = reminder.Reminder(db=None, config={'users': "1234,12345"}, dir='')
         b.act = Interaction(user=[1234])
@@ -80,7 +122,7 @@ class TestReminderMethods(unittest.TestCase):
         b.db.find = Mock(return_value=test_data)
 
         self.assertEqual(b.get_all(), test_data)
-        b.db.find.assert_called_with({})
+        b.db.find.assert_called_with('reminders',{})
 
     @freeze_time("2017-01-01 11:00")
     def test_set_reminder(self):

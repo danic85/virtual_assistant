@@ -145,6 +145,7 @@ class Assistant(object):
             template = "An exception of type {0} occurred with the message '{1}'. Arguments:\n{2!r}"
             message = template.format(type(e).__name__, str(e), e.args)
             # if self.mode == 'audio':
+            print(message)
             print(traceback.print_tb(e.__traceback__))
             self.__log(message)
             act.respond(message)
@@ -158,12 +159,13 @@ class Assistant(object):
         if len(act.response) > 0:
             if act.msg and 'voice' in act.msg:
                 # Respond with voice if audio input received
-                lib.speech.speak(self, act.get_response_str())
-                print(act.get_response_str())
-                if self.mode == 'telegram':
-                    self.responder.sendAudio(act.user, open(self.files + '/speech/output.mp3'))
-                else:
-                    self.responder.sendAudio(act.user, self.files + '/speech/output.mp3')
+                responses = act.get_response_str()
+                for r in responses:
+                    lib.speech.speak(self, r['msg'])
+                    if self.mode == 'telegram':
+                        self.responder.sendAudio(r['user'], open(self.files + '/speech/output.mp3'))
+                    else:
+                        self.responder.sendAudio(r['user'], self.files + '/speech/output.mp3')
             else:
                 # Standard text response via telegram
                 self.__message(act)
@@ -177,16 +179,19 @@ class Assistant(object):
 
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """
-        msg = act.get_response_str()
+        responses = act.get_response_str()
 
-        if msg != '':
-            self.__log(msg)
+        for r in responses:
+            msg = r['text']
+            if msg != '':
+                self.__log(msg)
 
-            if act.user:
-                for u in act.user:
-                    self.__log('sending to' + str(u))
-                    self.responder.sendMessage(u, msg, None, True)
+                if r['user']:
+                    for u in r['user']:
+                        self.__log('sending to' + str(u))
+                        self.responder.sendMessage(u, msg, None, True)
 
+        # @todo modify to handle user in response object
         files = act.get_response_files()
         if len(files) > 0:
             for f in files:

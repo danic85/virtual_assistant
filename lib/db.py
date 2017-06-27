@@ -9,6 +9,10 @@ class Database(object):
         self.db = client.assistant_db
 
     def insert(self, collection_name, data_json):
+        if type(data_json) is list:
+            for j in data_json:
+                self.insert(collection_name, j) # @todo allow bulk saving
+            return None
         data_json['collection'] = collection_name  # this will mean we don't need to pass it explicitly to delete
         result = self.db[collection_name].insert_one(data_json)
         return result.inserted_id
