@@ -43,7 +43,7 @@ class Reminder(Behaviour):
                 self.act.respond('Remember to ' + r['task'], r['user'])  # @todo send to the right person!
                 self.db.delete(r)
 
-        return None
+        return ''
 
     def set_reminder(self):
         """ Add reminder based on natural language """

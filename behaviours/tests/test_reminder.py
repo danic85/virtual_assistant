@@ -81,7 +81,7 @@ class TestReminderMethods(unittest.TestCase):
                       'task': 'do something', 'user': 1234}, {'date': datetime.datetime(2017, 1, 2, 22, 0),
                                                               'task': 'do something', 'user': 12345}]
         b.get_all = Mock(return_value=test_data)
-        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(b.check_reminders(), '')
         self.assertEqual(b.act.response, [])
         b.db.delete.assert_not_called()
 
@@ -93,7 +93,7 @@ class TestReminderMethods(unittest.TestCase):
 
         b.act = Interaction(user=[1234])
         b.get_all = Mock(return_value=test_data)
-        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(b.check_reminders(), '')
         self.assertEqual(len(b.act.response), 1)
         self.assertEqual(b.act.response, [{'text': 'Remember to do something', 'user': [1234]}])
         b.db.delete.assert_called()
@@ -105,7 +105,7 @@ class TestReminderMethods(unittest.TestCase):
                                                               'task': 'do something', 'user': 12345}]
         b.act = Interaction(user=[1234])
         b.get_all = Mock(return_value=test_data)
-        self.assertEqual(b.check_reminders(), None)
+        self.assertEqual(b.check_reminders(), '')
         self.assertEqual(len(b.act.response), 2)
         self.assertEqual(b.act.response, [{'text': 'Remember to do something', 'user': [1234]}, {'text': 'Remember to do something', 'user': [12345]}])
         b.db.delete.assert_called()
