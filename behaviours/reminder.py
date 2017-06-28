@@ -21,7 +21,7 @@ class Reminder(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'reminders'
-        self.define_idle('check_reminders', 0)
+        self.define_idle(self.check_reminders, 0)
         # self.clear_db()
 
     def output_reminders(self):
