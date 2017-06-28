@@ -21,7 +21,7 @@ class Interaction(object):
 
         if type(response) is dict and 'text' in response:
             self.response.append(response)
-        elif type(response) is str or type(response) is unicode:
+        elif type(response) is str:
             self.response.append({'text': response, 'user': user})
         else:
             raise ValueError('Response is not correct format')
