@@ -137,7 +137,7 @@ class Assistant(object):
                 for behaviour in self.behaviours[ex_order]:
                     r = getattr(behaviour, act.method)(act)  # call method specified in interaction object
                     if r is not None:
-                        act.respond(r)
+                        act.respond(r, act.user)
                 if len(act.response) > 0 and act.finish:
                     break
 
@@ -172,8 +172,12 @@ class Assistant(object):
             for r in act.response:
                 if 'command' in r:
                     print("I think theres another command: " + str(r))
-                    new_cmd = {'text': r['command']['text'], 'chat': {'id': r['user']}}
-                    self.handle(new_cmd)
+                    print(r)
+                    if type(r['command']['user']) != list:
+                        r['command']['user'] = [r['command']['user']]
+                    for usr in r['command']['user']:
+                        new_cmd = {'text': r['command']['text'], 'chat': {'id': usr}}
+                        self.handle(new_cmd)
 
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """

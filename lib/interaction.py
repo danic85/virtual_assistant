@@ -20,6 +20,8 @@ class Interaction(object):
             user = [user]
 
         if type(response) is dict and 'text' in response:
+            if 'user' not in response:
+                response['user'] = user
             self.response.append(response)
         elif type(response) is str:
             self.response.append({'text': response, 'user': user})
@@ -50,9 +52,11 @@ class Interaction(object):
     def chain_command(self, command):
         """ Add response to list """
         if type(command) is dict and 'text' in command:
+            if 'user' not in command:
+                command['user'] = self.user
             self.response.append({'command': command})
         elif type(command) is str or type(command) is unicode:
-            self.response.append({'command': {'text': command}})
+            self.response.append({'command': {'text': command, 'user': self.user}})
         else:
             raise ValueError('Chain command is not correct format')
 
