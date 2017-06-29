@@ -77,12 +77,12 @@ class TestExpensesMethods(unittest.TestCase):
         b.act = Interaction()
         b.act.user = [1]
         b.config = Mock()
-        b.config.get = Mock(return_value='1234, 12345')
+        b.config.get = Mock(return_value='1234,12345')
         mocked_open = mock_open(read_data='file contents\nas needed\n')
         with patch('behaviours.expenses.open', mocked_open, create=True):
             response = b.write_to_file([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
             self.assertEqual(response, 'Logged expense: 12.35 test expense\n')
-            self.assertEqual(b.act.response, [{'command': {'text': 'budget'}}])
+            self.assertEqual(b.act.response, [{'command': {'text': 'budget', 'user': ['1234', '12345']}}])
 
     @freeze_time('2017-06-11')
     def test_expenses_remaining(self):

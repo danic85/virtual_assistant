@@ -65,7 +65,7 @@ class TestAssistantMethods(unittest.TestCase):
     def chain_command(self, act):
         if act.command['text'] != 'chain':
             act.response = [{'text': 'first', 'user': act.user},
-                            {'command': {'text': 'chain'}, 'user': act.user}]
+                            {'command': {'text': 'chain', 'user': act.user}}]
 
     def test_handle_no_behaviours(self):
         bot = self.build_assistant()
