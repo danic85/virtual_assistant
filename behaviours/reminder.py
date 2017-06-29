@@ -13,7 +13,7 @@ import dateparser
 class Reminder(Behaviour):
 
     routes = {
-        '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$': 'set_reminder',
+        '^Remind (?P<who>me|us) ((in (?P<when>a month|the morning|a week))|(at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$': 'set_reminder',
         '^check reminders$': 'check_reminders',
         '^output reminders$': 'output_reminders',
     }
@@ -47,13 +47,14 @@ class Reminder(Behaviour):
 
     def set_reminder(self):
         """ Add reminder based on natural language """
-
         if self.match.group('who') == 'us':
             self.act.user = self.config.get('users').split(',')
 
         dt = None
         if self.match.group('time'):
             dt = lib.dt.datetime_from_time(int(self.match.group('time')), 0)
+        if dt is None and self.match.group('when'):
+            dt = lib.dt.datetime_from_time_of_day(self.match.group('when'), '')
         if dt is None and self.match.group('which_day') and self.match.group('which_period'):
             dt = lib.dt.datetime_from_time_of_day(self.match.group('which_day'), self.match.group('which_period'))
         if dt is None and self.match.group('hours'):

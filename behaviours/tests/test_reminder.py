@@ -132,7 +132,7 @@ class TestReminderMethods(unittest.TestCase):
         b.db.delete = Mock()
         b.db.insert = Mock()
 
-        regex = '^Remind (?P<who>me|us) ((at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$'
+        regex = 'Remind (?P<who>me|us) ((in (?P<when>a month|the morning|a week))|(at (?P<time>[0-9]{1,2})|(in (?P<hours>[0-9]{1,2}) hours))|((?P<which_day>this|tomorrow|to) ?(?P<which_period>morning|lunch(time)?|afternoon|evening|night))) (?:that (I|we) (need|have) )?to (?P<task>.*)$'
 
         # test time setting, should increment day if after current time
         b.match = re.search(regex,
@@ -231,3 +231,10 @@ class TestReminderMethods(unittest.TestCase):
         b.db.insert.assert_called_with('reminders', [{'date': datetime.datetime(2017, 1, 2, 22, 0),
                                                       'task': 'do something', 'user': 1234},{'date': datetime.datetime(2017, 1, 2, 22, 0),
                                                       'task': 'do something', 'user': 12345}])
+        b.act = Interaction(user=[1234])
+        b.db.insert = Mock()
+        b.match = re.search(regex,
+                            'remind me in a month to do something', re.IGNORECASE)
+        b.set_reminder()
+        b.db.insert.assert_called_with('reminders', [{'date': datetime.datetime(2017, 2, 1, 11, 0),
+                                                      'task': 'do something', 'user': 1234}])

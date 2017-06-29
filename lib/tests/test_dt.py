@@ -72,5 +72,40 @@ class TestDateTimeMethods(unittest.TestCase):
             self.assertEqual(lib.dt.period_from_datetime(datetime.datetime(2017, 6, 8, i, 0)),
                              'Thursday night')
 
+    @freeze_time("2017-06-07 07:00")
+    def test_datetime_from_period(self):
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'early morning'),
+                         datetime.datetime(2017, 6, 8, 1, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'morning'),
+                         datetime.datetime(2017, 6, 8, 7, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'midday'),
+                         datetime.datetime(2017, 6, 8, 12, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'lunch'),
+                         datetime.datetime(2017, 6, 8, 12, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'lunchtime'),
+                         datetime.datetime(2017, 6, 8, 12, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'afternoon'),
+                         datetime.datetime(2017, 6, 8, 15, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'evening'),
+                         datetime.datetime(2017, 6, 8, 19, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('tomorrow', 'night'),
+                         datetime.datetime(2017, 6, 8, 22, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('a month', ''),
+                         datetime.datetime(2017, 7, 7, 7, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('the morning', ''),
+                         datetime.datetime(2017, 6, 7, 7, 0))
+
+        self.assertEqual(lib.dt.datetime_from_time_of_day('a week', ''),
+                         datetime.datetime(2017, 6, 14, 7, 0))
+
 if __name__ == '__main__':
     unittest.main()

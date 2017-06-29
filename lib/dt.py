@@ -1,5 +1,6 @@
 import datetime
 import calendar
+from dateutil.relativedelta import relativedelta
 
 
 def period_from_datetime(dt):
@@ -48,14 +49,19 @@ def datetime_from_time(hour, minute):
 
 def datetime_from_time_of_day(context, period):
     dt = datetime.datetime.now()
-    if context == 'tomorrow':
-        dt = dt + datetime.timedelta(days=1)
 
-    periods = {'morning': 7, 'lunch': 12, 'lunchtime': 12, 'afternoon': 15, 'evening': 19, 'night': 22}
+    periods = {'early morning': 1, 'morning': 7, 'lunch': 12, 'midday': 12, 'lunchtime': 12, 'afternoon': 15, 'evening': 19, 'night': 22}
     if period in periods.keys():
         time = periods[period]
     else:
-        time = 0
+        time = dt.hour
+
+    if context == 'tomorrow':
+        dt = dt + datetime.timedelta(days=1)
+    if context == 'a week':
+        dt = dt + datetime.timedelta(days=7)
+    if context == 'a month':
+        dt = dt + relativedelta(months=1)
 
     dt = datetime.datetime(dt.year, dt.month, dt.day, time, 0)
 
