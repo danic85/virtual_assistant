@@ -147,7 +147,7 @@ class Assistant(object):
             if (len(sys.argv) == 2 and sys.argv[1] != 'discover'): # pragma: no cover
                 print(traceback.print_tb(e.__traceback__))
             self.__log(message)
-            act.respond(message)
+            act.respond(str(message))
 
         if len(act.response) == 0 and act.method != 'idle':
             self.__log('No match')
@@ -182,6 +182,8 @@ class Assistant(object):
     def __message(self, act):
         """ Parse interaction object and convert to user friendly response message """
         responses = act.get_response_str()
+
+        print(responses)
 
         for r in responses:
             msg = r['text']

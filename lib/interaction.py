@@ -19,6 +19,8 @@ class Interaction(object):
         if type(user) is str or type(user) is int:
             user = [user]
 
+        print(response)
+
         if type(response) is dict and 'text' in response:
             if 'user' not in response:
                 response['user'] = user
