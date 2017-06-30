@@ -14,69 +14,69 @@ A home automation bot via telegram
 
 ## Commands
 ### Countdown
-- "Countdown dd-mm-yyyy [event name]": Start counting down to an event.
-- "Get countdowns": List all active countdowns
-- "Get closest countdowns": List the two closest active countdowns
+- `Countdown dd-mm-yyyy <event name>`: Start counting down to an event.
+- `Get countdowns`: List all active countdowns
+- `Get closest countdowns`: List the two closest active countdowns
 ### Dictionary
-- "Word of the day": Return a word of the day with definition
+- `Word of the day`: Return a word of the day with definition
 ### Echochat
 The Echochat behaviour is a simple machine learning algorithm that allows users to build a database of possible responses to phrases.
 This behaviour is the last to be executed meaning that an un-matched command will be handled by Echochat.
-- "Train echochat": Chatbot will send a message to the user and wait for a response for the purposes of traing
+- `Train echochat`: Chatbot will send a message to the user and wait for a response for the purposes of traing
 ### Expenses
-- "[amount] [expense type]": Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
-- "Budget": Show remaining monthly budget
-- "Get Expenses": Download current and previous month's expenses in CSV format via telegram
+- `<amount> <expense type>`: Log expense of x amount of y type, convert to GBP from USD if $ included in price (e.g. '$100 tickets').
+- `Budget`: Show remaining monthly budget
+- `Get Expenses`: Download current and previous month's expenses in CSV format via telegram
 ### General
-- "What time is it / what is the time / time": Current time
-- "Set config <key>=<value>" Set a key value config pair
-- "Help / List commands / command list": Show all commands
-- "Update": Automatic self-update from git
-- "Emergency shutdown": Exit the program and shutdown the OS
-- "Emergency reboot": Exit the program and reboot the OS
-- "Good Morning / Morning": Configurable wake-up message at predefined time, daily.
-- "Get Log": Retrieve log file for inspection via telegram
-- "Rotate Log": Backup log nightly. Logs are stored for 1 week
-- "Broadcast <message>": Send message to all users
-- "Exit / Quit": Safely exit program
+- `What time is it / what is the time / time`: Current time
+- `Set config <key>=<value>` Set a key value config pair
+- `Help / List commands / command list`: Show all commands
+- `Update`: Automatic self-update from git
+- `Emergency shutdown`: Exit the program and shutdown the OS
+- `Emergency reboot`: Exit the program and reboot the OS
+- `Good Morning / Morning`: Configurable wake-up message at predefined time, daily.
+- `Get Log`: Retrieve log file for inspection via telegram
+- `Rotate Log`: Backup log nightly. Logs are stored for 1 week
+- `Broadcast <message>`: Send message to all users
+- `Exit / Quit`: Safely exit program
 ### Monzo Integration
-- "add monzo token <auth_code> <client_id> <client_secret>": Add a Monzo authentication for 'Get Transactions' command.
-- "Get Transactions": Downloads all transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
-- "Get Recent Transactions": As above, but limited to the last day
+- `add monzo token <auth_code> <client_id> <client_secret>`: Add a Monzo authentication for 'Get Transactions' command.
+- `Get Transactions`: Downloads all transactions from authenticated monzo accounts, remove expired access tokens and notify of any new transactions.
+- `Get Recent Transactions`: As above, but limited to the last day
 ### News
-- "News": Top news stories from selected sources (defined in config)
-- "News sources": Get list of news sources for configuration
+- `News`: Top news stories from selected sources (defined in config)
+- `News sources`: Get list of news sources for configuration
 ### Camera
 Required: RPI Camera
-- "Camera": Take photo from Raspberry Pi camera and send to user via telegram.
-- "Video": Record short video from Raspberry Pi camera and send to user via telegram.
+- `Camera`: Take photo from Raspberry Pi camera and send to user via telegram.
+- `Video`: Record short video from Raspberry Pi camera and send to user via telegram.
 ### Security
 Required: RPI Camera, HC-SR501 PIR Motion Sensor
 Connect `Pin 4` to HC-SR501 PIR Motion Sensor (see http://www.rototron.info/using-a-motion-detector-on-raspberry-pi/ for guide).
 Connect `Pin 17`  to LED to indicate motion (when security on).
-- "Security On": Enable security system. When motion is detected send picture to admin.
-- "Security Off": Disable security system
-- "test security": Light up LED when motion detected, but do not take picture
+- `Security On`: Enable security system. When motion is detected send picture to admin.
+- `Security Off`: Disable security system
+- `test security`: Light up LED when motion detected, but do not take picture
 ### Reddit
-- "Thought of the day": Return random thought of the day from Reddit r/showerthoughts
-- "Did you know / Teach me something": Return a random did you know from Reddit r/didyouknow
-- "Funny Image": Return a funny image and caption from Reddit r/funny
+- `Thought of the day`: Return random thought of the day from Reddit r/showerthoughts
+- `Did you know / Teach me something`: Return a random did you know from Reddit r/didyouknow
+- `Funny Image`: Return a funny image and caption from Reddit r/funny
 ### Reminder
-- "Remind me/us <when> to <task>": Set a reminder
-- "Check reminders": notify user of any due reminders
-- "Output reminders": JSON output of all reminders currently in system (for debug)
+- `Remind me/us <when> to <task>`: Set a reminder
+- `Check reminders`: notify user of any due reminders
+- `Output reminders`: JSON output of all reminders currently in system (for debug)
 ### Take Turns
-- "Who's turn is it?": Is it my turn tonight (this is an example class that can be updated to meet requirements)
+- `Who's turn is it?`: Is it my turn tonight (this is an example class that can be updated to meet requirements)
 ### Universal Translator
-- "Translate <something> to <language>" - Translate a phrase to a specified language
-- "Translate <something> from <language>" - Translate a phrase from a specified language to English
+- `Translate <something> to <language>` - Translate a phrase to a specified language
+- `Translate <something> from <language>` - Translate a phrase from a specified language to English
 ### Weather
-- "Weather": Get current weather for preconfigured location
-- "Weather Forecast": Get a 5 day forecast for rain or ice
-- "Detailed Forecast / Detailed forecast for the next <days> days": Get a detailed forecast over a defined period (defaulted to 2 days)
+- `Weather`: Get current weather for preconfigured location
+- `Weather Forecast`: Get a 5 day forecast for rain or ice
+- `Detailed Forecast / Detailed forecast for the next <days> days`: Get a detailed forecast over a defined period (defaulted to 2 days)
 ### Zoopla Property Search
-- "Properties": Specific property search via Zoopla. This is an example class that can be modified
-- "New Properties": Only notify the user of new properties that match the search
+- `Properties`: Specific property search via Zoopla. This is an example class that can be modified
+- `New Properties`: Only notify the user of new properties that match the search
 
 ## Idle Behaviour
 The virtual assistant is able to run tasks in the background at pre-defined times. Currently the following tasks will be executed:
