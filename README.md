@@ -70,7 +70,7 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 ### Universal Translator
 - "Translate <something> to <language>" - Translate a phrase to a specified language
 - "Translate <something> from <language>" - Translate a phrase from a specified language to English
-# Weather
+### Weather
 - "Weather": Get current weather for preconfigured location
 - "Weather Forecast": Get a 5 day forecast for rain or ice
 - "Detailed Forecast / Detailed forecast for the next <days> days": Get a detailed forecast over a defined period (defaulted to 2 days)
@@ -78,7 +78,7 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - "Properties": Specific property search via Zoopla. This is an example class that can be modified
 - "New Properties": Only notify the user of new properties that match the search
 
-## Idle behaviour
+## Idle Behaviour
 The virtual assistant is able to run tasks in the background at pre-defined times. Currently the following tasks will be executed:
 - Export database every night at midnight
 - Train Echochat every 2 - 36 hours
