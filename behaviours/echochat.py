@@ -25,7 +25,7 @@ class Echochat(Behaviour):
         self.routes['train echochat'] = 'train'
         self.routes['(.*)'] = 'chat'
 
-        self.define_idle(self.train, randint(2, 36))
+        self.define_idle(self.train, randint(2, 36))  # @todo This doesn't seem to be working
 
     def chat(self):
         previous_id = self.__log_new_response()

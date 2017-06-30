@@ -20,7 +20,6 @@ class General(Behaviour):
         'update': 'update_self',
         'emergency shutdown': 'shutdown_self',
         'emergency reboot': 'reboot_self',
-        'morning others$': 'morning_others',
         'morning|good morning$': 'morning',
         'get log': 'get_log',
         'rotate log': 'rotate_log',
