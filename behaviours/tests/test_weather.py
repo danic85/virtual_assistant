@@ -45,4 +45,4 @@ class TestWeatherMethods(unittest.TestCase):
         response = b.advanced_forecast()
         print(response)
         self.assertEqual(response,
-                         "There will be scattered clouds until this evening, light rain until tonight, moderate rain until Thursday afternoon, light rain until Thursday evening, overcast clouds until Saturday morning and then light rain until Saturday midday")
+                         "There will be scattered clouds until this evening, light rain until tonight, moderate rain until Thursday afternoon, light rain until Thursday evening, overcast clouds until Saturday early morning, light rain until Saturday midday and then scattered clouds until Sunday midday")
