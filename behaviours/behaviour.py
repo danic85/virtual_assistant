@@ -61,7 +61,9 @@ class Behaviour(object):
         for method in self.idle_methods:
             if datetime.now() > method['next']:
                 method['next'] = datetime.now() + timedelta(hours=method['interval'])
-                self.act.respond(method['method']())
+                response = method['method']()
+                if response is not None:
+                    self.act.respond(response)
         return None
 
     def define_idle(self, method, interval, first=None):
