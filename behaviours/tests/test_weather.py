@@ -34,11 +34,11 @@ class TestWeatherMethods(unittest.TestCase):
         b.config = Mock()
         b.config.get = Mock(return_value='value')
         self.assertEqual(b.advanced_forecast(),
-                         "There will be scattered clouds until this morning, light rain until this midday, moderate rain until Thursday morning and then light rain until Thursday morning")
+                         "There will be scattered clouds until this evening, light rain until tonight, moderate rain until Thursday afternoon and then light rain until Thursday evening")
 
         # check regex changes number of days to forecast
         regex = 'detailed (weather )?forecast( for the next (?P<days_to_forecast>[0-9]) days)?'
         b.match = re.search(regex,
                             'detailed forecast for the next 4 days', re.IGNORECASE)
         self.assertEqual(b.advanced_forecast(),
-                         "There will be scattered clouds until this morning, light rain until this midday, moderate rain until Thursday morning, light rain until Thursday morning, overcast clouds until Friday night, light rain until Saturday early morning, scattered clouds until Sunday early morning and then light rain until Sunday afternoon")
+                         "There will be scattered clouds until this evening, light rain until tonight, moderate rain until Thursday afternoon, light rain until Thursday evening, overcast clouds until Saturday morning and then light rain until Saturday midday")
