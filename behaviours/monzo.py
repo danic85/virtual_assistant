@@ -94,12 +94,18 @@ class Monzo(Behaviour):
     @staticmethod
     def __get_accounts(access_token):
         """ return accounts list from given access token """
-        return Monzo.__get(access_token, 'accounts')['accounts']
+        response = Monzo.__get(access_token, 'accounts')
+        if 'accounts' in response:
+            return response['accounts']
+        return []
 
     @staticmethod
     def get_account_id(access_token, account_index):
         """ Return Account ID of given account index """
-        return Monzo.__get_accounts(access_token)[account_index]['id']
+        response = Monzo.__get_accounts(access_token)
+        if account_index in response and 'id' in response[account_index]:
+            return [account_index]['id']
+        return []
 
     @staticmethod
     def get_balance(access_token, account_id):
@@ -147,7 +153,10 @@ class Monzo(Behaviour):
                 if refreshed and 'access_token' in refreshed:
                     monzo_token = refreshed
             if self.__is_authenticated(monzo_token['access_token']):
-                for account in self.__get_accounts(monzo_token['access_token']):
+                accounts = self.__get_accounts(monzo_token['access_token'])
+                if accounts.size < 1:
+                    self.act.respond('Could not find accounts')
+                for account in accounts:
                     if log_all:
                         transaction_list = self.get_all_transactions(monzo_token['access_token'], account['id'])
                     else:
@@ -155,7 +164,7 @@ class Monzo(Behaviour):
                     for transaction in transaction_list:
                         if not transaction['include_in_spending']:
                             continue
-                        if not expenses.transaction_exists(self, transaction['id']):
+                        if not expenses.transaction_exists(transaction['id']):
 
                             # Ignore previous months' transactions
                             today = datetime.now()
