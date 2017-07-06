@@ -175,7 +175,7 @@ class Monzo(Behaviour):
                             expense = [float(transaction['amount']) / 100, transaction['description'].split('  ')[0],
                                        transaction['id'], transaction['created']]
                             count = count + 1
-                            response.append(expenses.write_to_file(self, expense))
+                            response.append(expenses.write_to_file(expense))
             else:
                 self.monzo_tokens.remove(monzo_token)
                 changes = True
