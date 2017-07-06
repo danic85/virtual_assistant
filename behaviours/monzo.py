@@ -154,7 +154,7 @@ class Monzo(Behaviour):
                     monzo_token = refreshed
             if self.__is_authenticated(monzo_token['access_token']):
                 accounts = self.__get_accounts(monzo_token['access_token'])
-                if accounts.size < 1:
+                if len(accounts) < 1:
                     self.act.respond('Could not find accounts')
                 for account in accounts:
                     if log_all:
