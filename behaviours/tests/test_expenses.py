@@ -43,12 +43,16 @@ class TestExpensesMethods(unittest.TestCase):
 
     @freeze_time('2017-01-01')
     def test_log_expense(self):
-        b = expenses.Expenses(db=None, config={}, dir='')
+        b = expenses.Expenses(db=None, config={'users': "1234,12345"}, dir='')
+        b.config = Mock()
+        b.config.get = Mock(return_value='1234,12345')
+        b.act = Mock()
+        b.act.user = Mock()
 
         b.match = re.search('^([$-1234567890.]*) ([a-zA-Z\s]*)', '12.35 test expense', re.IGNORECASE)
         b.write_to_file = Mock(return_value='There is £-12.35 left this month.')
 
-        self.assertEqual(b.log_expense(), 'There is £-12.35 left this month.')
+        self.assertEqual(b.log_expense(), None)
         b.write_to_file.assert_called_with([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
 
     @freeze_time('2017-01-01')
@@ -61,14 +65,16 @@ class TestExpensesMethods(unittest.TestCase):
         feeds.get_json.side_effect = [data]
 
         b = expenses.Expenses(db=None, config={}, dir='')
+        b.act = Mock()
+        b.act.user = Mock()
 
         b.config = Mock()
-        b.config.get = Mock(return_value='')
+        b.config.get = Mock(return_value='1234,12345')
 
         b.match = re.search('^([$-1234567890.]*) ([a-zA-Z\s]*)', '$12.35 test expense', re.IGNORECASE)
         b.write_to_file = Mock(return_value='There is £-12.35 left this month.')
 
-        self.assertEqual(b.log_expense(), 'There is £-12.35 left this month.')
+        self.assertEqual(b.log_expense(), None)
         b.write_to_file.assert_called_with([-9.69228, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
 
     @freeze_time('2017-01-01')
@@ -82,7 +88,7 @@ class TestExpensesMethods(unittest.TestCase):
         with patch('behaviours.expenses.open', mocked_open, create=True):
             response = b.write_to_file([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
             self.assertEqual(response, 'Logged expense: 12.35 test expense\n')
-            self.assertEqual(b.act.response, [{'command': {'text': 'budget', 'user': ['1234', '12345']}}])
+            self.assertEqual(b.act.response, [])
 
     @freeze_time('2017-06-11')
     def test_expenses_remaining(self):

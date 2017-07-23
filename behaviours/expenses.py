@@ -7,6 +7,7 @@ import os
 import calendar
 from behaviours.behaviour import Behaviour
 from lib import feeds
+import lib
 
 
 class Expenses(Behaviour):
@@ -22,6 +23,7 @@ class Expenses(Behaviour):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'expenses'
         # @todo add monthly budget automatically using define_idle()
+        self.define_idle(self.new_month, 24, lib.dt.datetime_from_time(0, 0))  # check for new month
 
     def expenses_remaining(self):
         remaining = 0.0
@@ -31,6 +33,22 @@ class Expenses(Behaviour):
                 remaining += float(row[1].strip())
         response = 'There is £' + str(format(remaining, '.2f')) + ' left this month.'
         return response
+
+    def new_month(self):
+        if datetime.datetime.now().day != 1:
+            return
+
+        remaining = 0.0
+        with open(self.__last_file(), 'rt') as csvfile:
+            csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            for row in csvreader:
+                remaining += float(row[1].strip())
+
+        expense = [remaining, 'Previous month', '', datetime.datetime.now(), None]
+        self.write_to_file(expense)
+        expense = [self.config.get('Budget'), 'Budget', '', datetime.datetime.now(), None]
+        self.write_to_file(expense)
+        print('new month created')
 
     def expenses_remaining_weekly(self):
         income = 0.0
