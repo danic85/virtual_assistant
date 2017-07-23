@@ -79,7 +79,12 @@ class Expenses(Behaviour):
         expense.append('')
         expense.append(datetime.datetime.now())
         expense.append(None)
-        return self.write_to_file(expense)
+
+        self.write_to_file(expense)
+
+        self.act.user = self.config.get('Users').split(',')
+        self.act.chain_command('budget')
+        return
 
     def transaction_exists(self, transaction_id):
         """ Check that transaction exists (used for bank api integrations) """
@@ -104,9 +109,12 @@ class Expenses(Behaviour):
         with open(self.__current_file(), 'a') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             print(expense)
-            csvwriter.writerow([expense[1], expense[0], expense[3], self.act.user, expense[2]])
-        self.act.user = self.config.get('Users').split(',')
-        self.act.chain_command('budget')
+            if not self.act or type(self.act) is not dict or 'user' not in self.act:
+                user = self.config.get('Users').split(',')[0]
+            else:
+                user = self.act.user
+            csvwriter.writerow([expense[1], expense[0], expense[3], user, expense[2]])
+
         return 'Logged expense: ' + str(expense[0] * -1) + " " + expense[1] + "\n"
 
     @staticmethod
