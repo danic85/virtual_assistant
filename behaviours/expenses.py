@@ -14,7 +14,8 @@ class Expenses(Behaviour):
     routes = {
         '^([$-1234567890.]*) ([a-zA-Z\s]*)': 'log_expense',
         'budget|how much money': 'expenses_remaining_weekly',
-        'get expenses': 'expenses_get'
+        'get expenses': 'expenses_get',
+        'get allowance': 'get_allowance'
     }
 
     def __init__(self, **kwargs):
@@ -63,6 +64,42 @@ class Expenses(Behaviour):
 
         response = 'There is £' + str(format(remaining_week, '.2f'))
         response += ' left this week and £' + str(format(remaining, '.2f')) + ' left this month'
+        return response
+
+    def get_allowance(self):
+        income = 0.0
+        expenses = 0.0
+        remaining = 0.0
+        with open(self.__current_file(), 'rt') as csvfile:
+            csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            for row in csvreader:
+                val = float(row[1].strip())
+                if val > 0:
+                    income += val
+                else:
+                    expenses += val
+                remaining += val
+
+        now = datetime.datetime.now()
+        today = datetime.date.today()
+
+        # get the number of days in the month
+        days_in_month = calendar.monthrange(now.year, now.month)[1]
+
+        # Calculate daily budget and remaining budget
+        daily_budget = income / days_in_month
+
+        budget_to_date = daily_budget * now.day
+        allowance = budget_to_date - abs(expenses)
+
+        print(allowance)
+        print(daily_budget)
+
+        if allowance > 0:
+            response = 'You have £' + str(format(allowance, '.2f')) + ' to spend'
+        else:
+            days_to_recover = round(abs(allowance) / daily_budget)
+            response = 'You do not have any money available for ' + str(days_to_recover) + ' days'
         return response
 
     def log_expense(self):
