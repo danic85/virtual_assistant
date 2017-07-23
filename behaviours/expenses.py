@@ -16,6 +16,7 @@ class Expenses(Behaviour):
         '^([$-1234567890.]*) ([a-zA-Z\s]*)': 'log_expense',
         'budget|how much money': 'expenses_remaining_weekly',
         'get expenses': 'expenses_get',
+        'check allowance': 'check_allowance',
         'get allowance': 'get_allowance'
     }
 
@@ -48,7 +49,7 @@ class Expenses(Behaviour):
         self.write_to_file(expense)
         expense = [self.config.get('Budget'), 'Budget', '', datetime.datetime.now(), None]
         self.write_to_file(expense)
-        print('new month created')
+        # print('new month created')
 
     def expenses_remaining_weekly(self):
         income = 0.0
@@ -84,7 +85,7 @@ class Expenses(Behaviour):
         response += ' left this week and £' + str(format(remaining, '.2f')) + ' left this month'
         return response
 
-    def get_allowance(self):
+    def calculate_allowance(self):
         income = 0.0
         expenses = 0.0
         remaining = 0.0
@@ -110,8 +111,17 @@ class Expenses(Behaviour):
         budget_to_date = daily_budget * now.day
         allowance = budget_to_date - abs(expenses)
 
-        print(allowance)
-        print(daily_budget)
+        return [daily_budget, allowance]
+
+    def get_allowance(self):
+        daily_budget, allowance = self.calculate_allowance()
+        return 'You are allowed £' + str(format(daily_budget, '.2f')) + ' a day this month'
+
+    def check_allowance(self):
+        daily_budget, allowance = self.calculate_allowance()
+
+        # print(allowance)
+        # print(daily_budget)
 
         if allowance > 0:
             response = 'You have £' + str(format(allowance, '.2f')) + ' to spend'
@@ -124,7 +134,7 @@ class Expenses(Behaviour):
         # expense = self.act.command['text'].split(' ', 1)
         amount, description = self.match.groups()
         expense = [amount, description]
-        print(expense)
+        # print(expense)
 
         if expense[0].find("$") == 0:
             expense[0] = str(self.__convert('USD', expense[0].replace('$', ''),
@@ -138,7 +148,7 @@ class Expenses(Behaviour):
         self.write_to_file(expense)
 
         self.act.user = self.config.get('Users').split(',')
-        self.act.chain_command('budget')
+        self.act.chain_command('check allowance')
         return
 
     def transaction_exists(self, transaction_id):
@@ -163,7 +173,7 @@ class Expenses(Behaviour):
     def write_to_file(self, expense):
         with open(self.__current_file(), 'a') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            print(expense)
+            # print(expense)
             if not self.act or type(self.act) is not dict or 'user' not in self.act:
                 user = self.config.get('Users').split(',')[0]
             else:

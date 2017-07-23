@@ -45,7 +45,7 @@ class General(Behaviour):
         self.act.user = self.config.get('Users').split(',')
         self.act.chain_command('get closest countdowns')
         self.act.chain_command('detailed weather forecast')
-        self.act.chain_command('budget')
+        self.act.chain_command('check allowance')
         return 'Good Morning!'
 
     def broadcast(self):

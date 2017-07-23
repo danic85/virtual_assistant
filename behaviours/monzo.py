@@ -177,7 +177,7 @@ class Monzo(Behaviour):
                             count = count + 1
                             response.append(expenses.write_to_file(expense))
                             self.act.user = self.config.get('Users').split(',')
-                            self.act.chain_command('budget')
+                            self.act.chain_command('check allowance')
             else:
                 self.monzo_tokens.remove(monzo_token)
                 changes = True
