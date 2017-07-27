@@ -146,6 +146,7 @@ class Monzo(Behaviour):
         count = 0
         changes = False
         expenses = Expenses(db=self.db, config=self.config, dir=self.dir, logging=self.logging)
+        self.act.user = self.config.get('Users').split(',')
         for monzo_token in self.monzo_tokens:
             if not self.__is_authenticated(monzo_token['access_token']):
                 changes = True
@@ -176,14 +177,14 @@ class Monzo(Behaviour):
                                        transaction['id'], transaction['created']]
                             count = count + 1
                             response.append(expenses.write_to_file(expense))
-                            self.act.user = self.config.get('Users').split(',')
                             self.act.chain_command('check allowance')
             else:
-                self.monzo_tokens.remove(monzo_token)
-                changes = True
-                response.append('Cannot refresh token with Monzo: ' + monzo_token['access_token'])
+                # self.monzo_tokens.remove(monzo_token)  # disable this for now
+                # changes = True
+                response.append('Cannot refresh token with Monzo')
         if changes:
             self.write_tokens()
         if count > 5:
             return str(count) + ' expenses imported'
+
         return '\n'.join(response)
