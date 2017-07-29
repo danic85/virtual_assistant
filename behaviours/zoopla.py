@@ -37,7 +37,7 @@ class Zoopla(Behaviour):
             'minimum_beds=' + '2',
             'property_type=' + 'houses',
             'radius=' + '2',
-            'maximum_price=' + '150000',
+            'maximum_price=' + '200000',
             'page_size=' + '100',
             'order_by=' + 'age',
             'ordering=' + 'ascending',
@@ -56,7 +56,8 @@ class Zoopla(Behaviour):
         excluded_keywords = [
             'pegswood',
             'tenanted',
-            'leasehold'
+            'leasehold',
+            'kirkhill'
         ]
 
         response = []
