@@ -133,3 +133,9 @@ Execute `python3 -m unittest discover` in the project directory to run all unit 
 * Extract code from return URL
 * Send message to Assistant "add monzo token <auth_code> <client_id> <client_secret>" (case is important here!)
 * Wait for transactions or Send 'Get Transactions'
+
+### Restart Script
+There are some issues currently that cause unhandled exceptions which trigger an exit. the `restart_script.sh` bash script will watch for the main.py file running as a process, and restart it if it fails. 
+* Edit `restart_script.sh` to use the correct path
+* `crontab -e`
+* Add `0 * * * * <path_to_restart_script.sh>` to the crontab file. This will execute the script every hour.
