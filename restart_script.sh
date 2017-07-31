@@ -1,7 +1,7 @@
 #!/bin/bash  
 # Restart script if not running (error caused failure)
-if pgrep -f mojo.py ; then
- :
+if pgrep -f main.py ; then
+   :
 else 
-  sudo python /home/pi/mojo_home_bot/mojo.py &
+   sudo python /home/pi/virtual_assistant/main.py startx &
 fi

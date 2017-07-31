@@ -4,7 +4,6 @@ telepot
 bs4
 feedparser
 pyowm
-aiml
 coverage
 mock
 freezegun
@@ -15,3 +14,6 @@ pydub
 pyserial
 profanity
 pymongo
+inflect
+dateparser
+pillow
