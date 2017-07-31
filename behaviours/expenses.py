@@ -127,7 +127,10 @@ class Expenses(Behaviour):
             response = 'You have £' + str(format(allowance, '.2f')) + ' to spend'
         else:
             days_to_recover = round(abs(allowance) / daily_budget)
-            response = 'You do not have any money available for ' + str(days_to_recover) + ' days'
+            if days_to_recover == 0:
+                response = 'You do not have any more money available today'
+            else:
+                response = 'You do not have any money available for ' + str(days_to_recover) + ' days'
         return response
 
     def log_expense(self):
