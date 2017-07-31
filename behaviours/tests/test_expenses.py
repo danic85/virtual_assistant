@@ -52,7 +52,7 @@ class TestExpensesMethods(unittest.TestCase):
         b.match = re.search('^([$-1234567890.]*) ([a-zA-Z\s]*)', '12.35 test expense', re.IGNORECASE)
         b.write_to_file = Mock(return_value='There is £-12.35 left this month.')
 
-        self.assertEqual(b.log_expense(), None)
+        self.assertEqual(b.log_expense(), 'There is £-12.35 left this month.')
         b.write_to_file.assert_called_with([-12.35, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
 
     @freeze_time('2017-01-01')
@@ -74,7 +74,7 @@ class TestExpensesMethods(unittest.TestCase):
         b.match = re.search('^([$-1234567890.]*) ([a-zA-Z\s]*)', '$12.35 test expense', re.IGNORECASE)
         b.write_to_file = Mock(return_value='There is £-12.35 left this month.')
 
-        self.assertEqual(b.log_expense(), None)
+        self.assertEqual(b.log_expense(), 'There is £-12.35 left this month.')
         b.write_to_file.assert_called_with([-9.69228, 'test expense', '', datetime.datetime(2017, 1, 1, 0, 0), None])
 
     @freeze_time('2017-01-01')
