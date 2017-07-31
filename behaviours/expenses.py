@@ -145,11 +145,9 @@ class Expenses(Behaviour):
         expense.append(datetime.datetime.now())
         expense.append(None)
 
-        self.write_to_file(expense)
-
         self.act.user = self.config.get('Users').split(',')
         self.act.chain_command('check allowance')
-        return
+        return self.write_to_file(expense)
 
     def transaction_exists(self, transaction_id):
         """ Check that transaction exists (used for bank api integrations) """
