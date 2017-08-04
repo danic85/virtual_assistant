@@ -14,7 +14,7 @@ class Interaction(object):
             if self.user[0] is None:
                 user = self.admin
             else:
-                user = self.user[0]
+                user = self.user
 
         if type(user) is str or type(user) is int:
             user = [user]
