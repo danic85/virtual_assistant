@@ -93,7 +93,7 @@ class Expenses(Behaviour):
             csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
             for row in csvreader:
                 val = float(row[1].strip())
-                if val > 0:
+                if val > 0 and 'budget' in row[0].strip().lower():
                     income += val
                 else:
                     expenses += val
