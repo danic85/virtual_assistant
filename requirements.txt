@@ -17,3 +17,4 @@ pymongo
 inflect
 dateparser
 pillow
+fuzzywuzzy

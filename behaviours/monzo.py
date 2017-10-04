@@ -23,7 +23,7 @@ class Monzo(Behaviour):
         self.collection = 'monzo'
         self.monzo_tokens = []
         filename = self.files + '/expenses/monzo-tokens.json'
-        self.define_idle(self.log_recent_transactions, 0)
+        #self.define_idle(self.log_recent_transactions, 0) # Don't do this at the moment
         if os.path.isfile(filename):
             with open(filename) as data_file:
                 try:

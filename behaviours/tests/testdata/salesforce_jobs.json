@@ -1,0 +1,2593 @@
+{
+  'bozo': 0,
+  'version': 'rss20',
+  'encoding': 'utf-8',
+  'href': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+  'namespaces': {
+    '': 'http://www.w3.org/2005/Atom'
+  },
+  'headers': {
+    'Date': 'Wed, 04 Oct 2017 09:21:17 GMT',
+    'Vary': 'Accept-Encoding',
+    'P3P': 'CP="does not have a P3P policy"',
+    'Content-Encoding': 'gzip',
+    'Connection': 'close',
+    'Server': 'nginx',
+    'Via': 'HTTP/1.1 proxy10003',
+    'Set-Cookie': 'JSESSIONID=37702A0D92EC9C8E61EF34D30C0C33CF.node01; Path=/',
+    'Content-Type': 'text/xml;charset=utf-8'
+  },
+  'status': 200,
+  'entries': [
+    {
+      'summary': "Salesforce.com, inc..\nUK - Elstree, UK - London, UK - Remote, UK - Staines, UK - Manchester, UK - Slough <br />\nSenior Consultant / Technical Architect - Commerce Cloud (f/m) Location: London, UK remote Overview: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers...<br /><br />\nDate posted: 05/31/2017",
+      'title': 'Senior Consultant / Technical Architect Commerce Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57497/Senior-Consultant-Technical-Architect-Commerce-Cloud-Uk-Elstree-Uk-London-Uk-Manchester-Uk-Remote-Uk-Slough-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57497/Senior-Consultant-Technical-Architect-Commerce-Cloud-Uk-Elstree-Uk-London-Uk-Manchester-Uk-Remote-Uk-Slough-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Consultant / Technical Architect Commerce Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57497/Senior-Consultant-Technical-Architect-Commerce-Cloud-Uk-Elstree-Uk-London-Uk-Manchester-Uk-Remote-Uk-Slough-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - Elstree, UK - London, UK - Remote, UK - Staines, UK - Manchester, UK - Slough <br />\nSenior Consultant / Technical Architect - Commerce Cloud (f/m) Location: London, UK remote Overview: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers...<br /><br />\nDate posted: 05/31/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines, UK - Manchester <br />\nTitle: Strategic Acccount Manager - Middle East Location -London, UK Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new...<br /><br />\nDate posted: 09/28/2017",
+      'title': 'Strategic Account Manager - Middle East',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60053/Strategic-Account-Manager-Middle-East-Uk-London-Uk-Manchester-Uk-Remote-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60053/Strategic-Account-Manager-Middle-East-Uk-London-Uk-Manchester-Uk-Remote-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Middle East',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60053/Strategic-Account-Manager-Middle-East-Uk-London-Uk-Manchester-Uk-Remote-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines, UK - Manchester <br />\nTitle: Strategic Acccount Manager - Middle East Location -London, UK Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new...<br /><br />\nDate posted: 09/28/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Senior Account Executive - Aerospace & Defence Location: United KingdomRole Description: An opportunity has been created for a new business sales professional joining the enterprise sales team in...<br /><br />\nDate posted: 09/29/2017',
+      'title': 'Strategic Account Manager',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60076/Strategic-Account-Manager-Uk-London-Uk-Remote-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60076/Strategic-Account-Manager-Uk-London-Uk-Remote-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60076/Strategic-Account-Manager-Uk-London-Uk-Remote-Uk-Staines',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Senior Account Executive - Aerospace & Defence Location: United KingdomRole Description: An opportunity has been created for a new business sales professional joining the enterprise sales team in...<br /><br />\nDate posted: 09/29/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager, App Cloud Location: London, United Kingdom Salesforce, the Customer Success Platform and world's number 1 CRM, empowers companies to connect with their customers in a...<br /><br />\nDate posted: 09/28/2017",
+      'title': 'Strategic Account Manager - Platform, Application Lifecycle Management',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60057/Strategic-Account-Manager-Platform-Application-Lifecycle-Management-Uk-London-Uk-Remote-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60057/Strategic-Account-Manager-Platform-Application-Lifecycle-Management-Uk-London-Uk-Remote-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Platform, Application Lifecycle Management',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60057/Strategic-Account-Manager-Platform-Application-Lifecycle-Management-Uk-London-Uk-Remote-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager, App Cloud Location: London, United Kingdom Salesforce, the Customer Success Platform and world's number 1 CRM, empowers companies to connect with their customers in a...<br /><br />\nDate posted: 09/28/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager - Manufacturing Location: United KingdomRole Description: An opportunity has been created for a business development sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/28/2017',
+      'title': 'Strategic Account Manager - Manufacturing',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60052/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60052/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Manufacturing',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60052/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager - Manufacturing Location: United KingdomRole Description: An opportunity has been created for a business development sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/28/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Manchester <br />\nJob Title: Technical Solution Architect Description: Salesforce Technical Solution Architects (TSAs) collaborate with our most strategic customers and partners during project planning and implementation to share their comprehensive knowledge of...<br /><br />\nDate posted: 09/27/2017',
+      'title': 'Technical Architect',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60028/Technical-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60028/Technical-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Technical Architect',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60028/Technical-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Manchester <br />\nJob Title: Technical Solution Architect Description: Salesforce Technical Solution Architects (TSAs) collaborate with our most strategic customers and partners during project planning and implementation to share their comprehensive knowledge of...<br /><br />\nDate posted: 09/27/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager - Manufacturing Location: United KingdomRole Description: An opportunity has been created for a business development sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/26/2017',
+      'title': 'Strategic Account Manager - Manufacturing',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60006/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60006/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Manufacturing',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60006/Strategic-Account-Manager-Manufacturing-Uk-London-Uk-Remote-Uk-Staines',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nJob Title: Strategic Account Manager - Manufacturing Location: United KingdomRole Description: An opportunity has been created for a business development sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/26/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nCustomer Success Architect - Salesforce.orgLocation: open to London, Dublin, AmsterdamEveryone who wants to change the world should have the tools and technology to do so. Technology is the most powerful...<br /><br />\nDate posted: 08/17/2017',
+      'title': 'Customer Success Architect - Salesforce.org',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59201/Customer-Success-Architect-Salesforce-Org-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59201/Customer-Success-Architect-Salesforce-Org-Uk-London',
+      'tags': [
+        {
+          'term': 'Salesforce.org',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Customer Success Architect - Salesforce.org',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59201/Customer-Success-Architect-Salesforce-Org-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote, UK - Staines <br />\nCustomer Success Architect - Salesforce.orgLocation: open to London, Dublin, AmsterdamEveryone who wants to change the world should have the tools and technology to do so. Technology is the most powerful...<br /><br />\nDate posted: 08/17/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Manchester <br />\nPROGRAM ARCHITECTSalesforce Advisory Services are trusted industry advisors to the UK and Ireland's largest and most complex customers. Our experts engage customers on their business priorities, business & technology architecture...<br /><br />\nDate posted: 03/23/2017",
+      'title': 'Program Architect',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55254/Program-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55254/Program-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Program Architect',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55254/Program-Architect-Uk-London-Uk-Manchester-Uk-Remote',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Remote, UK - Manchester <br />\nPROGRAM ARCHITECTSalesforce Advisory Services are trusted industry advisors to the UK and Ireland's largest and most complex customers. Our experts engage customers on their business priorities, business & technology architecture...<br /><br />\nDate posted: 03/23/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Manchester <br />\nProject Manager / Senior Project Manger Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the...<br /><br />\nDate posted: 10/03/2017",
+      'title': 'Project Manager',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58927/Project-Manager-Uk-London-Uk-Manchester',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58927/Project-Manager-Uk-London-Uk-Manchester',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Project Manager',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58927/Project-Manager-Uk-London-Uk-Manchester',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Manchester <br />\nProject Manager / Senior Project Manger Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the...<br /><br />\nDate posted: 10/03/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Remote <br />\nAbout Salesforce: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 09/29/2017",
+      'title': 'Senior Partner Program Operations Specialist',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60082/Senior-Partner-Program-Operations-Specialist-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60082/Senior-Partner-Program-Operations-Specialist-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Alliances and Partner Management',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Partner Program Operations Specialist',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60082/Senior-Partner-Program-Operations-Specialist-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Remote <br />\nAbout Salesforce: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 09/29/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - MediaLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The role is...<br /><br />\nDate posted: 09/29/2017',
+      'title': 'Strategic Account Manager - Media',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60081/Strategic-Account-Manager-Media-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60081/Strategic-Account-Manager-Media-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Media',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60081/Strategic-Account-Manager-Media-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - MediaLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The role is...<br /><br />\nDate posted: 09/29/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Strategic Account Executive - Service Cloud, Telecommunications and Media Location: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their...<br /><br />\nDate posted: 09/29/2017",
+      'title': 'Strategic Account Manager - Telecommunications and Media',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59438/Strategic-Account-Manager-Service-Cloud-Telecommunications-Media-Uk-London-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59438/Strategic-Account-Manager-Service-Cloud-Telecommunications-Media-Uk-London-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Telecommunications and Media',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59438/Strategic-Account-Manager-Service-Cloud-Telecommunications-Media-Uk-London-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Strategic Account Executive - Service Cloud, Telecommunications and Media Location: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their...<br /><br />\nDate posted: 09/29/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Strategic Account Executive - Service Cloud, Field Service Location: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers...<br /><br />\nDate posted: 09/29/2017",
+      'title': 'Strategic Account Manager - Field Service Lightining',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60075/Strategic-Account-Manager-Field-Service-Lightining-Uk-London-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60075/Strategic-Account-Manager-Field-Service-Lightining-Uk-London-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Field Service Lightining',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60075/Strategic-Account-Manager-Field-Service-Lightining-Uk-London-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Strategic Account Executive - Service Cloud, Field Service Location: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers...<br /><br />\nDate posted: 09/29/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Insurance & BankingLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/28/2017',
+      'title': 'Strategic Account Manager - Insurance & Banking',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60056/Strategic-Account-Manager-Insurance-Banking-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60056/Strategic-Account-Manager-Insurance-Banking-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Insurance & Banking',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60056/Strategic-Account-Manager-Insurance-Banking-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Insurance & BankingLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The...<br /><br />\nDate posted: 09/28/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Senior Account Executive - Health and Life Sciences Location: United Kingdom Role Description: An opportunity has been created for a new business sales professional joining the enterprise sales...<br /><br />\nDate posted: 09/28/2017',
+      'title': 'Senior Account Executive - Health and Life sciences',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60054/Senior-Account-Executive-Health-Life-Sciences-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60054/Senior-Account-Executive-Health-Life-Sciences-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive - Health and Life sciences',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60054/Senior-Account-Executive-Health-Life-Sciences-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Senior Account Executive - Health and Life Sciences Location: United Kingdom Role Description: An opportunity has been created for a new business sales professional joining the enterprise sales...<br /><br />\nDate posted: 09/28/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Sales RecruiterThis is a Contract role.Responsibilities We're seeking an experienced Sales Recruiter to join our ever-growing EMEA Recruitment team based in our Salesforce Tower London office. This person...<br /><br />\nDate posted: 09/27/2017",
+      'title': 'Sales Recruiter (Contract role)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59697/Sales-Recruiter-Contract-Role-Uk-London-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59697/Sales-Recruiter-Contract-Role-Uk-London-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Human Resources',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Sales Recruiter (Contract role)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59697/Sales-Recruiter-Contract-Role-Uk-London-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Staines <br />\nJob Title: Sales RecruiterThis is a Contract role.Responsibilities We're seeking an experienced Sales Recruiter to join our ever-growing EMEA Recruitment team based in our Salesforce Tower London office. This person...<br /><br />\nDate posted: 09/27/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Health and Life Sciences Location: United Kingdom Role Description: An opportunity has been created for a new business sales professional joining the enterprise sales...<br /><br />\nDate posted: 09/20/2017',
+      'title': 'Strategic Account Manager - Health and Lifesciences',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59882/Strategic-Account-Manager-Health-Lifesciences-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59882/Strategic-Account-Manager-Health-Lifesciences-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Health and Lifesciences',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59882/Strategic-Account-Manager-Health-Lifesciences-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Health and Life Sciences Location: United Kingdom Role Description: An opportunity has been created for a new business sales professional joining the enterprise sales...<br /><br />\nDate posted: 09/20/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nTitle: Regional Vice President, Sales - Commerce Cloud Department: Sales Location: London, UK Salesforce Commerce Cloud is seeking a Regional Vice President of Sales to drive revenuegrowth from net new...<br /><br />\nDate posted: 09/19/2017',
+      'title': 'Regional Vice President, Commerce Cloud Sales, UK',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59829/Regional-Vice-President-Commerce-Cloud-Sales-Uk-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59829/Regional-Vice-President-Commerce-Cloud-Sales-Uk-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Leadership',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Regional Vice President, Commerce Cloud Sales, UK',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59829/Regional-Vice-President-Commerce-Cloud-Sales-Uk-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nTitle: Regional Vice President, Sales - Commerce Cloud Department: Sales Location: London, UK Salesforce Commerce Cloud is seeking a Regional Vice President of Sales to drive revenuegrowth from net new...<br /><br />\nDate posted: 09/19/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Account Executive, PardotDepartment Description:Pardot is a B2B Marketing Automation provider that increases revenue and maximizes efficiency for companies with multi-touch sales cycles. Pardot's lead management software features...<br /><br />\nDate posted: 09/14/2017",
+      'title': 'Senior Account Executive - Pardot - UK',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58252/Senior-Account-Executive-Pardot-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58252/Senior-Account-Executive-Pardot-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive - Pardot - UK',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58252/Senior-Account-Executive-Pardot-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Account Executive, PardotDepartment Description:Pardot is a B2B Marketing Automation provider that increases revenue and maximizes efficiency for companies with multi-touch sales cycles. Pardot's lead management software features...<br /><br />\nDate posted: 09/14/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nAre you a software engineer passionate about web apps and related open source projects? Do you get a serious kick out of tracking down hard-to-pinpoint issues and solving problems for...<br /><br />\nDate posted: 09/05/2017',
+      'title': 'Platform Support Engineer - Heroku',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59545/Platform-Support-Engineer-Heroku-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59545/Platform-Support-Engineer-Heroku-Uk-London',
+      'tags': [
+        {
+          'term': 'Technical Operations',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Platform Support Engineer - Heroku',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59545/Platform-Support-Engineer-Heroku-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nAre you a software engineer passionate about web apps and related open source projects? Do you get a serious kick out of tracking down hard-to-pinpoint issues and solving problems for...<br /><br />\nDate posted: 09/05/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Commerce Cloud...<br /><br />\nDate posted: 08/18/2017',
+      'title': 'Business Development Representative, Commerce Cloud (UK)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59230/Business-Development-Representative-Commerce-Cloud-Uk-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59230/Business-Development-Representative-Commerce-Cloud-Uk-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Business Development Representative, Commerce Cloud (UK)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59230/Business-Development-Representative-Commerce-Cloud-Uk-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Commerce Cloud...<br /><br />\nDate posted: 08/18/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Public Sector Location: United KingdonRole Description:An opportunity has been created for a new business sales professional to join the UK enterprise sales team in....<br /><br />\nDate posted: 08/17/2017',
+      'title': 'Strategic Account Manager - Central Government',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59200/Strategic-Account-Manager-Central-Government-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59200/Strategic-Account-Manager-Central-Government-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Central Government',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59200/Strategic-Account-Manager-Central-Government-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - Public Sector Location: United KingdonRole Description:An opportunity has been created for a new business sales professional to join the UK enterprise sales team in....<br /><br />\nDate posted: 08/17/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - TelcoLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The role is...<br /><br />\nDate posted: 07/14/2017',
+      'title': 'Strategic Account Manager - Telco',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58539/Strategic-Account-Manager-Telco-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58539/Strategic-Account-Manager-Telco-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Strategic Account Manager - Telco',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58539/Strategic-Account-Manager-Telco-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title: Strategic Account Manager - TelcoLocation: United KingdomRole Description:An opportunity has been created for a new business sales professional joining the enterprise sales team in London. The role is...<br /><br />\nDate posted: 07/14/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nSenior Account Executive - Salesforce DMP (Data Management Platform) - Emerging MarketsLocation - London Krux a Salesforce Company helps more than 200 leading marketers and media companies deliver more relevant,...<br /><br />\nDate posted: 05/26/2017',
+      'title': 'Account Executive - Salesforce DMP (Data Management Platform) - Emerging Markets',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57363/Account-Executive-Salesforce-Dmp-Data-Management-Platform-Emerging-Markets-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57363/Account-Executive-Salesforce-Dmp-Data-Management-Platform-Emerging-Markets-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Account Executive - Salesforce DMP (Data Management Platform) - Emerging Markets',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57363/Account-Executive-Salesforce-Dmp-Data-Management-Platform-Emerging-Markets-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London, UK - Remote <br />\nSenior Account Executive - Salesforce DMP (Data Management Platform) - Emerging MarketsLocation - London Krux a Salesforce Company helps more than 200 leading marketers and media companies deliver more relevant,...<br /><br />\nDate posted: 05/26/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title - Sales Account Executive Location - London, Remote Department Description - Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting you connect to customers in...<br /><br />\nDate posted: 03/24/2017",
+      'title': 'Account Executive - Marketing Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55307/Enterprise-Account-Executive-Marketing-Cloud-Uk-London-Uk-Remote',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55307/Enterprise-Account-Executive-Marketing-Cloud-Uk-London-Uk-Remote',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Account Executive - Marketing Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55307/Enterprise-Account-Executive-Marketing-Cloud-Uk-London-Uk-Remote',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London, UK - Remote <br />\nJob Title - Sales Account Executive Location - London, Remote Department Description - Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting you connect to customers in...<br /><br />\nDate posted: 03/24/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nRole: Senior Manager / Director, Sales Strategy and Business OperationsLocation: This role can be based in one of a number of our EMEA hubsDescriptionThe Sales Strategy & Business Operations role...<br /><br />\nDate posted: 10/03/2017',
+      'title': 'Senior Manager/Director-Sales Strategy and Business Operations',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60153/Senior-Manager-Director-Sales-Strategy-Business-Operations-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60153/Senior-Manager-Director-Sales-Strategy-Business-Operations-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Partners and Solutions',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Manager/Director-Sales Strategy and Business Operations',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60153/Senior-Manager-Director-Sales-Strategy-Business-Operations-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nRole: Senior Manager / Director, Sales Strategy and Business OperationsLocation: This role can be based in one of a number of our EMEA hubsDescriptionThe Sales Strategy & Business Operations role...<br /><br />\nDate posted: 10/03/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nThe Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate with their customers through email, mobile, social media,...<br /><br />\nDate posted: 10/03/2017',
+      'title': 'Senior Database Administrator',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60147/Senior-Database-Administrator-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60147/Senior-Database-Administrator-Uk-London',
+      'tags': [
+        {
+          'term': 'Technology - Infrastructure Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Database Administrator',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60147/Senior-Database-Administrator-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nThe Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate with their customers through email, mobile, social media,...<br /><br />\nDate posted: 10/03/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Account Executive - Salesforce Quote to Cash (Steelbrick) Location: Heron Tower, London UK Department Description: Salesforce Quote to Cash, is dedicated to making selling simple. Salesforce Quote...<br /><br />\nDate posted: 10/03/2017',
+      'title': 'Senior CPQ Account Executive (Commercial)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58341/Senior-Cpq-Account-Executive-Enterprise-Commercial-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58341/Senior-Cpq-Account-Executive-Enterprise-Commercial-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior CPQ Account Executive (Commercial)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58341/Senior-Cpq-Account-Executive-Enterprise-Commercial-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Account Executive - Salesforce Quote to Cash (Steelbrick) Location: Heron Tower, London UK Department Description: Salesforce Quote to Cash, is dedicated to making selling simple. Salesforce Quote...<br /><br />\nDate posted: 10/03/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nIreland - Dublin <br />\nRole: Account Executive - UK & Ireland Location: Dublin, IrelandAbout Salesforce: At Salesforce we don't do jobs, we do careers. By joining the Salesforce Ohana (the Hawaiian word for family)...<br /><br />\nDate posted: 10/03/2017",
+      'title': 'Senior Account Executive - UK and Ireland',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60144/Senior-Account-Executive-Uk-Ireland-Ireland-Dublin',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60144/Senior-Account-Executive-Uk-Ireland-Ireland-Dublin',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive - UK and Ireland',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60144/Senior-Account-Executive-Uk-Ireland-Ireland-Dublin',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nIreland - Dublin <br />\nRole: Account Executive - UK & Ireland Location: Dublin, IrelandAbout Salesforce: At Salesforce we don't do jobs, we do careers. By joining the Salesforce Ohana (the Hawaiian word for family)...<br /><br />\nDate posted: 10/03/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Signature Success Primary EngineerLocation: London, UK. The Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate...<br /><br />\nDate posted: 10/02/2017',
+      'title': 'Marketing Cloud Primary Engineer - Signature Success',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60115/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60115/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Support Services and Renewals',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Marketing Cloud Primary Engineer - Signature Success',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60115/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Signature Success Primary EngineerLocation: London, UK. The Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate...<br /><br />\nDate posted: 10/02/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Signature Success Primary EngineerLocation: London, UK. The Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate...<br /><br />\nDate posted: 10/02/2017',
+      'title': 'Marketing Cloud Primary Engineer - Signature Success',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60114/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60114/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Support Services and Renewals',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Marketing Cloud Primary Engineer - Signature Success',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60114/Marketing-Cloud-Primary-Engineer-Signature-Success-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Signature Success Primary EngineerLocation: London, UK. The Salesforce Marketing Cloud is a leading global provider of cross-channel digital marketing solutions that empower organizations of all sizes to communicate...<br /><br />\nDate posted: 10/02/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nEveryone who wants to change the world should have the tools and technology to do so. Technology is the most powerful equalizer of our time, providing access to data, knowledge,...<br /><br />\nDate posted: 09/29/2017',
+      'title': 'Solution Engineer - Salesforce.org',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60091/Mid-Market-Solution-Engineer-Salesforce-Org-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60091/Mid-Market-Solution-Engineer-Salesforce-Org-Uk-London',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Solution Engineer - Salesforce.org',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60091/Mid-Market-Solution-Engineer-Salesforce-Org-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nEveryone who wants to change the world should have the tools and technology to do so. Technology is the most powerful equalizer of our time, providing access to data, knowledge,...<br /><br />\nDate posted: 09/29/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nJob Title - Sales Account Executive Location - London, Remote Department Description Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting you connect to customers in a...<br /><br />\nDate posted: 09/29/2017",
+      'title': 'Account Executive - Marketing Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60088/Account-Executive-Marketing-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60088/Account-Executive-Marketing-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Account Executive - Marketing Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60088/Account-Executive-Marketing-Cloud-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nJob Title - Sales Account Executive Location - London, Remote Department Description Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting you connect to customers in a...<br /><br />\nDate posted: 09/29/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSenior Security Engineer - Product Security Heroku's security team is responsible for the overall security of the Heroku platform and our infrastructure, and for compliance with established security policies. We're...<br /><br />\nDate posted: 09/27/2017",
+      'title': 'Senior Security Engineer - Product Security',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60031/Senior-Security-Engineer-Product-Security-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60031/Senior-Security-Engineer-Product-Security-Uk-London',
+      'tags': [
+        {
+          'term': 'Technology - Software Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Security Engineer - Product Security',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60031/Senior-Security-Engineer-Product-Security-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSenior Security Engineer - Product Security Heroku's security team is responsible for the overall security of the Heroku platform and our infrastructure, and for compliance with established security policies. We're...<br /><br />\nDate posted: 09/27/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nJob Title: Enterprise Corporate Sales (ECS) - Account ExecutiveLocation: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a...<br /><br />\nDate posted: 09/27/2017",
+      'title': 'Enterprise Corporate Sales ECS - Account Executive',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60021/Enterprise-Corporate-Sales-Ecs-Account-Executive-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60021/Enterprise-Corporate-Sales-Ecs-Account-Executive-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Enterprise Corporate Sales ECS - Account Executive',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60021/Enterprise-Corporate-Sales-Ecs-Account-Executive-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nJob Title: Enterprise Corporate Sales (ECS) - Account ExecutiveLocation: London, United Kingdom Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a...<br /><br />\nDate posted: 09/27/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\n: Start date: 1 September 2018 Location: London This is your time to shine! Salesforce is now hiring top graduates for our Success Graduate Program. Develop your technology and consulting...<br /><br />\nDate posted: 09/26/2017',
+      'title': 'Success Graduate',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/60004/Success-Graduate-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/60004/Success-Graduate-Uk-London',
+      'tags': [
+        {
+          'term': 'University Recruiting - Non Tech',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Success Graduate',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/60004/Success-Graduate-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\n: Start date: 1 September 2018 Location: London This is your time to shine! Salesforce is now hiring top graduates for our Success Graduate Program. Develop your technology and consulting...<br /><br />\nDate posted: 09/26/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - Staines <br />\nAbout Salesforce Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 09/21/2017",
+      'title': 'Training Coordinator - Trail Head Go To Market',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59907/Training-Coordinator-Trail-Head-Go-To-Market-Uk-Staines',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59907/Training-Coordinator-Trail-Head-Go-To-Market-Uk-Staines',
+      'tags': [
+        {
+          'term': 'Enablement - Training',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Training Coordinator - Trail Head Go To Market',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59907/Training-Coordinator-Trail-Head-Go-To-Market-Uk-Staines',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - Staines <br />\nAbout Salesforce Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 09/21/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nPrincipal Success Specialist: Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open...<br /><br />\nDate posted: 09/21/2017",
+      'title': 'Principal Success Specialist',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59904/Principal-Success-Specialist-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59904/Principal-Success-Specialist-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Principal Success Specialist',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59904/Principal-Success-Specialist-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nPrincipal Success Specialist: Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open...<br /><br />\nDate posted: 09/21/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nAccount Executive Mid-Market Education- Salesforce.org Territory: Benelux or Emerging MarketsLocation: London or Amsterdam Everyone who wants to change the world should have the tools and technology to do so. Technology...<br /><br />\nDate posted: 09/21/2017',
+      'title': 'Senior Account Executive - Salesforce.org',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59898/Senior-Field-Account-Executive-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59898/Senior-Field-Account-Executive-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive - Salesforce.org',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59898/Senior-Field-Account-Executive-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nAccount Executive Mid-Market Education- Salesforce.org Territory: Benelux or Emerging MarketsLocation: London or Amsterdam Everyone who wants to change the world should have the tools and technology to do so. Technology...<br /><br />\nDate posted: 09/21/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP Client Partner - London. We are ideally looking for fluent German skills for this position.The Role: The successful Client Partner is an intellectually curious, results-oriented, high-energy professional who...<br /><br />\nDate posted: 09/21/2017',
+      'title': 'Client Partner - Salesforce DMP',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59897/Client-Partner-Salesforce-Dmp-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59897/Client-Partner-Salesforce-Dmp-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Customer Management',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Client Partner - Salesforce DMP',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59897/Client-Partner-Salesforce-Dmp-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP Client Partner - London. We are ideally looking for fluent German skills for this position.The Role: The successful Client Partner is an intellectually curious, results-oriented, high-energy professional who...<br /><br />\nDate posted: 09/21/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nIreland - Dublin <br />\nJob Title: Senior Commercial Account Executive (MM/GB Customers)Location: Dublin Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various locations focusing on...<br /><br />\nDate posted: 09/19/2017',
+      'title': 'Senior Commercial Account Executive (UK&I)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59821/Senior-Commercial-Account-Executive-Uk-I-Ireland-Dublin',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59821/Senior-Commercial-Account-Executive-Uk-I-Ireland-Dublin',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Commercial Account Executive (UK&I)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59821/Senior-Commercial-Account-Executive-Uk-I-Ireland-Dublin',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nIreland - Dublin <br />\nJob Title: Senior Commercial Account Executive (MM/GB Customers)Location: Dublin Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various locations focusing on...<br /><br />\nDate posted: 09/19/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nTitle: Senior Solution EngineerLocation: UK, LondonSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest...<br /><br />\nDate posted: 09/14/2017",
+      'title': 'Senior Solution Engineer- Heroku',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59740/Lead-Solution-Engineer-Heroku-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59740/Lead-Solution-Engineer-Heroku-Uk-London',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Solution Engineer- Heroku',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59740/Lead-Solution-Engineer-Heroku-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nTitle: Senior Solution EngineerLocation: UK, LondonSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest...<br /><br />\nDate posted: 09/14/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nBusiness Value Architect - Innovation & Transformation CenterAbout the Salesforce Innovation & Transformation Center Most people know Salesforce, the Customer Success Platform and world's #1 at CRM. We empower companies...<br /><br />\nDate posted: 09/13/2017",
+      'title': 'Business Value Architect',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57979/Business-Value-Architect-Germany-Berlin',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57979/Business-Value-Architect-Germany-Berlin',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Business Value Architect',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57979/Business-Value-Architect-Germany-Berlin',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nBusiness Value Architect - Innovation & Transformation CenterAbout the Salesforce Innovation & Transformation Center Most people know Salesforce, the Customer Success Platform and world's #1 at CRM. We empower companies...<br /><br />\nDate posted: 09/13/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nTitle: Enterprise Corporate Sales Account Executive - Marketing Cloud Location: London, UK Role Description: We are currently looking for high-energy, driven Account Executives with knowledge of technology and solid business-to-business...<br /><br />\nDate posted: 09/13/2017',
+      'title': 'Enterprise Corporate  Sales ECS - Account Executive, Marketing Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59712/Enterprise-Corporate-Sales-Ecs-Account-Executive-Marketing-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59712/Enterprise-Corporate-Sales-Ecs-Account-Executive-Marketing-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Enterprise Corporate  Sales ECS - Account Executive, Marketing Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59712/Enterprise-Corporate-Sales-Ecs-Account-Executive-Marketing-Cloud-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nTitle: Enterprise Corporate Sales Account Executive - Marketing Cloud Location: London, UK Role Description: We are currently looking for high-energy, driven Account Executives with knowledge of technology and solid business-to-business...<br /><br />\nDate posted: 09/13/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP Technical Architect Location: London, UK Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are...<br /><br />\nDate posted: 09/08/2017",
+      'title': 'Salesforce DMP Technical Architect',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59614/Salesforce-Dmp-Technical-Architect-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59614/Salesforce-Dmp-Technical-Architect-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Salesforce DMP Technical Architect',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59614/Salesforce-Dmp-Technical-Architect-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP Technical Architect Location: London, UK Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are...<br /><br />\nDate posted: 09/08/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of the top 10...<br /><br />\nDate posted: 09/07/2017",
+      'title': 'Heroku Account Executive, Enterprise Sales',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59590/Heroku-Account-Executive-Enterprise-Sales-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59590/Heroku-Account-Executive-Enterprise-Sales-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Heroku Account Executive, Enterprise Sales',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59590/Heroku-Account-Executive-Enterprise-Sales-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of the top 10...<br /><br />\nDate posted: 09/07/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nSenior Account Executive, Growth Markets - Commercial AccountsRussian speaking markets Location: United KingdomStart Date: January 2018 Role Description: We are currently recruiting collaborative, trustworthy, methodical, high-energy, driven Account Executives with...<br /><br />\nDate posted: 09/06/2017',
+      'title': 'Senior Account Executive, Growth Markets (CEE)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59566/Account-Executive-Growth-Markets-Russian-Speaking-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59566/Account-Executive-Growth-Markets-Russian-Speaking-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive, Growth Markets (CEE)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59566/Account-Executive-Growth-Markets-Russian-Speaking-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nSenior Account Executive, Growth Markets - Commercial AccountsRussian speaking markets Location: United KingdomStart Date: January 2018 Role Description: We are currently recruiting collaborative, trustworthy, methodical, high-energy, driven Account Executives with...<br /><br />\nDate posted: 09/06/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of the top 10...<br /><br />\nDate posted: 09/05/2017",
+      'title': 'Heroku Account Executive, Commercial Sales',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59522/Heroku-Account-Executive-Commercial-Sales-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59522/Heroku-Account-Executive-Commercial-Sales-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Heroku Account Executive, Commercial Sales',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59522/Heroku-Account-Executive-Commercial-Sales-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of the top 10...<br /><br />\nDate posted: 09/05/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Talent Management Trainee (Career Development, Ohana Hub Spirit & Equality) Location: London Start date: September / October 2017 IntroductionThe EMEA Leadership team have been running a number of...<br /><br />\nDate posted: 08/31/2017',
+      'title': 'Talent Management Trainee (Career Development, Ohana Hub Spirit & Equality)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59477/Talent-Management-Trainee-Career-Development-Ohana-Hub-Spirit-Equality-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59477/Talent-Management-Trainee-Career-Development-Ohana-Hub-Spirit-Equality-Uk-London',
+      'tags': [
+        {
+          'term': 'University Recruiting - Non Tech',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Talent Management Trainee (Career Development, Ohana Hub Spirit & Equality)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59477/Talent-Management-Trainee-Career-Development-Ohana-Hub-Spirit-Equality-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Talent Management Trainee (Career Development, Ohana Hub Spirit & Equality) Location: London Start date: September / October 2017 IntroductionThe EMEA Leadership team have been running a number of...<br /><br />\nDate posted: 08/31/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Solution Engineer - Salesforce.orgLocation: London Everyone who wants to change the world should have the tools and technology to do so. Technology is the most powerful equalizer...<br /><br />\nDate posted: 08/30/2017',
+      'title': 'Senior Sales Engineer, Salesforce.org',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58503/Senior-Solution-Engineer-German-Speaking-Netherlands-Amsterdam-Netherlands-Remote-Netherlands-Utrecht',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58503/Senior-Solution-Engineer-German-Speaking-Netherlands-Amsterdam-Netherlands-Remote-Netherlands-Utrecht',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Sales Engineer, Salesforce.org',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58503/Senior-Solution-Engineer-German-Speaking-Netherlands-Amsterdam-Netherlands-Remote-Netherlands-Utrecht',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior Solution Engineer - Salesforce.orgLocation: London Everyone who wants to change the world should have the tools and technology to do so. Technology is the most powerful equalizer...<br /><br />\nDate posted: 08/30/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nData Analyst Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open cloud...<br /><br />\nDate posted: 08/29/2017",
+      'title': 'Data Analyst - EU',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59415/Data-Analyst-Eu-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59415/Data-Analyst-Eu-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Data Analyst - EU',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59415/Data-Analyst-Eu-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nData Analyst Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open cloud...<br /><br />\nDate posted: 08/29/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\n: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas:...<br /><br />\nDate posted: 08/22/2017",
+      'title': 'RVP EMEA Enterprise Field Service Cloud Management',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59290/Rvp-Emea-Enterprise-Field-Service-Cloud-Management-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59290/Rvp-Emea-Enterprise-Field-Service-Cloud-Management-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Leadership',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'RVP EMEA Enterprise Field Service Cloud Management',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59290/Rvp-Emea-Enterprise-Field-Service-Cloud-Management-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\n: Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas:...<br /><br />\nDate posted: 08/22/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nTITLE: Director, Corporate Development & Salesforce VenturesLOCATION: LondonSalesforce Ventures is one of the most active corporate venture capital investment groups, with a portfolio of over 180 enterprise cloud startups in...<br /><br />\nDate posted: 08/22/2017',
+      'title': 'Director, Corporate Development & Salesforce Ventures',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59286/Director-Corporate-Development-Salesforce-Ventures-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59286/Director-Corporate-Development-Salesforce-Ventures-Uk-London',
+      'tags': [
+        {
+          'term': 'Corporate Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Director, Corporate Development & Salesforce Ventures',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59286/Director-Corporate-Development-Salesforce-Ventures-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nTITLE: Director, Corporate Development & Salesforce VenturesLOCATION: LondonSalesforce Ventures is one of the most active corporate venture capital investment groups, with a portfolio of over 180 enterprise cloud startups in...<br /><br />\nDate posted: 08/22/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Consultant Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of...<br /><br />\nDate posted: 08/21/2017",
+      'title': 'Senior Solution Engineer',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59257/Senior-Solution-Engineer-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59257/Senior-Solution-Engineer-Uk-London',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Solution Engineer',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59257/Senior-Solution-Engineer-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Consultant Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of...<br /><br />\nDate posted: 08/21/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Consultant Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of...<br /><br />\nDate posted: 08/21/2017",
+      'title': 'Senior Solution Engineer',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59256/Senior-Solution-Engineer-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59256/Senior-Solution-Engineer-Uk-London',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Solution Engineer',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59256/Senior-Solution-Engineer-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Consultant Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. We are the fastest growing of...<br /><br />\nDate posted: 08/21/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Resilience Manager, EMEALocation: LondonOVERVIEW:The Global Security and Safety Department protects the people, brand, business operations, and property of the company across the globe. To accomplish our mission, we...<br /><br />\nDate posted: 08/21/2017',
+      'title': 'Business Continuity Planning Manager / Resilience Manager - EMEA',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59040/Resilience-Manager-Emea-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59040/Resilience-Manager-Emea-Uk-London',
+      'tags': [
+        {
+          'term': 'Administration and Operations',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Business Continuity Planning Manager / Resilience Manager - EMEA',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59040/Resilience-Manager-Emea-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Resilience Manager, EMEALocation: LondonOVERVIEW:The Global Security and Safety Department protects the people, brand, business operations, and property of the company across the globe. To accomplish our mission, we...<br /><br />\nDate posted: 08/21/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nManager, Sales Development Commerce Cloud Salesforce Commerce Cloud, the category defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world....<br /><br />\nDate posted: 08/18/2017",
+      'title': 'Manager, Sales Development Commerce Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59227/Manager-Sales-Development-Commerce-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59227/Manager-Sales-Development-Commerce-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Manager, Sales Development Commerce Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59227/Manager-Sales-Development-Commerce-Cloud-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nManager, Sales Development Commerce Cloud Salesforce Commerce Cloud, the category defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world....<br /><br />\nDate posted: 08/18/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nAbout Salesforce Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 08/14/2017",
+      'title': 'Marketing Campaign Manager - Western Europe',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59127/Marketing-Campaign-Manager-Western-Europe-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59127/Marketing-Campaign-Manager-Western-Europe-Uk-London',
+      'tags': [
+        {
+          'term': 'Marketing',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Marketing Campaign Manager - Western Europe',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59127/Marketing-Campaign-Manager-Western-Europe-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nAbout Salesforce Salesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive...<br /><br />\nDate posted: 08/14/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nPrincipal Success Specialist: Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open...<br /><br />\nDate posted: 08/11/2017",
+      'title': 'Principal Success Specialist',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/59105/Principal-Success-Specialist-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/59105/Principal-Success-Specialist-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Principal Success Specialist',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/59105/Principal-Success-Specialist-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nPrincipal Success Specialist: Salesforce Commerce Cloud, the category-defining leader of enterprise cloud commerce solutions, empowers the world's leading retailers to continuously innovate in our complex, consumer-driven world. Commerce Cloud's open...<br /><br />\nDate posted: 08/11/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Engineer EMEA Location- LondonSalesforce.com is the enterprise cloud computing company and the world's 4th fastest growing company according to Fortune magazine. Our portfolio of cloud computing applications has...<br /><br />\nDate posted: 08/04/2017",
+      'title': 'Senior Solution Engineer',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58985/Senior-Solution-Engineer-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58985/Senior-Solution-Engineer-Uk-London',
+      'tags': [
+        {
+          'term': 'Solution Engineering',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Solution Engineer',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58985/Senior-Solution-Engineer-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSenior Solution Engineer EMEA Location- LondonSalesforce.com is the enterprise cloud computing company and the world's 4th fastest growing company according to Fortune magazine. Our portfolio of cloud computing applications has...<br /><br />\nDate posted: 08/04/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nEnterprise Account Executive QUIP - EMEA: Quip is Salesforce content collaboration platform and offers a simple place for work teams to create living documents. It combines chat, docs, task lists,...<br /><br />\nDate posted: 08/01/2017',
+      'title': 'Enterprise Account Executive QUIP EMEA',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58902/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58902/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Enterprise Account Executive QUIP EMEA',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58902/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nEnterprise Account Executive QUIP - EMEA: Quip is Salesforce content collaboration platform and offers a simple place for work teams to create living documents. It combines chat, docs, task lists,...<br /><br />\nDate posted: 08/01/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\n: Quip is Salesforce content collaboration platform and offers a simple place for work teams to create living documents. It combines chat, docs, task lists, and spreadsheets in one app...<br /><br />\nDate posted: 08/01/2017',
+      'title': 'Enterprise Account Executive QUIP EMEA',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58900/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58900/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Enterprise Account Executive QUIP EMEA',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58900/Enterprise-Account-Executive-Quip-Emea-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\n: Quip is Salesforce content collaboration platform and offers a simple place for work teams to create living documents. It combines chat, docs, task lists, and spreadsheets in one app...<br /><br />\nDate posted: 08/01/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas: a...<br /><br />\nDate posted: 07/28/2017",
+      'title': 'Engagement Manager',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58851/Engagement-Manager-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58851/Engagement-Manager-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Customer Management',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Engagement Manager',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58851/Engagement-Manager-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas: a...<br /><br />\nDate posted: 07/28/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nJob Title - Strategic Account Executive - Commercial Business - Marketing Cloud Location - London Department Description - Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting...<br /><br />\nDate posted: 07/18/2017",
+      'title': 'Account Executive, Marketing Cloud, Corporate Business Unit',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58596/Account-Executive-Marketing-Cloud-Corporate-Business-Unit-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58596/Account-Executive-Marketing-Cloud-Corporate-Business-Unit-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Account Executive, Marketing Cloud, Corporate Business Unit',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58596/Account-Executive-Marketing-Cloud-Corporate-Business-Unit-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nJob Title - Strategic Account Executive - Commercial Business - Marketing Cloud Location - London Department Description - Salesforce Marketing Cloud is the world's most powerful digital marketing platform letting...<br /><br />\nDate posted: 07/18/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nAbout SalesforceSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas:...<br /><br />\nDate posted: 07/14/2017",
+      'title': '* Customer Success Manager - Commerce Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58537/Customer-Success-Manager-Commerce-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58537/Customer-Success-Manager-Commerce-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Customer Management',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': '* Customer Success Manager - Commerce Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58537/Customer-Success-Manager-Commerce-Cloud-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nAbout SalesforceSalesforce, the Customer Success Platform and world's #1 CRM, empowers companies to connect with their customers in a whole new way. The company was founded on three disruptive ideas:...<br /><br />\nDate posted: 07/14/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nSuccess Partners represent the full portfolio of products and services, working strategically with our partner ecosystem. You are a trusted advisor, plan for customer success, achieve bookings, and build partner...<br /><br />\nDate posted: 07/06/2017',
+      'title': 'Success Partner',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58344/Success-Partner-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58344/Success-Partner-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Success Partner',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58344/Success-Partner-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nSuccess Partners represent the full portfolio of products and services, working strategically with our partner ecosystem. You are a trusted advisor, plan for customer success, achieve bookings, and build partner...<br /><br />\nDate posted: 07/06/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nDigital Business Agility & Design Architect - Innovation & Transformation Center About the Salesforce Innovation & Transformation Center Most people know Salesforce, the Customer Success Platform and world's #1 at...<br /><br />\nDate posted: 07/03/2017",
+      'title': 'Digital Business Agility & Design Architect - Innovation & Transformation Center',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/58290/Digital-Business-Agility-Design-Architect-Innovation-Transformation-Center-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/58290/Digital-Business-Agility-Design-Architect-Innovation-Transformation-Center-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Digital Business Agility & Design Architect - Innovation & Transformation Center',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/58290/Digital-Business-Agility-Design-Architect-Innovation-Transformation-Center-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nDigital Business Agility & Design Architect - Innovation & Transformation Center About the Salesforce Innovation & Transformation Center Most people know Salesforce, the Customer Success Platform and world's #1 at...<br /><br />\nDate posted: 07/03/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': "Salesforce.com, inc..\nUK - London <br />\nSolution Architect - Salesforce Marketing Cloud The Solution Architect (SA) is a key member of the Salesforce Marketing Cloud Professional Services' team. The SA is responsible for leading the design...<br /><br />\nDate posted: 06/14/2017",
+      'title': 'Solution Architect - Marketing Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57852/Solution-Architect-Marketing-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57852/Solution-Architect-Marketing-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Solution Architect - Marketing Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57852/Solution-Architect-Marketing-Cloud-Uk-London',
+      'summary_detail': {
+        'value': "Salesforce.com, inc..\nUK - London <br />\nSolution Architect - Salesforce Marketing Cloud The Solution Architect (SA) is a key member of the Salesforce Marketing Cloud Professional Services' team. The SA is responsible for leading the design...<br /><br />\nDate posted: 06/14/2017",
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP (Krux) Client Success Manager This is an individual contributor role that reports to the Director of Client Success. Client Success is part of the Professional Services organization within...<br /><br />\nDate posted: 06/13/2017',
+      'title': 'Client Success Manager - Salesforce DMP (German or Spanish speaking)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57817/Client-Success-Manager-Krux-Solutions-French-Speaking-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57817/Client-Success-Manager-Krux-Solutions-French-Speaking-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Customer Management',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Client Success Manager - Salesforce DMP (German or Spanish speaking)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57817/Client-Success-Manager-Krux-Solutions-French-Speaking-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nSalesforce DMP (Krux) Client Success Manager This is an individual contributor role that reports to the Director of Client Success. Client Success is part of the Professional Services organization within...<br /><br />\nDate posted: 06/13/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior App Cloud Account Executive - UKILocation: UKDepartment Description: Our App Cloud team are currently looking for talented, hardworking individuals with great energy, leadership, and initiative to drive...<br /><br />\nDate posted: 05/30/2017',
+      'title': 'Senior Account Executive - App Cloud UKI',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57458/Senior-Account-Executive-App-Cloud-Uki-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57458/Senior-Account-Executive-App-Cloud-Uki-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Senior Account Executive - App Cloud UKI',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57458/Senior-Account-Executive-App-Cloud-Uki-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Senior App Cloud Account Executive - UKILocation: UKDepartment Description: Our App Cloud team are currently looking for talented, hardworking individuals with great energy, leadership, and initiative to drive...<br /><br />\nDate posted: 05/30/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nRole: Account Director, Salesforce Marketing CloudLocation: LondonSalesforce Marketing Cloud is seeking a proven leader in account and client management to become part of the EMEA services team as an Account...<br /><br />\nDate posted: 05/19/2017',
+      'title': 'Account Director, Salesforce Marketing Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/57101/Account-Director-Salesforce-Marketing-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/57101/Account-Director-Salesforce-Marketing-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Customer Success – Professional Services',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Account Director, Salesforce Marketing Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/57101/Account-Director-Salesforce-Marketing-Cloud-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nRole: Account Director, Salesforce Marketing CloudLocation: LondonSalesforce Marketing Cloud is seeking a proven leader in account and client management to become part of the EMEA services team as an Account...<br /><br />\nDate posted: 05/19/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Commercial Account Executive (General Business: Various Verticals) Location: London, UK Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various...<br /><br />\nDate posted: 05/15/2017',
+      'title': 'Commercial Account Executive GB',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55061/Commercial-Account-Executive-Gb-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55061/Commercial-Account-Executive-Gb-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Commercial Account Executive GB',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55061/Commercial-Account-Executive-Gb-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Commercial Account Executive (General Business: Various Verticals) Location: London, UK Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various...<br /><br />\nDate posted: 05/15/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Marketing Cloud...<br /><br />\nDate posted: 04/07/2017',
+      'title': 'Business Development Representative, Marketing Cloud (Nordics)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55701/Business-Development-Representative-Marketing-Cloud-Nordics-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55701/Business-Development-Representative-Marketing-Cloud-Nordics-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Business Development Representative, Marketing Cloud (Nordics)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55701/Business-Development-Representative-Marketing-Cloud-Nordics-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Marketing Cloud...<br /><br />\nDate posted: 04/07/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Marketing Cloud...<br /><br />\nDate posted: 04/07/2017',
+      'title': 'Business Development Representative, Marketing Cloud (Netherlands)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55696/Business-Development-Representative-Marketing-Cloud-Dutch-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55696/Business-Development-Representative-Marketing-Cloud-Dutch-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Development',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Business Development Representative, Marketing Cloud (Netherlands)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55696/Business-Development-Representative-Marketing-Cloud-Dutch-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\n"The secret to successful hiring is this: look for the people who want to change the world" Marc Benioff, CEO, Salesforce Sound like you? Great, here\'s what #Salesforce, Marketing Cloud...<br /><br />\nDate posted: 04/07/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Account Executive (Mid-Market) Location: London Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various locations focusing on Mid-Market customer...<br /><br />\nDate posted: 03/28/2017',
+      'title': 'Commercial Account Executive (MM)',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/55390/Commercial-Account-Executive-Mm-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/55390/Commercial-Account-Executive-Mm-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Commercial Account Executive (MM)',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/55390/Commercial-Account-Executive-Mm-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title: Account Executive (Mid-Market) Location: London Department Description: Our Commercial Business Unit (CBU) for the UKI market currently serves its customers out of various locations focusing on Mid-Market customer...<br /><br />\nDate posted: 03/28/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    },
+    {
+      'summary': 'Salesforce.com, inc..\nUK - London <br />\nJob Title - Enterprise Account Executive - Commerce Cloud Location - London Department Description - Salesforce Commerce Cloud creates a more expedient path between your ideas and execution. First, business...<br /><br />\nDate posted: 01/12/2017',
+      'title': 'Enterprise Account Executive - Commerce Cloud',
+      'links': [
+        {
+          'href': 'http://salesforce.careermount.com/career/52548/Enterprise-Account-Executive-Commerce-Cloud-Uk-London',
+          'rel': 'alternate',
+          'type': 'text/html'
+        }
+      ],
+      'guidislink': False,
+      'id': 'http://salesforce.careermount.com/career/52548/Enterprise-Account-Executive-Commerce-Cloud-Uk-London',
+      'tags': [
+        {
+          'term': 'Sales - Account Executive',
+          'label': None,
+          'scheme': None
+        }
+      ],
+      'title_detail': {
+        'value': 'Enterprise Account Executive - Commerce Cloud',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/plain'
+      },
+      'link': 'http://salesforce.careermount.com/career/52548/Enterprise-Account-Executive-Commerce-Cloud-Uk-London',
+      'summary_detail': {
+        'value': 'Salesforce.com, inc..\nUK - London <br />\nJob Title - Enterprise Account Executive - Commerce Cloud Location - London Department Description - Salesforce Commerce Cloud creates a more expedient path between your ideas and execution. First, business...<br /><br />\nDate posted: 01/12/2017',
+        'language': None,
+        'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+        'type': 'text/html'
+      }
+    }
+  ],
+  'feed': {
+    'subtitle_detail': {
+      'value': 'Salesforce.com RSS jobs feed',
+      'language': None,
+      'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+      'type': 'text/html'
+    },
+    'title': 'Salesforce.com RSS Feed',
+    'links': [
+      {
+        'href': 'http://salesforce.careermount.com',
+        'rel': 'alternate',
+        'type': 'text/html'
+      },
+      {
+        'href': 'http://salesforce.careermount.com/main/rss/feed?status=1',
+        'rel': 'self',
+        'type': 'application/rss+xml'
+      }
+    ],
+    'subtitle': 'Salesforce.com RSS jobs feed',
+    'title_detail': {
+      'value': 'Salesforce.com RSS Feed',
+      'language': None,
+      'base': 'http://salesforce.careermount.com/candidate/job_search/quick/results?location=UK&rss',
+      'type': 'text/plain'
+    },
+    'link': 'http://salesforce.careermount.com'
+  }
+}
