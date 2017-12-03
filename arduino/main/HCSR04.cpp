@@ -26,8 +26,8 @@ long HCSR04::doPing()
 }
 boolean HCSR04::obstacleDetected()
 {
-    if (doPing() > MIN_DISTANCE) return true;
-    return false;
+    if (doPing() > MIN_DISTANCE) return false;
+    return true;
 }
 long HCSR04::microsecondsToInches(long microseconds)
 {

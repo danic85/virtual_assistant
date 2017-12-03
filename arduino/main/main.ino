@@ -13,6 +13,7 @@ InfraRed ir;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  motors.doAction(DIRECTION_FORWARDS, MOTOR_SPEED_FULL);
 }
 
 void loop() {
