@@ -24,6 +24,11 @@ long HCSR04::doPing()
     inches = microsecondsToInches(duration); 
     return inches;
 }
+boolean HCSR04::obstacleDetected()
+{
+    if (doPing() > MIN_DISTANCE) return true;
+    return false;
+}
 long HCSR04::microsecondsToInches(long microseconds)
 {
   // According to Parallax's datasheet for the PING))), there are

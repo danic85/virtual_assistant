@@ -19,13 +19,13 @@ void loop() {
   // Adjust course if moving forwards and getting close to something, regardless of input
   if (motors.getLastAction() == DIRECTION_FORWARDS)
   {
-    if (distance1.doPing() < 2) {
+    if (distance1.obstacleDetected()) {
       String response = motors.adjustCourse(DIRECTION_RIGHT);
-      speak.doAction(response);
+//      speak.doAction(response);
     }
-    if (distance2.doPing() < 2) {
+    if (distance2.obstacleDetected()) {
       String response = motors.adjustCourse(DIRECTION_LEFT);
-      speak.doAction(response);
+//      speak.doAction(response);
     }
   }
 

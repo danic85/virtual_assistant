@@ -70,9 +70,9 @@ String L298N::adjustCourse(int direction)
   Serial.println(_lastSpeed);
   int actionToResume = _lastAction;
   doAction(direction, _lastSpeed);
-  delay(500);
+  delay(1000);
   doAction(actionToResume, _lastSpeed);
-  return "Adjusted Course";
+  return "Turn";
 }
 void L298N::stop()
 {
