@@ -30,7 +30,7 @@ class General(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.define_idle(self.rotate_log, 24, lib.dt.datetime_from_time(0, 0))
-        self.define_idle(self.morning, 24, lib.dt.datetime_from_time(8, 0))
+        # self.define_idle(self.morning, 24, lib.dt.datetime_from_time(8, 0))
 
     def config_set(self):
         return self.config.set(self.match.group(1), self.match.group(2))
