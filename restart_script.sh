@@ -3,5 +3,5 @@
 if pgrep -f main.py ; then
    :
 else 
-   sudo python /home/pi/virtual_assistant/main.py startx &
+   sudo python3 /home/mojo/virtual_assistant/main.py startx &
 fi
