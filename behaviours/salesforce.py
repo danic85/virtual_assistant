@@ -12,7 +12,8 @@ from fuzzywuzzy import fuzz
 class Salesforce(Behaviour):
 
     routes = {
-        'salesforce jobs': 'get_jobs'
+        'salesforce jobs': 'get_jobs',
+        'all salesforce jobs': 'get_all_jobs'
     }
 
     endpoints = {
@@ -23,6 +24,9 @@ class Salesforce(Behaviour):
         super(self.__class__, self).__init__(**kwargs)
         self.collection = 'properties'
         self.define_idle(self.get_jobs, 1)  # fetch new jobs every hour
+
+    def get_all_jobs(self):
+        return self.get_jobs(False)
 
     def get_jobs(self, only_new=True):
 
@@ -52,7 +56,7 @@ class Salesforce(Behaviour):
                     entry['title'],
                     '\n' + entry['link']
                 ]
-                if self.__save_if_new(entry):
+                if self.__save_if_new(entry) or only_new is False:
                     response.append(' '.join(r))
 
         self.__remove_old(jobs['entries'])
