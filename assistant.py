@@ -14,6 +14,7 @@ from io import BytesIO
 
 import schedule
 import telepot
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
 import lib
 from lib.interaction import Interaction
@@ -183,8 +184,6 @@ class Assistant(object):
         """ Parse interaction object and convert to user friendly response message """
         responses = act.get_response_str()
 
-        print(responses)
-
         for r in responses:
             msg = r['text']
             if msg != '':
@@ -194,6 +193,11 @@ class Assistant(object):
                     for u in r['user']:
                         self.__log('sending to' + str(u))
                         self.responder.sendMessage(u, msg, None, True)
+
+        keyboard = act.get_response_keyboard()
+        if keyboard is not None:
+            for u in act.user:
+                self.responder.sendMessage(u, 'Keyboard Received', reply_markup=keyboard)
 
         # @todo modify to handle user in response object
         files = act.get_response_files()

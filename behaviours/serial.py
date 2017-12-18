@@ -14,8 +14,21 @@ class Serial(Behaviour):
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
-        self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+        try:
+            self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+        except serial.serialutil.SerialException as ex:
+            pass
 
     def serial_write(self):
-        self.ser.write(str.encode(self.match.group().strip()))
+        if self.match.group().strip().lower() != 'ms':
+            self.act.respond_keyboard(['mf', 'mb', 'ml', 'mr', 'ms']) #  display keyboard buttons for easy movement
+        else:
+            self.act.respond_keyboard([])
+            self.act.respond('Stopping')
+            return
+
+        try:
+            self.ser.write(str.encode(self.match.group().strip().lower()))
+        except AttributeError as ex:
+            pass
         return 'Moving'

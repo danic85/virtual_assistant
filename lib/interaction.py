@@ -1,3 +1,5 @@
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+
 class Interaction(object):
 
     def __init__(self, **kwargs):
@@ -37,6 +39,26 @@ class Interaction(object):
         else:
             raise ValueError('Response is not correct format')
 
+    def respond_keyboard(self, response):
+        """ Add response to list """
+        if type(response) is list:
+            buttons = []
+            for l in response:
+                buttons.append(KeyboardButton(text=l))
+
+            if len(buttons) == 0:
+                reply_markup = ReplyKeyboardRemove(remove_keyboard=True)
+            else:
+                reply_markup = ReplyKeyboardMarkup(
+                    keyboard=[
+                        buttons
+                    ]
+                )
+
+            self.response.append({'keyboard': reply_markup})
+        else:
+            raise ValueError('Response is not correct format')
+
     def respond_photo(self, response, caption=None):
         """ Add response to list """
         if type(response) is str or type(response) is unicode:
@@ -73,6 +95,12 @@ class Interaction(object):
                 r_txt.append({'text': r['text'], 'user': r['user']})
 
         return r_txt
+
+    def get_response_keyboard(self):
+        for r in self.response:
+            if 'keyboard' in r:
+                return r['keyboard']
+        return None
 
     def get_response_files(self):
         files = []

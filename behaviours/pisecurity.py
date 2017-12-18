@@ -20,7 +20,7 @@ class Pisecurity(Behaviour):
     }
 
     PIR_PIN = 4
-    PIR_LED_PIN = 17
+    # PIR_LED_PIN = 17
 
     SECURITY_OFF = 0
     SECURITY_TEST = 1
@@ -43,7 +43,7 @@ class Pisecurity(Behaviour):
                 self.logging.info('Starting PIR')
                 GPIO.setmode(GPIO.BCM)
                 GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
+                # GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
                 GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, callback=partial(self.__motion_sensor, self), bouncetime=300)
                 self.security = self.SECURITY_ON
                 return 'Security Enabled'
