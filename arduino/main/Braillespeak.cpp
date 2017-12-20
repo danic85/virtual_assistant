@@ -24,9 +24,9 @@
 const int speaker = 8;
 const int toneDuration = 50;
 
-const int LEDR = 2;
-const int LEDG = 3;
-const int LEDB = 4;
+const int LEDR = A5;
+const int LEDG = A6;
+const int LEDB = A7;
 
 
 // Each character in alphabetical order converted to decimal equivelant of
@@ -77,6 +77,7 @@ Braillespeak::Braillespeak() {
   pinMode(LEDR, OUTPUT);
   pinMode(LEDG, OUTPUT);
   pinMode(LEDB, OUTPUT);
+  digitalWrite(LEDG, HIGH);
 }
 
 void Braillespeak::doAction(String output) {
