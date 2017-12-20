@@ -13,6 +13,75 @@ L298N::L298N()
     _lastSpeed = MOTOR_SPEED_SLOW;
     stop(false);
 }
+String L298N::autoDrive(HCSR04 d1, HCSR04 d2)
+{
+  String response;
+  if (_lastAction == DIRECTION_FORWARDS)
+  {
+    if (d1.obstacleDetected()) {
+      response = adjustCourse(DIRECTION_RIGHT);
+    }
+    if (d2.obstacleDetected()) {
+      response = adjustCourse(DIRECTION_LEFT);
+    }
+  }
+  return response;
+}
+String L298N::handleSerial(String serialString)
+{
+  // Send string commands via serial to control:
+  // 'm' = motors
+  // 'f/b/l/r/'  = direction
+  // 's/m/f' = speed
+  // e.g. mfs = motor forwards slow. ml or mlf = motor left fast
+
+  if (serialString.length() > 3) return ""; // Ignore serial strings not meant for motors
+
+  // read the incoming command:
+  char serialCommand[serialString.length()+1];
+  serialString.toCharArray(serialCommand, serialString.length()+1);
+
+  Serial.print("I received: ");
+  Serial.println(serialString);
+
+  int action = DIRECTION_STOP;
+  int speed = MOTOR_SPEED_FULL;
+  if (serialCommand[0] == 'm') {
+    switch(serialCommand[1]){
+      case 'f':
+        action = DIRECTION_FORWARDS;
+        break;
+      case 'b':
+        action = DIRECTION_REVERSE;
+        break;
+      case 'l':
+        action = DIRECTION_LEFT;
+        break;
+      case 'r':
+        action = DIRECTION_RIGHT;
+        break;
+      default:
+        break;
+    }
+    if(serialString.length() > 2) {
+      // handle speed
+      switch(serialCommand[2]){
+        case 's':
+          speed = MOTOR_SPEED_SLOW;
+          break;
+        case 'm':
+          speed = MOTOR_SPEED_HALF;
+          break;
+        default:
+          break;
+      }
+    }
+    return doAction(action, speed);
+
+  }
+  return "";
+  
+}
 String L298N::doAction(int direction, int speed)
 {
     Serial.print("Motors: ");

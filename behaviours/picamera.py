@@ -62,7 +62,7 @@ class Picamera(Behaviour):
         jpg = self.files + '/camera.jpg'
 
         try:
-            camera = picamera(
+            camera = picamera.PiCamera(
                 resolution=(1280, 720),
                 framerate=Fraction(1, 6),
                 sensor_mode=3)

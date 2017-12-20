@@ -62,14 +62,14 @@ const int brailleMap[][2] = {
 
 // Each decimal from binary mapped to note.
 const int toneMap[] {
-  NOTE_G3,
-  NOTE_GS3,
-  NOTE_AS3,
-  NOTE_B3,
-  NOTE_CS4,
-  NOTE_D4,
-  NOTE_E4,
-  NOTE_F4
+  NOTE_G6,
+  NOTE_GS6,
+  NOTE_AS6,
+  NOTE_B6,
+  NOTE_CS7,
+  NOTE_D7,
+  NOTE_E7,
+  NOTE_F7
 };
 
 Braillespeak::Braillespeak() {

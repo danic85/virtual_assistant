@@ -2,6 +2,7 @@
 #define L298N_h
 
 #include "Arduino.h"
+#include "HCSR04.h"
 
 // wired connections
 #define L298N_B_IA 10 // D10 --> Motor B Input A --> MOTOR B +
@@ -31,6 +32,8 @@ class L298N
   public:
     L298N();
     String doAction(int direction, int speed);
+    String handleSerial(String input);
+    String autoDrive(HCSR04 distance1, HCSR04 distance2);
     String adjustCourse(int direction);
     int getLastAction();
     void stop();
