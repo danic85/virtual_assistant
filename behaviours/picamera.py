@@ -6,22 +6,80 @@ import os
 from behaviours.behaviour import Behaviour
 from time import sleep
 from fractions import Fraction
+import atexit
 
 try:
     import picamera
+    import wiringpi
 except ImportError as ex:
     pass
 
 
 class Picamera(Behaviour):
 
+    CAMERA_MOVEABLE = False  # Set to True if camera is mounted to servo to hide when not in use
+    CAMERA_OPEN_POS = 200
+    CAMERA_CLOSE_POS = 50
+    CAMERA_DEFAULT_POS = CAMERA_CLOSE_POS  # Determines if camera is open or closed by default
+
     routes = {
-        '^camera$': 'take_photo',
+        '^photo': 'take_photo',
+        '^camera$': 'open_and_take_photo',
         '^night vision$': 'take_night_photo',
-        '^video$': 'take_video'
+        '^open camera$': 'open_camera',
+        '^close camera$': 'close_camera',
+        '^video$': 'open_and_take_video'
     }
 
+    def __init__(self, **kwargs):
+        super(self.__class__, self).__init__(**kwargs)
+        self.security_override = False
+        if self.CAMERA_MOVEABLE:
+            try:
+                # use 'GPIO naming'
+                wiringpi.wiringPiSetupGpio()
+
+                # set #18 to be a PWM output
+                wiringpi.pinMode(18, wiringpi.GPIO.PWM_OUTPUT)
+
+                # set the PWM mode to milliseconds stype
+                wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
+
+                # divide down clock
+                wiringpi.pwmSetClock(192)
+                wiringpi.pwmSetRange(2000)
+
+                # set servo to default position to start
+                self.move_camera(self.CAMERA_DEFAULT_POS)
+
+                atexit.register(self.close_camera())  # exit handler, close camera on exiting application
+            except Exception as ex:
+                pass
+
+    def move_camera(self, position):
+        if self.CAMERA_MOVEABLE:
+            try:
+                wiringpi.pwmWrite(18, position)
+            except Exception as ex:
+                pass
+        return None
+
+    def open_camera(self):
+        return self.move_camera(self.CAMERA_OPEN_POS)
+
+    def close_camera(self):
+        return self.move_camera(self.CAMERA_CLOSE_POS)
+
+    def open_and_take_photo(self):
+        """ Open camera if mounted to servo and take photo, then return to default position """
+        self.open_camera()
+        sleep(3)
+        response = self.take_photo()
+        self.move_camera(self.CAMERA_DEFAULT_POS)
+        return response
+
     def take_photo(self):
+        """ Take photo using PI camera. Works with night vision camera in all light levels."""
         self.logging.info('Entering take_photo')
         self.logging.info('Load Camera')
 
@@ -29,9 +87,9 @@ class Picamera(Behaviour):
 
         try:
             camera = picamera.PiCamera(resolution=(1920, 1080))
-            camera.hflip = True
-            camera.vflip = True
-            sleep(2)
+            # camera.hflip = True
+            # camera.vflip = True
+            # sleep(2)
 
         except Exception as e:
             self.logging.error(str(e))
@@ -54,10 +112,12 @@ class Picamera(Behaviour):
             self.logging.info('Returning response.')
             return response
         self.act.respond_photo(jpg)
+
         self.logging.info('Exiting take_photo')
         return None
 
     def take_night_photo(self):
+        """ Standard PI camera can take night vision shots with this. Very slow. """
         self.logging.info('Entering take_night_photo')
         jpg = self.files + '/camera.jpg'
 
@@ -89,6 +149,13 @@ class Picamera(Behaviour):
         self.act.respond_photo(jpg)
         self.logging.info('Exiting take_night_photo')
         return None
+
+    def open_and_take_video(self):
+        self.open_camera()
+        sleep(3)
+        response = self.take_video()
+        self.move_camera(self.CAMERA_DEFAULT_POS)
+        return response
 
     def take_video(self):
         h264 = self.files + '/video.h264'
