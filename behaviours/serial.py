@@ -9,7 +9,8 @@ except ImportError as ex:
 class Serial(Behaviour):
 
     routes = {
-        '^.{1,3}$': 'serial_write'
+        '^.{1,3}$': 'serial_write',
+        '^speak .+': 'serial_speak'
     }
 
     def __init__(self, **kwargs):
@@ -32,3 +33,10 @@ class Serial(Behaviour):
         except AttributeError as ex:
             pass
         return 'Moving'
+
+    def serial_speak(self):
+        try:
+            self.ser.write(str.encode(self.match.group().strip().lower()))
+        except AttributeError as ex:
+            pass
+        return 'Speaking'
