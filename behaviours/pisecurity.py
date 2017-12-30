@@ -29,6 +29,7 @@ class Pisecurity(Behaviour):
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
+        self.assistant = kwargs.get('assistant', None)
         self.security = self.SECURITY_OFF
         self.security_override = False
 
@@ -78,4 +79,8 @@ class Pisecurity(Behaviour):
             GPIO.output(self.PIR_LED_PIN, GPIO.HIGH)
             if self.security == self.SECURITY_ON:
                 self.logging.info('Taking Security Picture')
-                self.act.chain_command('photo')
+                if self.assistant is not None:
+                    msg = {"chat": {"id": self.assistant.config.get_or_request('Admin')}, "text": 'photo'}
+                    self.assistant.handle(msg)  # chain command doesn't work inside a callback
+                else:
+                    self.logging.error('Assistant not set')

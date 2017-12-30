@@ -84,7 +84,7 @@ class Assistant(object):
                 if name.endswith('.py') and '__' not in name and name != 'behaviour.py' and 'test_' not in name:
                     m = name.split('.')[0]
                     instance = getattr(globals()[m], m.title())(db=self.db, config=self.config, dir=self.dir,
-                                                                logging=logging)  # Get instance of class
+                                                                logging=logging, assistant=self)  # Get instance of class
 
                     # Add to behaviours list in order of execution
                     if instance.execution_order not in self.behaviours:
