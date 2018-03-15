@@ -75,6 +75,13 @@ class Behaviour(object):
              'next': first
             })
 
+    def remove_idle(self, method):
+        for m in self.idle_methods:
+            if method == m['method']:
+                self.idle_methods.remove(m)
+                return True
+        return False
+
     def set_history(self, user, history):
         if 'time' not in history:
             history['time'] = datetime.now()

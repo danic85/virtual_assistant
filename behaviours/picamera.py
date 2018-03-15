@@ -28,7 +28,9 @@ class Picamera(Behaviour):
         '^night vision$': 'take_night_photo',
         '^open camera$': 'open_camera',
         '^close camera$': 'close_camera',
-        '^video$': 'open_and_take_video'
+        '^video$': 'open_and_take_video',
+        '^timelapse': 'timelapse',
+        '^stop timelapse$': 'stop_timelapse'
     }
 
     def __init__(self, **kwargs):
@@ -69,6 +71,15 @@ class Picamera(Behaviour):
 
     def close_camera(self):
         return self.move_camera(self.CAMERA_CLOSE_POS)
+
+    def timelapse(self):
+        self.define_idle(self.open_and_take_photo(), 0)  # take a photo every 5 minutes
+        return 'Timelapse started'
+
+    def stop_timelapse(self):
+        if self.remove_idle(self.open_and_take_photo()):
+            return 'Timelapse stopped'
+        return 'No timelapse to stop'
 
     def open_and_take_photo(self):
         """ Open camera if mounted to servo and take photo, then return to default position """
