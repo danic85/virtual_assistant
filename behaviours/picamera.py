@@ -73,11 +73,11 @@ class Picamera(Behaviour):
         return self.move_camera(self.CAMERA_CLOSE_POS)
 
     def timelapse(self):
-        self.define_idle(self.open_and_take_photo(), 0)  # take a photo every 5 minutes
+        self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
         return 'Timelapse started'
 
     def stop_timelapse(self):
-        if self.remove_idle(self.open_and_take_photo()):
+        if self.remove_idle(self.open_and_take_photo):
             return 'Timelapse stopped'
         return 'No timelapse to stop'
 
