@@ -9,9 +9,13 @@ from fractions import Fraction
 import atexit
 
 try:
+    import RPi.GPIO as GPIO
+except ImportError as e:
+    pass
+
+try:
     import picamera
     import wiringpi
-    import RPi.GPIO as GPIO
 except ImportError as ex:
     pass
 
