@@ -11,6 +11,7 @@ import atexit
 try:
     import picamera
     import wiringpi
+    import RPi.GPIO as GPIO
 except ImportError as ex:
     pass
 
@@ -21,6 +22,7 @@ class Picamera(Behaviour):
     CAMERA_OPEN_POS = 200
     CAMERA_CLOSE_POS = 50
     CAMERA_DEFAULT_POS = CAMERA_CLOSE_POS  # Determines if camera is open or closed by default
+    LED_IR = 10
 
     routes = {
         '^photo': 'take_photo',
@@ -67,10 +69,14 @@ class Picamera(Behaviour):
         return None
 
     def open_camera(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.LED_IR, GPIO.OUT)
+        GPIO.output(self.LED_IR, GPIO.HIGH)
         return self.move_camera(self.CAMERA_OPEN_POS)
 
     def close_camera(self):
-        return self.move_camera(self.CAMERA_CLOSE_POS)
+        GPIO.output(self.LED_IR, GPIO.LOW)
+        return self.move_camera(self.CAMERA_DEFAULT_POS)
 
     def timelapse(self):
         self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
@@ -86,7 +92,7 @@ class Picamera(Behaviour):
         self.open_camera()
         sleep(3)
         response = self.take_photo()
-        self.move_camera(self.CAMERA_DEFAULT_POS)
+        self.close_camera()
         return response
 
     def take_photo(self):

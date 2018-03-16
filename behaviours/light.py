@@ -16,7 +16,10 @@ class Light(Behaviour):
         '^light off$': 'off'
     }
 
-    LED_PIN_RED = 17
+    LED_RED = 17
+    LED_GREEN = 22
+    LED_BLUE = 9
+    LED_IR = 10
 
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
@@ -24,15 +27,21 @@ class Light(Behaviour):
     def on(self):
         try:
             GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.LED_PIN_RED, GPIO.OUT)
-            GPIO.output(self.LED_PIN_RED, GPIO.HIGH)
+            GPIO.setup(self.LED_RED, GPIO.OUT)
+            GPIO.output(self.LED_RED, GPIO.HIGH)
+            GPIO.setup(self.LED_GREEN, GPIO.OUT)
+            GPIO.output(self.LED_GREEN, GPIO.HIGH)
+            GPIO.setup(self.LED_BLUE, GPIO.OUT)
+            GPIO.output(self.LED_BLUE, GPIO.HIGH)
             return 'Light on'
         except NameError as e:
             return 'Could not turn light on: ' + str(e)
 
     def off(self):
         try:
-            GPIO.output(self.LED_PIN_RED, GPIO.LOW)
+            GPIO.output(self.LED_RED, GPIO.LOW)
+            GPIO.output(self.LED_GREEN, GPIO.LOW)
+            GPIO.output(self.LED_BLUE, GPIO.LOW)
             GPIO.cleanup()
             return 'Light off'
         except NameError as e:
