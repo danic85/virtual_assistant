@@ -12,8 +12,13 @@ except ImportError as e:
 class Light(Behaviour):
 
     routes = {
-        '^light on$': 'on',
-        '^light off$': 'off'
+        '^(light on|light|lumos)$': 'all',
+        '^(light off|nox)$': 'off',
+        '^red light$': 'red',
+        '^green light$': 'green',
+        '^blue light$': 'blue',
+        '^purple light$': 'purple',
+        '^cyan light$': 'cyan',
     }
 
     LED_RED = 17
@@ -24,15 +29,18 @@ class Light(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
 
-    def on(self):
+    def on(self, r, g, b):
         try:
             GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.LED_RED, GPIO.OUT)
-            GPIO.output(self.LED_RED, GPIO.HIGH)
-            GPIO.setup(self.LED_GREEN, GPIO.OUT)
-            GPIO.output(self.LED_GREEN, GPIO.HIGH)
             GPIO.setup(self.LED_BLUE, GPIO.OUT)
-            GPIO.output(self.LED_BLUE, GPIO.HIGH)
+            GPIO.setup(self.LED_RED, GPIO.OUT)
+            GPIO.setup(self.LED_GREEN, GPIO.OUT)
+            if r:
+                GPIO.output(self.LED_RED, GPIO.HIGH)
+            if g:
+                GPIO.output(self.LED_GREEN, GPIO.HIGH)
+            if b:
+                GPIO.output(self.LED_BLUE, GPIO.HIGH)
             return 'Light on'
         except NameError as e:
             return 'Could not turn light on: ' + str(e)
@@ -46,3 +54,24 @@ class Light(Behaviour):
             return 'Light off'
         except NameError as e:
             return 'Could not turn light off: ' + str(e)
+
+    def all(self):
+        return self.on(True, True, True)
+
+    def red(self):
+        return self.on(True, False, False)
+
+    def green(self):
+        return self.on(False, True, False)
+
+    def blue(self):
+        return self.on(False, False, True)
+
+    def purple(self):
+        return self.on(True, False, True)
+
+    def yellow(self):
+        return self.on(True, True, False)
+
+    def cyan(self):
+        return self.on(False, True, True)
