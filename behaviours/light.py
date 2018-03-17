@@ -51,7 +51,6 @@ class Light(Behaviour):
             GPIO.output(self.LED_RED, GPIO.LOW)
             GPIO.output(self.LED_GREEN, GPIO.LOW)
             GPIO.output(self.LED_BLUE, GPIO.LOW)
-            GPIO.cleanup()
             return 'Light off'
         except NameError as e:
             return 'Could not turn light off: ' + str(e)

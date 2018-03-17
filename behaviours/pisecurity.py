@@ -64,7 +64,6 @@ class Pisecurity(Behaviour):
             try:
                 self.logging.info('Stopping PIR')
                 GPIO.remove_event_detect(self.PIR_PIN)
-                GPIO.cleanup()
                 self.security = self.SECURITY_OFF
                 self.act.chain_command('close camera')
                 return 'Security Disabled'
