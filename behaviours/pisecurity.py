@@ -20,7 +20,7 @@ class Pisecurity(Behaviour):
         '^test security$': 'test'
     }
 
-    PIR_PIN = 27
+    PIR_PIN = 18
     PIR_LED_PIN = 17
 
     SECURITY_OFF = 0
