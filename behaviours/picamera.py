@@ -29,8 +29,8 @@ class Picamera(Behaviour):
     LED_IR = 10
 
     routes = {
-        '^photo': 'take_photo',
         '^camera$': 'open_and_take_photo',
+        '^thumbnail$': 'open_and_take_photo_small',
         '^night vision$': 'take_night_photo',
         '^open camera$': 'open_camera',
         '^close camera$': 'close_camera',
@@ -102,11 +102,19 @@ class Picamera(Behaviour):
         """ Open camera if mounted to servo and take photo, then return to default position """
         self.open_camera()
         sleep(3)
-        response = self.take_photo()
+        response = self.take_photo(1920, 1080)
         self.close_camera()
         return response
 
-    def take_photo(self):
+    def open_and_take_photo_small(self):
+        """ Open camera if mounted to servo and take photo, then return to default position """
+        self.open_camera()
+        sleep(3)
+        response = self.take_photo(640, 480)
+        self.close_camera()
+        return response
+
+    def take_photo(self, width, height):
         """ Take photo using PI camera. Works with night vision camera in all light levels."""
         self.logging.info('Entering take_photo')
         self.logging.info('Load Camera')
@@ -114,7 +122,7 @@ class Picamera(Behaviour):
         jpg = self.files + '/camera.jpg'
 
         try:
-            camera = picamera.PiCamera(resolution=(1920, 1080))
+            camera = picamera.PiCamera(resolution=(width, height))
             # camera.hflip = True
             # camera.vflip = True
             # sleep(2)
