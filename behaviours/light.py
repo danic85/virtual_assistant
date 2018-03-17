@@ -22,8 +22,8 @@ class Light(Behaviour):
     }
 
     LED_RED = 17
-    LED_GREEN = 22
-    LED_BLUE = 27
+    LED_GREEN = 27
+    LED_BLUE = 22
     LED_IR = 10
 
     def __init__(self, **kwargs):
