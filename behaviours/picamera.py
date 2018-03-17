@@ -9,11 +9,6 @@ from fractions import Fraction
 import atexit
 
 try:
-    import RPi.GPIO as GPIO
-except ImportError as e:
-    pass
-
-try:
     import picamera
     import wiringpi
 except ImportError as ex:
@@ -26,7 +21,6 @@ class Picamera(Behaviour):
     CAMERA_OPEN_POS = 200
     CAMERA_CLOSE_POS = 50
     CAMERA_DEFAULT_POS = CAMERA_CLOSE_POS  # Determines if camera is open or closed by default
-    LED_IR = 10
 
     routes = {
         '^photo': 'take_photo',
@@ -42,13 +36,6 @@ class Picamera(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.security_override = False
-
-        try:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.LED_IR, GPIO.OUT)
-            GPIO.output(self.LED_IR, GPIO.LOW)  # turn IR off (in case they were switched on and then a crash occurred)
-        except Exception as ex:
-            pass
 
         if self.CAMERA_MOVEABLE:
             try:
@@ -114,7 +101,8 @@ class Picamera(Behaviour):
         jpg = self.files + '/camera.jpg'
 
         try:
-            camera = picamera.PiCamera(resolution=(1920, 1080))
+            # camera = picamera.PiCamera(resolution=(1920, 1080))
+            camera = picamera.PiCamera(resolution=(800, 600))
             # camera.hflip = True
             # camera.vflip = True
             # sleep(2)

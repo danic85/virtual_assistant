@@ -10,6 +10,17 @@ from lib.db import Database
 import lib.dt
 from bson.json_util import dumps
 
+try:
+    import RPi.GPIO as GPIO
+except ImportError as e:
+    pass
+
+
+LED_RED = 17
+LED_GREEN = 27
+LED_BLUE = 22
+LED_IR = 10
+
 class Behaviour(object):
     """An abstract base class to define all behaviours
 
@@ -115,3 +126,14 @@ class Behaviour(object):
             response = self.db.find(self.collection, {})
             for r in response:
                 self.db.delete(r)
+
+    def setup_gpio(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.LED_BLUE, GPIO.OUT)
+        GPIO.setup(self.LED_RED, GPIO.OUT)
+        GPIO.setup(self.LED_GREEN, GPIO.OUT)
+        GPIO.setup(self.LED_IR, GPIO.OUT)
+        GPIO.output(self.LED_RED, GPIO.LOW)
+        GPIO.output(self.LED_GREEN, GPIO.LOW)
+        GPIO.output(self.LED_BLUE, GPIO.LOW)
+        GPIO.output(self.LED_IR, GPIO.LOW)
