@@ -3,6 +3,12 @@
 
 from behaviours.behaviour import Behaviour
 
+try:
+    import RPi.GPIO as GPIO
+except ImportError as e:
+    pass
+
+
 class Light(Behaviour):
 
     routes = {
@@ -15,11 +21,20 @@ class Light(Behaviour):
         '^cyan light$': 'cyan',
     }
 
+    LED_RED = 17
+    LED_GREEN = 27
+    LED_BLUE = 22
+    LED_IR = 10
+
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
 
     def on(self, r, g, b):
         try:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.LED_BLUE, GPIO.OUT)
+            GPIO.setup(self.LED_RED, GPIO.OUT)
+            GPIO.setup(self.LED_GREEN, GPIO.OUT)
             self.off()
             if r:
                 GPIO.output(self.LED_RED, GPIO.HIGH)
@@ -36,6 +51,7 @@ class Light(Behaviour):
             GPIO.output(self.LED_RED, GPIO.LOW)
             GPIO.output(self.LED_GREEN, GPIO.LOW)
             GPIO.output(self.LED_BLUE, GPIO.LOW)
+            GPIO.cleanup()
             return 'Light off'
         except NameError as e:
             return 'Could not turn light off: ' + str(e)
