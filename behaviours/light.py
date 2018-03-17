@@ -35,6 +35,7 @@ class Light(Behaviour):
             GPIO.setup(self.LED_BLUE, GPIO.OUT)
             GPIO.setup(self.LED_RED, GPIO.OUT)
             GPIO.setup(self.LED_GREEN, GPIO.OUT)
+            self.off()
             if r:
                 GPIO.output(self.LED_RED, GPIO.HIGH)
             if g:
