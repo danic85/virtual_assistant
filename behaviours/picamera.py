@@ -42,6 +42,14 @@ class Picamera(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.security_override = False
+
+        try:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.LED_IR, GPIO.OUT)
+            GPIO.output(self.LED_IR, GPIO.LOW)  # turn IR off (in case they were switched on and then a crash occurred)
+        except Exception as ex:
+            pass
+
         if self.CAMERA_MOVEABLE:
             try:
                 # use 'GPIO naming'
@@ -73,8 +81,7 @@ class Picamera(Behaviour):
         return None
 
     def open_camera(self):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.LED_IR, GPIO.OUT)
+
         GPIO.output(self.LED_IR, GPIO.HIGH)
         return self.move_camera(self.CAMERA_OPEN_POS)
 
