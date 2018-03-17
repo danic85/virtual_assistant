@@ -3,6 +3,11 @@
 
 from behaviours.behaviour import Behaviour
 
+try:
+    import RPi.GPIO as GPIO
+except ImportError as e:
+    pass
+
 class Light(Behaviour):
 
     routes = {
