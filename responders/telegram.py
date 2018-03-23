@@ -44,17 +44,21 @@ class Telegram(telepot.Bot):
         self.logging.info(filepath)
 
         # Retrieve from URL and save to files
+        self.logging.info('Retrieving from URL')
         urllib.request.urlretrieve(filepath, fpath + '.oga')
 
+        self.logging.info('Convert to WAV')
         # convert form OGG to WAV
         ogg_version = AudioSegment.from_ogg(fpath + '.oga')
         ogg_version.export(fpath + '.wav', format="wav")
 
         return self.recognise(fpath + '.wav')
 
-    def recognise(wavpath):
+    def recognise(self, wavpath):
+        audio = None
         try:
             # Recognize audio
+            self.logging.info('Recognizing...')
             r = sr.Recognizer()
             with sr.AudioFile(wavpath) as source:
                 audio = r.record(source)  # read the entire audio file
@@ -62,6 +66,7 @@ class Telegram(telepot.Bot):
         except Exception as ex:
             return str(ex)
 
+        self.logging.info('Removing File')
         os.remove(wavpath)
 
         command = ''
@@ -69,9 +74,9 @@ class Telegram(telepot.Bot):
         # recognize speech using Sphinx
         try:
             command = r.recognize_sphinx(audio)
-            print("Sphinx thinks you said " + command)
+            self.logging.info("Sphinx thinks you said " + command)
         except sr.UnknownValueError:
-            print("Sphinx could not understand audio")
+            self.logging.info("Sphinx could not understand audio")
         except sr.RequestError as e:
-            print("Sphinx error; {0}".format(e))
+            self.logging.info("Sphinx error; {0}".format(e))
         return command
