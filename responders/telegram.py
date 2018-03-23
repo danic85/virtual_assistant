@@ -40,7 +40,7 @@ class Telegram(telepot.Bot):
         self.logging.info(filepath)
 
         # Retrieve from URL and save to files
-        urllib.urlretrieve(filepath, fpath + '.oga')
+        urllib.request.urlretrieve(filepath, fpath + '.oga')
 
         # convert form OGG to WAV
         ogg_version = AudioSegment.from_ogg(fpath + '.oga')
