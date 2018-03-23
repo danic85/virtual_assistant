@@ -189,17 +189,17 @@ class Picamera(Behaviour):
     def open_and_take_video(self):
         self.open_camera()
         sleep(3)
-        response = self.take_video()
+        response = self.take_video(640, 480)
         self.move_camera(self.CAMERA_DEFAULT_POS)
         return response
 
-    def take_video(self):
+    def take_video(self, width, height):
         h264 = self.files + '/video.h264'
         mp4 = self.files + '/video.mp4'
 
         try:
             self.logging.info('Opening Camera...')
-            camera = picamera.PiCamera()
+            camera = picamera.PiCamera(resolution=(width, height))
             self.logging.info('Open')
             # camera.hflip = True
             # camera.vflip = True
@@ -208,8 +208,6 @@ class Picamera(Behaviour):
             return 'Could not load camera'
 
         try:
-            self.logging.info('Setting Camera...')
-            camera.resolution = (640, 480)
             self.logging.info('Recording video...')
             camera.start_recording(h264)
             camera.wait_recording(10)
