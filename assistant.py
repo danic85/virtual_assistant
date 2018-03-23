@@ -117,7 +117,7 @@ class Assistant(object):
         act = Interaction(user=[msg['chat']['id']],
                           command={'text': text.strip()},
                           config=self.config,
-                          msg=msg)
+                          msg=msg, logging=logging)
 
         self.__interact(act)
 
@@ -202,8 +202,10 @@ class Assistant(object):
         # @todo modify to handle user in response object
         files = act.get_response_files()
         if len(files) > 0:
+            self.__log('found file in response')
             for f in files:
                 if f['file'] == 'photo':
+                    self.__log('it is a photo')
                     if 'http' in f['path']:
                         path = self.files + "/temp.jpg"
                         urllib.request.urlretrieve(f['path'], path)
@@ -218,12 +220,14 @@ class Assistant(object):
                     os.remove(f['path'])
 
                 if f['file'] == 'video':
+                    self.__log('it is a video')
                     video = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending video to' + str(u))
                         self.responder.sendVideo(u, video)
                     os.remove(video)
                 if f['file'] == 'file':
+                    self.__log('it is a file')
                     doc = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending document to' + str(u))

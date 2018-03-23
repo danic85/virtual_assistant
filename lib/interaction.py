@@ -9,6 +9,7 @@ class Interaction(object):
         self.finish = kwargs.get('finish', True)
         self.method = kwargs.get('method', 'handle')
         self.msg = kwargs.get('msg', None)
+        self.logging = kwargs.get('logging', None)
 
     def respond(self, response, user=None):
         """ Add response to list """
@@ -61,6 +62,7 @@ class Interaction(object):
 
     def respond_photo(self, response, caption=None):
         """ Add response to list """
+        self.logging.info('responding with photo')
         if type(response) is str or type(response) is unicode:
             self.response.append({'file': 'photo', 'path': response, 'caption': caption})
         else:
@@ -68,6 +70,7 @@ class Interaction(object):
 
     def respond_video(self, response):
         """ Add response to list """
+        self.logging.info('responding with video')
         if type(response) is str or type(response) is unicode:
             self.response.append({'file': 'video', 'path': response})
         else:
