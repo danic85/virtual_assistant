@@ -96,6 +96,7 @@ The virtual assistant is able to run tasks in the background at pre-defined time
 2. Navigate to directory `virtual_assistant`
 3. `pip3 install -r requirements.txt`
 4. `apt-get install mongodb` to install the database
+5. `sudo apt-get install -y gpac` to install mp4box for video capture
 
 ## Add Configuration Keys
 Enter the command `set config <key>=<value>` for the following keys:

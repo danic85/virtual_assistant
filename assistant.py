@@ -71,7 +71,7 @@ class Assistant(object):
     def register_responders(self):
         if self.mode == 'telegram':
             print('loading telegram')
-            self.responder = telegram.Telegram(config=self.config)
+            self.responder = telegram.Telegram(config=self.config, files=self.files)
         else:
             print('loading console')
             self.responder = console.Console(config=self.config)

@@ -6,6 +6,7 @@ import lib
 class Telegram(telepot.Bot):
     def __init__(self, **kwargs):
         self.config = kwargs.get('config', None)
+        self.files = kwargs.get('files', None)
         super(Telegram, self).__init__(self.config.get_or_request('Telbot'))
 
     def get_text(self, msg):
