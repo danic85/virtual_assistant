@@ -198,29 +198,39 @@ class Picamera(Behaviour):
         mp4 = self.files + '/video.mp4'
 
         try:
+            self.logging.info('Opening Camera...')
             camera = picamera.PiCamera()
-            camera.hflip = True
-            camera.vflip = True
+            self.logging.info('Open')
+            # camera.hflip = True
+            # camera.vflip = True
         except Exception as e:
             self.logging.error(str(e))
             return 'Could not load camera'
 
         try:
+            self.logging.info('Setting Camera...')
             camera.resolution = (640, 480)
+            self.logging.info('Recording video...')
             camera.start_recording(h264)
             camera.wait_recording(10)
+            self.logging.info('Stopping...')
             camera.stop_recording()
+            self.logging.info('Stopped')
         except Exception as e:
             self.logging.error(str(e))
             return 'Could not record video'
         finally:
+            self.logging.info('Closing Camera...')
             camera.close()
+            self.logging.info('Closed')
 
+        self.logging.info('Processing Video...')
         p = subprocess.Popen('MP4Box -add ' + h264 + ' ' + mp4, stdout=subprocess.PIPE, shell=True)
         for line in p.communicate():
             print(line)
         p.wait()
         print(p.returncode)
+        self.logging.info('Done.')
 
         os.remove(h264)
         self.act.respond_video(mp4)
