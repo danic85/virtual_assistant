@@ -7,7 +7,8 @@ except ImportError as ex:
 
 
 class Serial(Behaviour):
-
+    """ A test class for serial communication with Arduino. For more code see the 'arduino' branch.
+    """
     routes = {
         '^.{1,3}$': 'serial_write',
         '^speak .+': 'serial_speak'

@@ -98,6 +98,22 @@ The virtual assistant is able to run tasks in the background at pre-defined time
 4. `apt-get install mongodb` to install the database
 5. `sudo apt-get install -y gpac` to install mp4box for video capture
 
+## Install PocketSphinx (only needed for voice recognition)
+1. wget https://sourceforge.net/projects/cmusphinx/files/sphinxbase/5prealpha/sphinxbase-5prealpha.tar.gz/download -O sphinxbase.tar.gz
+2. wget https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz/download -O pocketsphinx.tar.gz
+3. tar -xzvf sphinxbase.tar.gz
+4. tar -xzvf pocketsphinx.tar.gz
+5. sudo apt-get install bison libasound2-dev swig
+6. cd sphinxbase-5prealpha
+7. ./configure --enable-fixed
+8. make
+9. sudo make install
+10. cd ../pocketsphinx-5prealpha
+11. ./configure
+12. make
+13. sudo make install
+14. src/programs/pocketsphinx_continuous -samprate 48000
+
 ## Add Configuration Keys
 Enter the command `set config <key>=<value>` for the following keys:
 - Users=<user_id1>,<user_id2>: List of Telegram user IDs to grant access to
@@ -107,7 +123,7 @@ Enter the command `set config <key>=<value>` for the following keys:
 - OpenExchangeRatesKey=<open_exchange_rates_key>: Key for Open Exchange Rates
 - News=<source_one>,<source_two>: Comma separated list of news sources from newsapi.org
 - NewsAPIKey=<newsapi_key>: newsapi.org key
-* ZooplaAPI=<zoopla_api_key>: API key for zoopla
+- ZooplaAPI=<zoopla_api_key>: API key for zoopla
 
 ### Execute command from the terminal
 To execute a command, run `python3 main.py` and then enter the command at the prompt
