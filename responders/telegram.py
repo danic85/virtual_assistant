@@ -3,7 +3,7 @@ import urllib
 from pydub import AudioSegment
 import lib
 import os
-from gtts import gTTS
+# from gtts import gTTS
 import urllib
 import speech_recognition as sr
 
