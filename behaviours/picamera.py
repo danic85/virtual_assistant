@@ -150,12 +150,11 @@ class Picamera(Behaviour):
         return None
 
     def open_and_take_video(self):
-        self.open_camera()
-        response = self.take_video(640, 480)
+        self.open_camera(640, 480)
+        response = self.take_video()
         return response
 
-    def take_video(self, width, height):
-        self.open_camera(width, height)
+    def take_video(self):
         try:
             self.logging.info('Recording video...')
             self.camera.start_recording(self.h264)
