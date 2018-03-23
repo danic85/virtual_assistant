@@ -71,10 +71,10 @@ class Assistant(object):
     def register_responders(self):
         if self.mode == 'telegram':
             print('loading telegram')
-            self.responder = telegram.Telegram(config=self.config, files=self.files)
+            self.responder = telegram.Telegram(config=self.config, files=self.files, logging=logging)
         else:
             print('loading console')
-            self.responder = console.Console(config=self.config)
+            self.responder = console.Console(config=self.config, files=self.files, logging=logging)
 
     def register_behaviours(self):
         """ Instantiate and create reference to all behaviours as observers """
