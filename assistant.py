@@ -7,6 +7,7 @@ import sys
 import time
 import traceback
 import urllib
+import _thread
 
 from PIL import Image
 import requests
@@ -119,7 +120,7 @@ class Assistant(object):
                           config=self.config,
                           msg=msg, logging=logging)
 
-        self.__interact(act)
+        _thread.start_new_thread(self.__interact, (act, ))
 
     def idle(self):
         """ Call idle method for each behaviour """
