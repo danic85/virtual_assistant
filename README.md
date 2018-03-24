@@ -5,7 +5,7 @@ A home automation bot via telegram
 
 ## Features
 - Natural language commands
-- Telegram integration including optional voice recognition and text-to-speech response
+- Telegram integration including optional voice recognition and text-to-speech response (not currently working on python 3)
 - Feed parsing
 - Raspberry Pi compatible
 - Camera and PIR sensor integration
@@ -19,7 +19,7 @@ A home automation bot via telegram
 - `Get closest countdowns`: List the two closest active countdowns
 ### Dictionary
 - `Word of the day`: Return a word of the day with definition
-### Echochat
+### Echochat (not currently working on python 3)
 The Echochat behaviour is a simple machine learning algorithm that allows users to build a database of possible responses to phrases.
 This behaviour is the last to be executed meaning that an un-matched command will be handled by Echochat.
 - `Train echochat`: Chatbot will send a message to the user and wait for a response for the purposes of traing
@@ -48,9 +48,10 @@ This behaviour is the last to be executed meaning that an un-matched command wil
 - `News sources`: Get list of news sources for configuration
 ### Camera
 Required: RPI Camera
-- `Camera`: Take photo from Raspberry Pi camera and send to user via telegram.
+- `Camera / Big Photo / What's going on / Night vision`: Take photo from Raspberry Pi camera and send to user via telegram.
 - `Video`: Record short video from Raspberry Pi camera and send to user via telegram.
-### Security
+- `Timelapse`: Take a photo every 5 minutes. Stop with `Stop Timelapse`
+### Security (not currently working on python 3)
 Required: RPI Camera, HC-SR501 PIR Motion Sensor
 Connect `Pin 4` to HC-SR501 PIR Motion Sensor (see http://www.rototron.info/using-a-motion-detector-on-raspberry-pi/ for guide).
 Connect `Pin 17`  to LED to indicate motion (when security on).
@@ -67,7 +68,7 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 - `Output reminders`: JSON output of all reminders currently in system (for debug)
 ### Take Turns
 - `Who's turn is it?`: Is it my turn tonight (this is an example class that can be updated to meet requirements)
-### Universal Translator
+### Universal Translator (not currently working on python 3)
 - `Translate <something> to <language>` - Translate a phrase to a specified language
 - `Translate <something> from <language>` - Translate a phrase from a specified language to English
 ### Weather
@@ -96,6 +97,7 @@ The virtual assistant is able to run tasks in the background at pre-defined time
 2. Navigate to directory `virtual_assistant`
 3. `pip3 install -r requirements.txt`
 4. `apt-get install mongodb` to install the database
+5. `sudo apt-get install -y gpac` to install mp4box for video capture
 
 ## Add Configuration Keys
 Enter the command `set config <key>=<value>` for the following keys:
@@ -106,7 +108,7 @@ Enter the command `set config <key>=<value>` for the following keys:
 - OpenExchangeRatesKey=<open_exchange_rates_key>: Key for Open Exchange Rates
 - News=<source_one>,<source_two>: Comma separated list of news sources from newsapi.org
 - NewsAPIKey=<newsapi_key>: newsapi.org key
-* ZooplaAPI=<zoopla_api_key>: API key for zoopla
+- ZooplaAPI=<zoopla_api_key>: API key for zoopla
 
 ### Execute command from the terminal
 To execute a command, run `python3 main.py` and then enter the command at the prompt

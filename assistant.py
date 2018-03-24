@@ -7,6 +7,7 @@ import sys
 import time
 import traceback
 import urllib
+import _thread
 
 from PIL import Image
 import requests
@@ -14,6 +15,7 @@ from io import BytesIO
 
 import schedule
 import telepot
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
 import lib
 from lib.interaction import Interaction
@@ -70,10 +72,10 @@ class Assistant(object):
     def register_responders(self):
         if self.mode == 'telegram':
             print('loading telegram')
-            self.responder = telegram.Telegram(config=self.config)
+            self.responder = telegram.Telegram(config=self.config, files=self.files, logging=logging)
         else:
             print('loading console')
-            self.responder = console.Console(config=self.config)
+            self.responder = console.Console(config=self.config, files=self.files, logging=logging)
 
     def register_behaviours(self):
         """ Instantiate and create reference to all behaviours as observers """
@@ -83,7 +85,7 @@ class Assistant(object):
                 if name.endswith('.py') and '__' not in name and name != 'behaviour.py' and 'test_' not in name:
                     m = name.split('.')[0]
                     instance = getattr(globals()[m], m.title())(db=self.db, config=self.config, dir=self.dir,
-                                                                logging=logging)  # Get instance of class
+                                                                logging=logging, assistant=self)  # Get instance of class
 
                     # Add to behaviours list in order of execution
                     if instance.execution_order not in self.behaviours:
@@ -116,13 +118,16 @@ class Assistant(object):
         act = Interaction(user=[msg['chat']['id']],
                           command={'text': text.strip()},
                           config=self.config,
-                          msg=msg)
+                          msg=msg, logging=logging)
 
-        self.__interact(act)
+        _thread.start_new_thread(self.__interact, (act, ))
 
     def idle(self):
         """ Call idle method for each behaviour """
-        self.__interact(Interaction(user=self.config.get('Users').split(','), config=self.config, method='idle'))
+        self.__interact(Interaction(user=self.config.get('Users').split(','),
+                                    config=self.config,
+                                    method='idle',
+                                    logging=logging))
 
     def __interact(self, act):
         """ Send interaction to behaviours, in order of execution.
@@ -183,8 +188,6 @@ class Assistant(object):
         """ Parse interaction object and convert to user friendly response message """
         responses = act.get_response_str()
 
-        print(responses)
-
         for r in responses:
             msg = r['text']
             if msg != '':
@@ -195,11 +198,18 @@ class Assistant(object):
                         self.__log('sending to' + str(u))
                         self.responder.sendMessage(u, msg, None, True)
 
+        keyboard = act.get_response_keyboard()
+        if keyboard is not None:
+            for u in act.user:
+                self.responder.sendMessage(u, 'Keyboard Received', reply_markup=keyboard)
+
         # @todo modify to handle user in response object
         files = act.get_response_files()
         if len(files) > 0:
+            self.__log('found file in response')
             for f in files:
                 if f['file'] == 'photo':
+                    self.__log('it is a photo')
                     if 'http' in f['path']:
                         path = self.files + "/temp.jpg"
                         urllib.request.urlretrieve(f['path'], path)
@@ -214,12 +224,14 @@ class Assistant(object):
                     os.remove(f['path'])
 
                 if f['file'] == 'video':
+                    self.__log('it is a video')
                     video = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending video to' + str(u))
                         self.responder.sendVideo(u, video)
                     os.remove(video)
                 if f['file'] == 'file':
+                    self.__log('it is a file')
                     doc = open(f['path'], 'rb')
                     for u in act.user:
                         self.__log('sending document to' + str(u))

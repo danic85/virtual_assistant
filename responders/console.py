@@ -5,6 +5,8 @@ import threading
 class Console(object):
     def __init__(self, **kwargs):
         self.config = kwargs.get('config', None)
+        self.files = kwargs.get('files', None)
+        self.logging = kwargs.get('logging', None)
         self.callback = None
 
     @staticmethod
