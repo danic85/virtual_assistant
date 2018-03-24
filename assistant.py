@@ -160,7 +160,7 @@ class Assistant(object):
 
         # Handle response(s)
         if len(act.response) > 0:
-            if act.msg and 'voice' in act.msg:
+            if act.msg and 'voice' in act.msg and False:  # disable TTS for now
                 # Respond with voice if audio input received
                 responses = act.get_response_str()
                 for r in responses:

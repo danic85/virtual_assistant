@@ -50,7 +50,6 @@ This behaviour is the last to be executed meaning that an un-matched command wil
 Required: RPI Camera
 - `Camera / Big Photo / What's going on / Night vision`: Take photo from Raspberry Pi camera and send to user via telegram.
 - `Video`: Record short video from Raspberry Pi camera and send to user via telegram.
-- `Timelapse`: Take a photo every 5 minutes. Stop with `Stop Timelapse`
 ### Security (not currently working on python 3)
 Required: RPI Camera, HC-SR501 PIR Motion Sensor
 Connect `Pin 4` to HC-SR501 PIR Motion Sensor (see http://www.rototron.info/using-a-motion-detector-on-raspberry-pi/ for guide).
