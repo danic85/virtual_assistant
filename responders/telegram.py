@@ -6,6 +6,7 @@ import os
 # from gtts import gTTS
 import urllib
 import speech_recognition as sr
+import _thread
 
 class Telegram(telepot.Bot):
     def __init__(self, **kwargs):
@@ -67,7 +68,7 @@ class Telegram(telepot.Bot):
             return str(ex)
 
         self.logging.info('Removing File')
-        os.remove(wavpath)
+        _thread.start_new_thread(os.remove, (wavpath,))
 
         command = ''
 
