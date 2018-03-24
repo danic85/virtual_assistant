@@ -48,8 +48,9 @@ This behaviour is the last to be executed meaning that an un-matched command wil
 - `News sources`: Get list of news sources for configuration
 ### Camera
 Required: RPI Camera
-- `Camera`: Take photo from Raspberry Pi camera and send to user via telegram.
+- `Camera / Big Photo / What's going on / Night vision`: Take photo from Raspberry Pi camera and send to user via telegram.
 - `Video`: Record short video from Raspberry Pi camera and send to user via telegram.
+- `Timelapse`: Take a photo every 5 minutes. Stop with `Stop Timelapse`
 ### Security
 Required: RPI Camera, HC-SR501 PIR Motion Sensor
 Connect `Pin 4` to HC-SR501 PIR Motion Sensor (see http://www.rototron.info/using-a-motion-detector-on-raspberry-pi/ for guide).

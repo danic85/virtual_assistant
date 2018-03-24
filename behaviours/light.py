@@ -19,6 +19,7 @@ class Light(Behaviour):
         '^blue light$': 'blue',
         '^purple light$': 'purple',
         '^cyan light$': 'cyan',
+        '^yellow light$': 'yellow',
     }
 
     LED_RED = 17
