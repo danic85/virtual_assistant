@@ -29,8 +29,9 @@ class Picamera(Behaviour):
     mp4 = None
 
     routes = {
-        '^camera$': 'open_and_take_photo',
-        '^thumbnail$': 'open_and_take_photo_small',
+        '^camera$': 'open_and_take_photo_small',
+        "what's going on": 'open_and_take_photo_small',
+        '^big photo': 'open_and_take_photo',
         '^night vision$': 'take_night_photo',
         '^open camera$': 'open_camera',
         '^close camera$': 'close_camera',

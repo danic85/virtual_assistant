@@ -112,7 +112,8 @@ The virtual assistant is able to run tasks in the background at pre-defined time
 11. ./configure
 12. make
 13. sudo make install
-14. src/programs/pocketsphinx_continuous -samprate 48000
+14. sudo apt-get install -qq python python-dev python-pip build-essential swig libpulse-dev
+15. sudo pip install pocketsphinx
 
 ## Add Configuration Keys
 Enter the command `set config <key>=<value>` for the following keys:
