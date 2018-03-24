@@ -124,7 +124,10 @@ class Assistant(object):
 
     def idle(self):
         """ Call idle method for each behaviour """
-        self.__interact(Interaction(user=self.config.get('Users').split(','), config=self.config, method='idle'))
+        self.__interact(Interaction(user=self.config.get('Users').split(','),
+                                    config=self.config,
+                                    method='idle',
+                                    logging=logging))
 
     def __interact(self, act):
         """ Send interaction to behaviours, in order of execution.
