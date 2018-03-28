@@ -55,11 +55,12 @@ class Picamera(Behaviour):
 
     def open_camera(self, width, height):
         try:
+            GPIO.output(self.LED_IR, GPIO.HIGH)
+            sleep(1)
             self.camera = picamera.PiCamera(resolution=(width, height))
+            sleep(1)
             # camera.hflip = True
             # camera.vflip = True
-            # sleep(2)
-            GPIO.output(self.LED_IR, GPIO.HIGH)
         except Exception as e:
             self.logging.error(str(e))
             return 'Could not open camera'
@@ -106,7 +107,7 @@ class Picamera(Behaviour):
         self.logging.info('Taking Photo...')
         try:
             response = self.camera.capture(self.jpg)
-            sleep(2)
+            # sleep(2)
             pass
         except Exception as e:
             self.logging.error(str(e))
