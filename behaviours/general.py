@@ -87,6 +87,7 @@ class General(Behaviour):
     def get_log(self):
         """ Send log file to user """
         self.act.respond_file(self.files + '/assistant_debug.log')
+        self.act.respond_file(self.files + '/logfile.log')
         return ''
 
     def rotate_log(self):
