@@ -13,6 +13,10 @@ import re
 
 class Translator(Behaviour):
 
+    """
+        Unfortunately this doesn't work because the API provider is no longer active.
+    """
+
     routes = {
         '^translate (.*) (to|from) (\w*)$': 'translate'
     }

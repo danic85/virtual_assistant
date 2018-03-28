@@ -78,7 +78,7 @@ class Picamera(Behaviour):
         return None
 
     def timelapse(self):
-        """ This doesn't work at the moment. It will take one photo and then quietly crash the script. """
+        """ This doesn't work at the moment. It will take one photo and then quietly crash the assistant. """
         self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
         return 'Timelapse started'
 
@@ -106,6 +106,7 @@ class Picamera(Behaviour):
         self.logging.info('Taking Photo...')
         try:
             response = self.camera.capture(self.jpg)
+            sleep(2)
             pass
         except Exception as e:
             self.logging.error(str(e))

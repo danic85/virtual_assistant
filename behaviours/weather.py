@@ -26,7 +26,7 @@ class Weather(Behaviour):
         owm = pyowm.OWM(self.config.get('OpenWeatherMapKey'))
 
         try:
-            observation = owm.weather_at_id(2642182)
+            observation = owm.weather_at_id(2655315)
             w = observation.get_weather()
             l = observation.get_location()
             return ('Weather in ' + l.get_name() + ': ' + w.get_detailed_status() + '. ' + format(

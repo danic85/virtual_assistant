@@ -13,11 +13,16 @@ except ImportError as e:
 
 
 class Pisecurity(Behaviour):
+    """ Since the refactor this really doesn't work at all.
+        I will rebuild to work with a RCWL-0516 Microwave Radar Sensor
+        and will include a more dynamic response to motion triggers,
+        rather than just 'send a photo'.
+    """
 
     routes = {
-        '^security on$': 'on',
-        '^security off$': 'off',
-        '^test security$': 'test'
+        # '^security on$': 'on',
+        # '^security off$': 'off',
+        # '^test security$': 'test'
     }
 
     PIR_PIN = 18
