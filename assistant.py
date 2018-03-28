@@ -229,7 +229,7 @@ class Assistant(object):
                     for u in act.user:
                         self.__log('sending video to' + str(u))
                         self.responder.sendVideo(u, video)
-                    os.remove(video)
+                    os.remove(f['path'])
                 if f['file'] == 'file':
                     self.__log('it is a file')
                     doc = open(f['path'], 'rb')
