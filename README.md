@@ -116,7 +116,7 @@ To execute a command, run `python3 main.py` and then enter the command at the pr
 1. Execute `python3 main.py startx`
 
 ### Start on Boot
-1. Add `(sleep 10; python3 /home/pi/virtual_assistant/main.py startx) &` to `/etc/rc.local` replacing path if appropriate.
+1. Add `(sleep 10; python3 /home/pi/virtual_assistant/main.py startx)  >> /home/pi/virtual_assistant/files/assistant_debug.log 2>&1 &` to `/etc/rc.local` replacing path if appropriate.
 
 ## Unit testing
 Execute `python3 -m unittest discover` in the project directory to run all unit tests
