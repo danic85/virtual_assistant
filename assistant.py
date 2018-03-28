@@ -205,37 +205,43 @@ class Assistant(object):
 
         # @todo modify to handle user in response object
         files = act.get_response_files()
-        if len(files) > 0:
-            self.__log('found file in response')
-            for f in files:
-                if f['file'] == 'photo':
-                    self.__log('it is a photo')
-                    if 'http' in f['path']:
-                        path = self.files + "/temp.jpg"
-                        urllib.request.urlretrieve(f['path'], path)
-                        f['path'] = path
+        try:
+            if len(files) > 0:
+                self.__log('found file in response')
+                for f in files:
+                    if f['file'] == 'photo':
+                        self.__log('it is a photo')
+                        if 'http' in f['path']:
+                            path = self.files + "/temp.jpg"
+                            urllib.request.urlretrieve(f['path'], path)
+                            f['path'] = path
 
-                    photo = open(f['path'], 'rb')
+                        photo = open(f['path'], 'rb')
 
-                    for u in act.user:
-                        self.__log('sending photo to' + str(u))
-                        self.responder.sendPhoto(u, photo, f['caption'])
+                        for u in act.user:
+                            self.__log('sending photo to' + str(u))
+                            self.responder.sendPhoto(u, photo, f['caption'])
 
-                    os.remove(f['path'])
+                        os.remove(f['path'])
 
-                if f['file'] == 'video':
-                    self.__log('it is a video')
-                    video = open(f['path'], 'rb')
-                    for u in act.user:
-                        self.__log('sending video to' + str(u))
-                        self.responder.sendVideo(u, video)
-                    os.remove(f['path'])
-                if f['file'] == 'file':
-                    self.__log('it is a file')
-                    doc = open(f['path'], 'rb')
-                    for u in act.user:
-                        self.__log('sending document to' + str(u))
-                        self.responder.sendDocument(u, doc)
+                    if f['file'] == 'video':
+                        self.__log('it is a video')
+                        video = open(f['path'], 'rb')
+                        for u in act.user:
+                            self.__log('sending video to' + str(u))
+                            self.responder.sendVideo(u, video)
+                        os.remove(f['path'])
+                    if f['file'] == 'file':
+                        self.__log('it is a file')
+                        doc = open(f['path'], 'rb')
+                        for u in act.user:
+                            self.__log('sending document to' + str(u))
+                            self.responder.sendDocument(u, doc)
+        except Exception as e:
+            self.__log('There was a problem with a file: ' + str(e))
+            if r['user']:
+                for u in r['user']:
+                    self.responder.sendMessage(u, 'There was a problem with a file: ' + str(e), None, True)
 
     @staticmethod
     def __log(text):
