@@ -7,6 +7,8 @@ from behaviours.behaviour import Behaviour
 from time import sleep
 from fractions import Fraction
 import atexit
+from lib import pydrive
+import datetime
 
 try:
     import RPi.GPIO as GPIO
@@ -37,7 +39,8 @@ class Picamera(Behaviour):
         '^close camera$': 'close_camera',
         '^video$': 'open_and_take_video',
         '^timelapse': 'timelapse',
-        '^stop timelapse$': 'stop_timelapse'
+        '^stop timelapse$': 'stop_timelapse',
+        'pydrive': 'take_photo_pydrive'
     }
 
     def __init__(self, **kwargs):
@@ -80,13 +83,35 @@ class Picamera(Behaviour):
 
     def timelapse(self):
         """ This doesn't work at the moment. It will take one photo and then quietly crash the assistant. """
-        self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
+        self.define_idle(self.take_photo_pydrive, 0)  # take a photo every 5 minutes
         return 'Timelapse started'
 
     def stop_timelapse(self):
-        if self.remove_idle(self.open_and_take_photo):
+        if self.remove_idle(self.take_photo_pydrive):
             return 'Timelapse stopped'
         return 'No timelapse to stop'
+
+    def take_photo_pydrive(self):
+        response = self.open_and_take_photo()
+        drive = pydrive.authenticate()
+
+        pi_files_dir = pydrive.getFolderId(drive, 'root', 'Pi Files')
+        if pi_files_dir is None:
+            pi_files_dir = pydrive.createFolder(drive, 'root', 'Pi Files')
+
+        photos_dir = pydrive.getFolderId(drive, pi_files_dir, 'Photos')
+        if photos_dir is None:
+            photos_dir = pydrive.createFolder(drive, pi_files_dir, 'Photos')
+
+        if photos_dir:
+            file1 = drive.CreateFile(
+                {"parents": [{"kind": "drive#fileLink", "id": photos_dir}],
+                 'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
+                 })
+            file1.SetContentFile(self.jpg)
+            file1.Upload()
+
+        return response
 
     def open_and_take_photo(self):
         """ Open camera if mounted to servo and take photo, then return to default position """
