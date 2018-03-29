@@ -6,9 +6,9 @@ import datetime
 
 
 def authenticate():
-    gauth = GoogleAuth()
+    gauth = GoogleAuth(settings_file='../files/client_secrets.json')
     # Try to load saved client credentials
-    gauth.LoadCredentialsFile("mycreds.txt")
+    gauth.LoadCredentialsFile("../files/mycreds.txt")
     if gauth.credentials is None:
         # Authenticate if they're not there
         gauth.LocalWebserverAuth()
@@ -19,7 +19,7 @@ def authenticate():
         # Initialize the saved creds
         gauth.Authorize()
     # Save the current credentials to a file
-    gauth.SaveCredentialsFile("mycreds.txt")
+    gauth.SaveCredentialsFile("../files/mycreds.txt")
 
     return GoogleDrive(gauth)
 
