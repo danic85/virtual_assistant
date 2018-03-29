@@ -6,7 +6,8 @@ import datetime
 
 
 def authenticate():
-    gauth = GoogleAuth(settings_file='../files/client_secrets.json')
+    gauth = GoogleAuth()
+    gauth.LoadClientConfigFile('../files/client_secrets.json')
     # Try to load saved client credentials
     gauth.LoadCredentialsFile("../files/mycreds.txt")
     if gauth.credentials is None:
