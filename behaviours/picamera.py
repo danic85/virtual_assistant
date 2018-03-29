@@ -83,11 +83,11 @@ class Picamera(Behaviour):
 
     def timelapse(self):
         """ This doesn't work at the moment. It will take one photo and then quietly crash the assistant. """
-        self.define_idle(self.take_photo_pydrive, 0)  # take a photo every 5 minutes
+        self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
         return 'Timelapse started'
 
     def stop_timelapse(self):
-        if self.remove_idle(self.take_photo_pydrive):
+        if self.remove_idle(self.open_and_take_photo):
             return 'Timelapse stopped'
         return 'No timelapse to stop'
 
