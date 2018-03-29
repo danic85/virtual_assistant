@@ -92,7 +92,9 @@ class Picamera(Behaviour):
         return 'No timelapse to stop'
 
     def take_photo_pydrive(self):
-        response = self.open_and_take_photo()
+        self.open_camera(1920, 1080)
+        response = self.take_photo()
+        self.close_camera()
         drive = pydrive.authenticate()
 
         pi_files_dir = pydrive.getFolderId(drive, 'root', 'Pi Files')
@@ -117,6 +119,8 @@ class Picamera(Behaviour):
         """ Open camera if mounted to servo and take photo, then return to default position """
         self.open_camera(1920, 1080)
         response = self.take_photo()
+        if response is None:
+            self.act.respond_photo(self.jpg)
         self.close_camera()
         return response
 
@@ -124,6 +128,8 @@ class Picamera(Behaviour):
         """ Open camera if mounted to servo and take photo, then return to default position """
         self.open_camera(640, 480)
         response = self.take_photo()
+        if response is None:
+            self.act.respond_photo(self.jpg)
         self.close_camera()
         return response
 
@@ -141,7 +147,6 @@ class Picamera(Behaviour):
         if response:
             self.logging.info('Returning response.')
             return response
-        self.act.respond_photo(self.jpg)
 
         self.logging.info('Exiting take_photo')
         return None
