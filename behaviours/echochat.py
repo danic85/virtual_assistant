@@ -23,7 +23,7 @@ class Echochat(Behaviour):
 
         # routes set here due to use OrderedDict
         self.routes['train echochat'] = 'train'
-        self.routes['(.*)'] = 'chat'
+        # self.routes['(.*)'] = 'chat'
 
         self.define_idle(self.train, randint(2, 36))  # @todo This doesn't seem to be working
 

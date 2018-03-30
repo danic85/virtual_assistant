@@ -38,8 +38,8 @@ class Picamera(Behaviour):
         '^open camera$': 'open_camera',
         '^close camera$': 'close_camera',
         '^video$': 'open_and_take_video',
-        '^timelapse': 'timelapse',
         '^timelapse to drive': 'timelapse_to_drive',
+        '^timelapse$': 'timelapse',
         '^stop timelapse$': 'stop_timelapse',
         'pydrive': 'take_photo_pydrive'
     }
@@ -90,10 +90,10 @@ class Picamera(Behaviour):
     def timelapse_to_drive(self):
         """ Take photo and send to google drive every 5 minutes. """
         self.define_idle(self.take_photo_pydrive, 0)  # take a photo every 5 minutes
-        return 'Timelapse started'
+        return 'Timelapse to drive started'
 
     def stop_timelapse(self):
-        if self.remove_idle(self.open_and_take_photo):
+        if self.remove_idle(self.open_and_take_photo) or self.remove_idle(self.take_photo_pydrive):
             return 'Timelapse stopped'
         return 'No timelapse to stop'
 
