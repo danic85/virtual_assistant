@@ -39,6 +39,7 @@ class Picamera(Behaviour):
         '^close camera$': 'close_camera',
         '^video$': 'open_and_take_video',
         '^timelapse': 'timelapse',
+        '^timelapse to drive': 'timelapse_to_drive',
         '^stop timelapse$': 'stop_timelapse',
         'pydrive': 'take_photo_pydrive'
     }
@@ -82,8 +83,13 @@ class Picamera(Behaviour):
         return None
 
     def timelapse(self):
-        """ This doesn't work at the moment. It will take one photo and then quietly crash the assistant. """
+        """ Take photo and send to admin every 5 minutes. """
         self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
+        return 'Timelapse started'
+
+    def timelapse_to_drive(self):
+        """ Take photo and send to google drive every 5 minutes. """
+        self.define_idle(self.take_photo_pydrive, 0)  # take a photo every 5 minutes
         return 'Timelapse started'
 
     def stop_timelapse(self):
@@ -95,23 +101,27 @@ class Picamera(Behaviour):
         self.open_camera(1920, 1080)
         response = self.take_photo()
         self.close_camera()
-        drive = pydrive.authenticate()
 
-        pi_files_dir = pydrive.getFolderId(drive, 'root', 'Pi Files')
-        if pi_files_dir is None:
-            pi_files_dir = pydrive.createFolder(drive, 'root', 'Pi Files')
+        try:
+            drive = pydrive.authenticate()
 
-        photos_dir = pydrive.getFolderId(drive, pi_files_dir, 'Photos')
-        if photos_dir is None:
-            photos_dir = pydrive.createFolder(drive, pi_files_dir, 'Photos')
+            pi_files_dir = pydrive.getFolderId(drive, 'root', 'Pi Files')
+            if pi_files_dir is None:
+                pi_files_dir = pydrive.createFolder(drive, 'root', 'Pi Files')
 
-        if photos_dir:
-            file1 = drive.CreateFile(
-                {"parents": [{"kind": "drive#fileLink", "id": photos_dir}],
-                 'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
-                 })
-            file1.SetContentFile(self.jpg)
-            file1.Upload()
+            photos_dir = pydrive.getFolderId(drive, pi_files_dir, 'Photos')
+            if photos_dir is None:
+                photos_dir = pydrive.createFolder(drive, pi_files_dir, 'Photos')
+
+            if photos_dir:
+                file1 = drive.CreateFile(
+                    {"parents": [{"kind": "drive#fileLink", "id": photos_dir}],
+                     'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
+                     })
+                file1.SetContentFile(self.jpg)
+                file1.Upload()
+        except Exception as e:
+            return e
 
         return response
 

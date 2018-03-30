@@ -7,8 +7,8 @@ import datetime
 
 def authenticate():
     gauth = GoogleAuth()
-    scope = ['https://www.googleapis.com/auth/drive']
-    gauth.credentials = ServiceAccountCredentials.from_json_keyfile_name('pydrive-acct.json', scope)
+    # scope = ['https://www.googleapis.com/auth/drive']
+    # gauth.credentials = ServiceAccountCredentials.from_json_keyfile_name('pydrive-acct.json', scope)
     # gauth.LoadClientConfigFile('../files/client_secrets.json')
     # Try to load saved client credentials
     gauth.LoadCredentialsFile("mycreds.txt")
