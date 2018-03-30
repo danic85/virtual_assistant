@@ -1,12 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-from pydrive.auth import GoogleAuth
+from pydrive.auth import GoogleAuth, ServiceAccountCredentials
 from pydrive.drive import GoogleDrive
 import datetime
 
 
 def authenticate():
     gauth = GoogleAuth()
+    scope = ['https://www.googleapis.com/auth/drive']
+    gauth.credentials = ServiceAccountCredentials.from_json_keyfile_name('pydrive-acct.json', scope)
     # gauth.LoadClientConfigFile('../files/client_secrets.json')
     # Try to load saved client credentials
     gauth.LoadCredentialsFile("mycreds.txt")
