@@ -113,9 +113,14 @@ class Picamera(Behaviour):
             if photos_dir is None:
                 photos_dir = pydrive.createFolder(drive, pi_files_dir, 'Photos')
 
-            if photos_dir:
+            today = datetime.datetime.now().strftime('%Y-%m-%d')
+            today_dir = pydrive.getFolderId(drive, photos_dir, today)
+            if today_dir is None:
+                today_dir = pydrive.createFolder(drive, photos_dir, today)
+
+            if today_dir:
                 file1 = drive.CreateFile(
-                    {"parents": [{"kind": "drive#fileLink", "id": photos_dir}],
+                    {"parents": [{"kind": "drive#fileLink", "id": today_dir}],
                      'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
                      })
                 file1.SetContentFile(self.jpg)
