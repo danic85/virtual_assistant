@@ -121,7 +121,7 @@ class Picamera(Behaviour):
             if today_dir:
                 file1 = drive.CreateFile(
                     {"parents": [{"kind": "drive#fileLink", "id": today_dir}],
-                     'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
+                     'title': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                      })
                 file1.SetContentFile(self.jpg)
                 file1.Upload()
