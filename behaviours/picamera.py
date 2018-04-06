@@ -9,6 +9,7 @@ from fractions import Fraction
 import atexit
 from lib import pydrive
 import datetime
+from shutil import copyfile
 
 try:
     import RPi.GPIO as GPIO
@@ -38,10 +39,8 @@ class Picamera(Behaviour):
         '^open camera$': 'open_camera',
         '^close camera$': 'close_camera',
         '^video$': 'open_and_take_video',
-        '^timelapse to drive': 'timelapse_to_drive',
-        '^timelapse$': 'timelapse',
-        '^stop timelapse$': 'stop_timelapse',
-        'pydrive': 'take_photo_pydrive'
+        '^(timelapse|time-lapse)$': 'timelapse',
+        '^stop (timelapse|time-lapse)$': 'stop_timelapse'
     }
 
     def __init__(self, **kwargs):
@@ -81,54 +80,6 @@ class Picamera(Behaviour):
             self.logging.error(str(e))
             return 'Could not close camera'
         return None
-
-    def timelapse(self):
-        """ Take photo and send to admin every 5 minutes. """
-        self.define_idle(self.open_and_take_photo, 0)  # take a photo every 5 minutes
-        return 'Timelapse started'
-
-    def timelapse_to_drive(self):
-        """ Take photo and send to google drive every 5 minutes. """
-        self.define_idle(self.take_photo_pydrive, 0)  # take a photo every 5 minutes
-        return 'Timelapse to drive started'
-
-    def stop_timelapse(self):
-        if self.remove_idle(self.open_and_take_photo) or self.remove_idle(self.take_photo_pydrive):
-            return 'Timelapse stopped'
-        return 'No timelapse to stop'
-
-    def take_photo_pydrive(self):
-        self.open_camera(1920, 1080)
-        response = self.take_photo()
-        self.close_camera()
-
-        try:
-            drive = pydrive.authenticate()
-
-            pi_files_dir = pydrive.getFolderId(drive, 'root', 'Pi Files')
-            if pi_files_dir is None:
-                pi_files_dir = pydrive.createFolder(drive, 'root', 'Pi Files')
-
-            photos_dir = pydrive.getFolderId(drive, pi_files_dir, 'Photos')
-            if photos_dir is None:
-                photos_dir = pydrive.createFolder(drive, pi_files_dir, 'Photos')
-
-            today = datetime.datetime.now().strftime('%Y-%m-%d')
-            today_dir = pydrive.getFolderId(drive, photos_dir, today)
-            if today_dir is None:
-                today_dir = pydrive.createFolder(drive, photos_dir, today)
-
-            if today_dir:
-                file1 = drive.CreateFile(
-                    {"parents": [{"kind": "drive#fileLink", "id": today_dir}],
-                     'title': datetime.datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')
-                     })
-                file1.SetContentFile(self.jpg)
-                file1.Upload()
-        except Exception as e:
-            return e
-
-        return response
 
     def open_and_take_photo(self):
         """ Open camera if mounted to servo and take photo, then return to default position """
@@ -228,3 +179,58 @@ class Picamera(Behaviour):
         os.remove(self.h264)
         self.act.respond_video(self.mp4)
         return None
+
+    def timelapse(self):
+        """ Take photo and send to google drive every 5 minutes.
+            This will work for a month before the local images have duplicate file names.
+            - I imagine the SD card will run out of space before that!
+        """
+        if self.check_idle(self.take_timelapse_photo):
+            return 'A time-lapse is already running'
+        self.define_idle(self.take_timelapse_photo, 0)  # take a photo every 5 minutes
+        return 'Time-lapse to drive started'
+
+    def stop_timelapse(self):
+        if self.remove_idle(self.take_timelapse_photo):
+            self.create_timelapse_video()
+            return 'Time-lapse stopped'
+        return 'No time-lapse to stop'
+
+    def take_timelapse_photo(self):
+        self.open_camera(1920, 1080)
+        response = self.take_photo()
+        self.close_camera()
+        self.upload_to_pydrive(
+            'Pi Files/Photos/' + datetime.datetime.now().strftime('%Y-%m-%d'),
+            datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        self.save_to_timelapse()
+        return response
+
+    def create_timelapse_video(self):
+        """ Create timelapse video from saved photos """
+        timelapse_dir = self.files + '/timelapse'
+        if os.path.exists(timelapse_dir):
+            os.system(
+                'avconv -framerate 20 -i ' + timelapse_dir + '/image%08d.jpg -vf format=yuv420p ' + self.files + '/timelapse.mp4')
+            self.act.respond_video(self.mp4)
+            os.remove(timelapse_dir)
+
+    def save_to_timelapse(self):
+        """ Save to local directory for duration of timelapse, will create video on stop """
+        timelapse_dir = self.files + '/timelapse'
+        try:
+            if not os.path.exists(timelapse_dir):
+                os.makedirs(timelapse_dir)
+            copyfile(self.jpg, timelapse_dir+'/image'+datetime.datetime.now().strftime('%d%H%M%S')+'.jpg')
+        except Exception as e:
+            return e
+
+    def upload_to_pydrive(self, location, name):
+        """ Upload image to google drive """
+        try:
+            drive = pydrive.authenticate()
+            today_dir = pydrive.get_or_create_folder(drive, location)
+            if today_dir:
+                pydrive.upload_jpg(drive, today_dir, name, self.jpg)
+        except Exception as e:
+            return e

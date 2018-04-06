@@ -27,20 +27,40 @@ def authenticate():
     return GoogleDrive(gauth)
 
 
-def getFolderId(drive, parent, folderName):
+def get_folder_id(drive, parent, folder_name):
     file_list = drive.ListFile({'q': "'%s' in parents and trashed=false" % parent}).GetList()
     for f in file_list:
-        if f['mimeType'] == 'application/vnd.google-apps.folder' and f['title'] == folderName:  # if folder
+        if f['mimeType'] == 'application/vnd.google-apps.folder' and f['title'] == folder_name:  # if folder
             return f['id']
     return None
 
 
-def createFolder(drive, parent, folderName):
-    folder_metadata = {"parents": [{"kind": "drive#fileLink", "id": parent}], 'title': folderName, 'mimeType': 'application/vnd.google-apps.folder'}
+def create_folder(drive, parent, folder_name):
+    folder_metadata = {"parents": [{"kind": "drive#fileLink", "id": parent}], 'title': folder_name, 'mimeType': 'application/vnd.google-apps.folder'}
     folder = drive.CreateFile(folder_metadata)
     folder.Upload()
     print('created folder ' + str(folder['id']))
     return folder['id']
 
+
+def get_or_create_folder(drive, folder_structure):
+    folders = folder_structure.split('/')
+    parent = 'root'
+    for folder in folders:
+        folder_id = get_folder_id(drive, parent, folder)
+        if folder_id is None:
+            folder_id = create_folder(drive, parent, folder)
+        parent = folder_id
+
+    return parent
+
+
+def upload_jpg(drive, parent, title, file):
+    file1 = drive.CreateFile(
+        {"parents": [{"kind": "drive#fileLink", "id": parent}],
+         'title': title
+         })
+    file1.SetContentFile(file)
+    file1.Upload()
 
 

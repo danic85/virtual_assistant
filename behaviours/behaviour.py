@@ -75,6 +75,12 @@ class Behaviour(object):
              'next': first
             })
 
+    def check_idle(self, method):
+        for m in self.idle_methods:
+            if method == m['method']:
+                return True
+        return False
+
     def remove_idle(self, method):
         for m in self.idle_methods:
             if method == m['method']:
