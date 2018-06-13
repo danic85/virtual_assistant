@@ -5,7 +5,7 @@ from behaviours.behaviour import Behaviour
 import speedtest
 
 
-class InternetSpeedTest(Behaviour):
+class Broadband(Behaviour):
 
     routes = {
         'speed test': 'run_test'
