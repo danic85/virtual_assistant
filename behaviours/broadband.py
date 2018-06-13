@@ -42,7 +42,7 @@ class Broadband(Behaviour):
 
     def low_speed_check(self):
         results = self.run_test()
-        if float(self.bites_to_mbites(results.upload)) < 5 or float(self.bites_to_mbites(results.download)) < 5:
+        if float(self.bites_to_mbites(results.upload)) < 1 or float(self.bites_to_mbites(results.download)) < 1:
             return 'Low broadband speed detected: Upload = ' + \
                self.bites_to_mbites(results.upload) + \
                'Mb/s. Download = ' + self.bites_to_mbites(results.download) + \
