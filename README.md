@@ -77,6 +77,8 @@ Connect `Pin 17`  to LED to indicate motion (when security on).
 ### Zoopla Property Search
 - `Properties`: Specific property search via Zoopla. This is an example class that can be modified
 - `New Properties`: Only notify the user of new properties that match the search
+### Internet Speed Test
+- `Speed Test`: Return speed test results
 
 ## Idle Behaviour
 The virtual assistant is able to run tasks in the background at pre-defined times. Currently the following tasks will be executed:

@@ -19,3 +19,4 @@ inflect
 dateparser
 pillow
 PyDrive
+speedtest-cli
