@@ -120,7 +120,10 @@ class Assistant(object):
                           config=self.config,
                           msg=msg, logging=logging)
 
-        _thread.start_new_thread(self.__interact, (act, ))
+        if "unittest" in sys.modules:
+            self.__interact(act)
+        else:
+            _thread.start_new_thread(self.__interact, (act, ))
 
     def idle(self):
         """ Call idle method for each behaviour """
