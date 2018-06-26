@@ -120,7 +120,7 @@ class Assistant(object):
                           config=self.config,
                           msg=msg, logging=logging)
 
-        if "unittest" in sys.modules:
+        if 'unittest' in sys.argv[0]:
             self.__interact(act)
         else:
             _thread.start_new_thread(self.__interact, (act, ))
