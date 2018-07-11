@@ -31,18 +31,18 @@ class Zoopla(Behaviour):
         api_key = self.config.get('ZooplaAPI')
 
         args = [
-            'latitude=' + '55.168039',  # 55.351874
-            'longitude=' + '-1.689599',  #-2.2579164
+            'latitude=' + '55.051059',  # 55.351874
+            'longitude=' + '-1.745536',  #-2.2579164
             'api_key=' + api_key,
             'minimum_beds=' + '2',
             'property_type=' + 'houses',
-            'radius=' + '30',
-            'maximum_price=' + '250000',
+            'radius=' + '1',
+            'maximum_price=' + '280000',
             'page_size=' + '100',
             'order_by=' + 'age',
             'ordering=' + 'ascending',
             'listing_status=' + 'sale',
-            'keywords=' + 'large plot, parking'
+            'keywords=' + 'garden'
         ]
 
         json_str = self.__request(args)
