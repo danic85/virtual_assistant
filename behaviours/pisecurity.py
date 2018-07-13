@@ -94,7 +94,7 @@ class Pisecurity(Behaviour):
                 else:
                     self.logging.error('Assistant not set')
                     
-     def __detect_motion_salesforce(self, PIR_PIN):
+    def __detect_motion_salesforce(self, PIR_PIN):
         if GPIO.input(self.PIR_PIN):  # True = Rising
             sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
                             password=self.assistant.config.get_or_request('SFPassword'), 
