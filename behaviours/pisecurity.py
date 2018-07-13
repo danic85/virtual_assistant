@@ -4,6 +4,7 @@
 import nmap
 from functools import partial
 from time import sleep
+from simple_salesforce import Salesforce
 from behaviours.behaviour import Behaviour
 
 try:
@@ -16,7 +17,9 @@ class Pisecurity(Behaviour):
     routes = {
         '^security on$': 'on',
         '^security off$': 'off',
-        '^test security$': 'test'
+        '^test security$': 'test',
+        '^monitor room$': 'monitor_with_salesforce'
+        '^stop monitoring room$': 'stop_monitor_with_salesforce'
     }
 
     PIR_PIN = 23
@@ -31,6 +34,16 @@ class Pisecurity(Behaviour):
         self.assistant = kwargs.get('assistant', None)
         self.security = self.SECURITY_OFF
         self.security_override = False
+
+    def monitor_with_salesforce(self):
+        self.logging.info('Monitoring Room')
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__detect_motion_salesforce, bouncetime=300)
+        
+    def stop_monitor_with_salesforce(self):
+        self.logging.info('Stop Monitoring Room')
+        GPIO.remove_event_detect(self.PIR_PIN)
 
     def test(self):
         response = self.on()
@@ -80,3 +93,22 @@ class Pisecurity(Behaviour):
                     self.assistant.handle(msg)
                 else:
                     self.logging.error('Assistant not set')
+                    
+     def __detect_motion_salesforce(self, PIR_PIN):
+        if GPIO.input(self.PIR_PIN):  # True = Rising
+            sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
+                            password=self.assistant.config.get_or_request('SFPassword'), 
+                            security_token=self.assistant.config.get_or_request('SFToken'))
+            results = sf.query("SELECT Id FROM Room__c WHERE Name = 'Archie'");
+            room_id = None
+            items = list(results.items())
+            for key, value in items:
+                if key == 'records':
+                    for k, v in value[0].items():
+                        if k == 'Id':
+                            room_id = v
+                            break
+
+            if (room_id):
+                motion = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                sf.Room__c.update(room_id, {'Motion_Detected__c': motion})
