@@ -40,10 +40,12 @@ class Pisecurity(Behaviour):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__detect_motion_salesforce, bouncetime=300)
+        return 'Monitoring room on Salesforce'
         
     def stop_monitor_with_salesforce(self):
         self.logging.info('Stop Monitoring Room')
         GPIO.remove_event_detect(self.PIR_PIN)
+        return 'Stopped monitoring room on Salesforce'
 
     def test(self):
         response = self.on()
@@ -108,7 +110,9 @@ class Pisecurity(Behaviour):
                         if k == 'Id':
                             room_id = v
                             break
-
+            self.logging.info('RoomId: ' + room_id)
             if (room_id):
                 motion = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 sf.Room__c.update(room_id, {'Motion_Detected__c': motion})
+            else:
+                self.logging.error('Could not find room')
