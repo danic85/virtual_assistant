@@ -18,7 +18,7 @@ class Pisecurity(Behaviour):
         '^security on$': 'on',
         '^security off$': 'off',
         '^test security$': 'test',
-        '^monitor room$': 'monitor_with_salesforce'
+        '^monitor room$': 'monitor_with_salesforce',
         '^stop monitoring room$': 'stop_monitor_with_salesforce'
     }
 
