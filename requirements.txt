@@ -20,3 +20,4 @@ dateparser
 pillow
 PyDrive
 speedtest-cli
+simple_salesforce
