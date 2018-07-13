@@ -13,16 +13,10 @@ except ImportError as e:
 
 
 class Pisecurity(Behaviour):
-    """ Since the refactor this really doesn't work at all.
-        I will rebuild to work with a RCWL-0516 Microwave Radar Sensor
-        and will include a more dynamic response to motion triggers,
-        rather than just 'send a photo'.
-    """
-
     routes = {
-        # '^security on$': 'on',
-        # '^security off$': 'off',
-        # '^test security$': 'test'
+        '^security on$': 'on',
+        '^security off$': 'off',
+        '^test security$': 'test'
     }
 
     PIR_PIN = 23
@@ -58,7 +52,6 @@ class Pisecurity(Behaviour):
                 GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
                 GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__motion_sensor, bouncetime=300)
                 self.security = self.SECURITY_ON
-                self.act.chain_command('open camera')
                 return 'Security Enabled'
             except NameError as e:
                 return 'Could not start security: ' + str(e)
@@ -70,7 +63,6 @@ class Pisecurity(Behaviour):
                 self.logging.info('Stopping PIR')
                 GPIO.remove_event_detect(self.PIR_PIN)
                 self.security = self.SECURITY_OFF
-                self.act.chain_command('close camera')
                 return 'Security Disabled'
             except NameError as e:
                 return 'Could not stop security: ' + str(e)
@@ -84,7 +76,7 @@ class Pisecurity(Behaviour):
             if self.security == self.SECURITY_ON:
                 self.logging.info('Taking Security Picture')
                 if self.assistant is not None:
-                    msg = {"chat": {"id": self.assistant.config.get_or_request('Admin')}, "text": 'photo'}
-                    self.assistant.handle(msg)  # chain command doesn't work inside a callback
+                    msg = {"chat": {"id": self.assistant.config.get_or_request('Admin')}, "text": 'camera'}
+                    self.assistant.handle(msg)
                 else:
                     self.logging.error('Assistant not set')
