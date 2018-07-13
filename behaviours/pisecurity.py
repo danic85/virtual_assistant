@@ -3,7 +3,7 @@
 
 import nmap
 from functools import partial
-from time import sleep
+import time
 from simple_salesforce import Salesforce
 from behaviours.behaviour import Behaviour
 
@@ -53,7 +53,7 @@ class Pisecurity(Behaviour):
             self.security = self.SECURITY_TEST
             # test LED output
             GPIO.output(self.PIR_LED_PIN, GPIO.HIGH)
-            sleep(2)
+            time.sleep(2)
             GPIO.output(self.PIR_LED_PIN, GPIO.LOW)
 
         return response + ' (Test)'
