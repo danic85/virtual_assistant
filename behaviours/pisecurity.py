@@ -111,7 +111,7 @@ class Pisecurity(Behaviour):
                             room_id = v
                             break
             self.logging.info('RoomId: ' + room_id)
-            if (room_id):
+            if room_id:
                 motion = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 self.logging.info(sf.Room__c.update(room_id, {'Motion_Detected__c': motion}))
                 self.logging.info('Updated Motion_Detected__c to ' + motion)
