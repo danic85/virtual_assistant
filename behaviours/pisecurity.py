@@ -37,7 +37,7 @@ class Pisecurity(Behaviour):
         GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
         GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__motion_detected, bouncetime=300)
-        self.__setup_salesforce()
+
         self.security = self.SECURITY_OFF
         self.monitoring = self.SECURITY_OFF
         
@@ -49,7 +49,7 @@ class Pisecurity(Behaviour):
             self.room = 'Living Room'
         else:
             self.room = self.room.title()
-        
+        self.__setup_salesforce()
         return 'Monitoring the ' + self.room + ' on Salesforce'
         
     def stop_monitor_with_salesforce(self):
