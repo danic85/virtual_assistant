@@ -32,20 +32,39 @@ class Pisecurity(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.assistant = kwargs.get('assistant', None)
-        self.security = self.SECURITY_OFF
-        self.security_override = False
-
-    def monitor_with_salesforce(self):
-        self.logging.info('Monitoring Room')
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__detect_motion_salesforce, bouncetime=300)
+        GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
+        GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__motion_detected, bouncetime=300)
+        self.__setup_salesforce()
+        self.security = self.SECURITY_OFF
+        self.monitoring = self.SECURITY_OFF
+        
+    def monitor_with_salesforce(self):
+        self.logging.info('Monitoring Room')
+        self.monitoring = self.SECURITY_ON
         return 'Monitoring room on Salesforce'
         
     def stop_monitor_with_salesforce(self):
         self.logging.info('Stop Monitoring Room')
-        GPIO.remove_event_detect(self.PIR_PIN)
+        self.monitoring = self.SECURITY_OFF
         return 'Stopped monitoring room on Salesforce'
+    
+    def __setup_salesforce(self):
+        self.sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
+                            password=self.assistant.config.get_or_request('SFPassword'), 
+                            security_token=self.assistant.config.get_or_request('SFToken'))
+        results = self.sf.query("SELECT Id FROM Room__c WHERE Name = 'Archie'");
+        room_id = None
+        items = list(results.items())
+        for key, value in items:
+            if key == 'records':
+                for k, v in value[0].items():
+                    if k == 'Id':
+                        room_id = v
+                        break
+        self.logging.info('RoomId: ' + room_id)
+        self.sf_room_id = room_id
 
     def test(self):
         response = self.on()
@@ -62,10 +81,6 @@ class Pisecurity(Behaviour):
         if self.security == self.SECURITY_OFF:
             try:
                 self.logging.info('Starting PIR')
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setup(self.PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                GPIO.setup(self.PIR_LED_PIN, GPIO.OUT)
-                GPIO.add_event_detect(self.PIR_PIN, GPIO.BOTH, self.__motion_sensor, bouncetime=300)
                 self.security = self.SECURITY_ON
                 return 'Security Enabled'
             except NameError as e:
@@ -76,7 +91,6 @@ class Pisecurity(Behaviour):
         if self.security != self.SECURITY_OFF:
             try:
                 self.logging.info('Stopping PIR')
-                GPIO.remove_event_detect(self.PIR_PIN)
                 self.security = self.SECURITY_OFF
                 return 'Security Disabled'
             except NameError as e:
@@ -84,10 +98,11 @@ class Pisecurity(Behaviour):
         return None
 
     # Callback function to run when motion detected
-    def __motion_sensor(self, PIR_PIN):
+    def __motion_detected(self, PIR_PIN):
         GPIO.output(self.PIR_LED_PIN, GPIO.LOW)
         if GPIO.input(self.PIR_PIN):  # True = Rising
-            GPIO.output(self.PIR_LED_PIN, GPIO.HIGH)
+            if (self.security != self.SECURITY_OFF):
+                GPIO.output(self.PIR_LED_PIN, GPIO.HIGH)
             if self.security == self.SECURITY_ON:
                 self.logging.info('Taking Security Picture')
                 if self.assistant is not None:
@@ -95,25 +110,6 @@ class Pisecurity(Behaviour):
                     self.assistant.handle(msg)
                 else:
                     self.logging.error('Assistant not set')
-                    
-    def __detect_motion_salesforce(self, PIR_PIN):
-        if GPIO.input(self.PIR_PIN):  # True = Rising
-            sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
-                            password=self.assistant.config.get_or_request('SFPassword'), 
-                            security_token=self.assistant.config.get_or_request('SFToken'))
-            results = sf.query("SELECT Id FROM Room__c WHERE Name = 'Archie'");
-            room_id = None
-            items = list(results.items())
-            for key, value in items:
-                if key == 'records':
-                    for k, v in value[0].items():
-                        if k == 'Id':
-                            room_id = v
-                            break
-            self.logging.info('RoomId: ' + room_id)
-            if room_id:
+            if self.monitoring != self.SECURITY_OFF:
                 motion = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-                self.logging.info(sf.Room__c.update(room_id, {'Motion_Detected__c': motion}))
-                self.logging.info('Updated Motion_Detected__c to ' + motion)
-            else:
-                self.logging.error('Could not find room')
+                self.sf.Room__c.update(self.sf_room_id, {'Motion_Detected__c': motion})
