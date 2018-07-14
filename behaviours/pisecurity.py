@@ -90,7 +90,7 @@ class Pisecurity(Behaviour):
             try:
                 self.logging.info('Starting PIR')
                 self.security = self.SECURITY_ON
-                self.light = self._SECURITY_ON
+                self.light = self.SECURITY_ON
                 return 'Security Enabled'
             except NameError as e:
                 return 'Could not start security: ' + str(e)
