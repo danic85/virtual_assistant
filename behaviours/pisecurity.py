@@ -45,7 +45,7 @@ class Pisecurity(Behaviour):
         self.logging.info('Monitoring Room')
         self.monitoring = self.SECURITY_ON
         self.room = self.match.group(1)
-        if !self.room:
+        if self.room is None:
             self.room = 'Living Room'
         else:
             self.room = self.room.title()
