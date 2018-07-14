@@ -18,9 +18,9 @@ class Pisecurity(Behaviour):
         '^security on$': 'on',
         '^security off$': 'off',
         '^test security$': 'test',
-        '^monitor room$': 'monitor_with_salesforce',
         '^stop monitoring room$': 'stop_monitor_with_salesforce',
-        '^monitor the (.*)': 'monitor_with_salesforce'
+        '^monitor the (.*)': 'monitor_with_salesforce',
+        '^disable security light$': 'light_off'
     }
 
     PIR_PIN = 23
@@ -40,6 +40,7 @@ class Pisecurity(Behaviour):
 
         self.security = self.SECURITY_OFF
         self.monitoring = self.SECURITY_OFF
+        self.light = self.SECURITY_ON
         
     def monitor_with_salesforce(self):
         self.logging.info('Monitoring Room')
@@ -89,6 +90,7 @@ class Pisecurity(Behaviour):
             try:
                 self.logging.info('Starting PIR')
                 self.security = self.SECURITY_ON
+                self.light = self._SECURITY_ON
                 return 'Security Enabled'
             except NameError as e:
                 return 'Could not start security: ' + str(e)
@@ -104,11 +106,15 @@ class Pisecurity(Behaviour):
                 return 'Could not stop security: ' + str(e)
         return None
 
+    def light_off(self):
+        self.light = self.SECURITY_OFF
+        return 'Disabled motion notification light'
+
     # Callback function to run when motion detected
     def __motion_detected(self, PIR_PIN):
         GPIO.output(self.PIR_LED_PIN, GPIO.LOW)
         if GPIO.input(self.PIR_PIN):  # True = Rising
-            if (self.security != self.SECURITY_OFF):
+            if self.security != self.SECURITY_OFF and self.light != self.SECURITY_OFF:
                 GPIO.output(self.PIR_LED_PIN, GPIO.HIGH)
             if self.security == self.SECURITY_ON:
                 self.logging.info('Taking Security Picture')
