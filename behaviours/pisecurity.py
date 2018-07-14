@@ -19,7 +19,8 @@ class Pisecurity(Behaviour):
         '^security off$': 'off',
         '^test security$': 'test',
         '^monitor room$': 'monitor_with_salesforce',
-        '^stop monitoring room$': 'stop_monitor_with_salesforce'
+        '^stop monitoring room$': 'stop_monitor_with_salesforce',
+        '^monitor the (.*)': 'monitor_with_salesforce'
     }
 
     PIR_PIN = 23
@@ -43,7 +44,13 @@ class Pisecurity(Behaviour):
     def monitor_with_salesforce(self):
         self.logging.info('Monitoring Room')
         self.monitoring = self.SECURITY_ON
-        return 'Monitoring room on Salesforce'
+        self.room = self.match.group(1)
+        if !self.room:
+            self.room = 'Living Room'
+        else:
+            self.room = self.room.title()
+        
+        return 'Monitoring the ' + self.room + ' on Salesforce'
         
     def stop_monitor_with_salesforce(self):
         self.logging.info('Stop Monitoring Room')
@@ -54,7 +61,7 @@ class Pisecurity(Behaviour):
         self.sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
                             password=self.assistant.config.get_or_request('SFPassword'), 
                             security_token=self.assistant.config.get_or_request('SFToken'))
-        results = self.sf.query("SELECT Id FROM Room__c WHERE Name = 'Archie'");
+        results = self.sf.query("SELECT Id FROM Room__c WHERE Name = '" + self.room + "'");
         room_id = None
         items = list(results.items())
         for key, value in items:
