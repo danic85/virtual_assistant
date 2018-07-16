@@ -59,9 +59,7 @@ class Pisecurity(Behaviour):
         return 'Stopped monitoring room on Salesforce'
     
     def __setup_salesforce(self):
-        self.sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
-                            password=self.assistant.config.get_or_request('SFPassword'), 
-                            security_token=self.assistant.config.get_or_request('SFToken'))
+        self.__refresh_salesforce()
         results = self.sf.query("SELECT Id FROM Room__c WHERE Name = '" + self.room + "'");
         room_id = None
         items = list(results.items())
@@ -73,6 +71,11 @@ class Pisecurity(Behaviour):
                         break
         self.logging.info('RoomId: ' + room_id)
         self.sf_room_id = room_id
+
+    def __refresh_salesforce(self):
+        self.sf = Salesforce(username=self.assistant.config.get_or_request('SFUsername'), 
+                            password=self.assistant.config.get_or_request('SFPassword'), 
+                            security_token=self.assistant.config.get_or_request('SFToken'))
 
     def test(self):
         response = self.on()
@@ -125,4 +128,5 @@ class Pisecurity(Behaviour):
                     self.logging.error('Assistant not set')
             if self.monitoring != self.SECURITY_OFF:
                 motion = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                self.__refresh_salesforce()
                 self.sf.Room__c.update(self.sf_room_id, {'Motion_Detected__c': motion})
