@@ -53,13 +53,13 @@ class Broadband(Behaviour):
         return ''
 
     def sf_log_connection(self):
-        self.refresh_sf()
+        self.__refresh_sf()
         self.sf.Broadband_Test__c.create({'Date__c': time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                                          'Connected__c': True})
         return ''
 
     def sf_log_speed(self):
-        self.refresh_sf()
+        self.__refresh_sf()
         self.sf.Broadband_Test__c.create({'Date__c': time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                                         'Download_Speed__c': self.bites_to_mbites(results.download),
                                         'Upload_Speed__c': self.bites_to_mbites(results.upload)})
