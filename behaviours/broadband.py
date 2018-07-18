@@ -63,6 +63,7 @@ class Broadband(Behaviour):
         results = self.run_test()
         self.__refresh_sf()
         self.sf.Broadband_Test__c.create({'Date__c': time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                                        'Test_Type__c': 'Speed',
                                         'Download_Speed__c': self.bites_to_mbites(results.download),
                                         'Upload_Speed__c': self.bites_to_mbites(results.upload)})
         return ''
