@@ -68,8 +68,8 @@ class General(Behaviour):
         response = g.pull()
 
         if 'Already up-to-date' not in response:
-            # install requirements.txt and restart python app
-            pip.main(['install', '-r', self.dir + '/requirements.txt'])
+            # install requirements.txt and restart python app @tood this doesn't work in python 3
+            # pip.main(['install', '-r', self.dir + '/requirements.txt'])
             os.execl(sys.executable, sys.executable, *sys.argv)
 
         return 'Updated'
