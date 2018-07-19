@@ -16,8 +16,8 @@ class Broadband(Behaviour):
     def __init__(self, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.assistant = kwargs.get('assistant', None)
-        self.define_idle(self.sf_log_speed, 0.5)
-        self.define_idle(self.sf_log_connection, 0)
+        #self.define_idle(self.sf_log_speed, 0.5)
+        #self.define_idle(self.sf_log_connection, 0)
 
     def report_test(self):
         results = self.run_test()
