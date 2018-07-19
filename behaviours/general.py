@@ -6,7 +6,7 @@ import datetime
 import git
 import os
 from shutil import copyfile
-import pip
+import pip3
 import lib.dt
 
 from behaviours.behaviour import Behaviour
@@ -69,7 +69,7 @@ class General(Behaviour):
 
         if 'Already up-to-date' not in response:
             # install requirements.txt and restart python app
-            pip.main(['install', '-r', self.dir + '/requirements.txt'])
+            pip3.main(['install', '-r', self.dir + '/requirements.txt'])
             os.execl(sys.executable, sys.executable, *sys.argv)
 
         return 'Updated'
